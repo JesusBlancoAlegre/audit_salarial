@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{% if usuario %}Editar Usuario{% else %}Nuevo Usuario{% endif %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0 mt-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">{% if usuario %}Editar Usuario: {{ usuario.email }}{% else %}Nuevo Usuario{% endif %}</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Email</label>
+                            <input type="email" name="email" class="form-control" value="{{ usuario.email if usuario else '' }}" required autofocus>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Contraseña {% if usuario %}<small class="text-muted fw-normal">(Dejar en blanco para mantener actual)</small>{% endif %}</label>
+                            <input type="password" name="password" class="form-control" {% if not usuario %}required{% endif %}>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Nombre</label>
+                            <input type="text" name="nombre" class="form-control" value="{{ usuario.nombre if usuario else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Apellidos</label>
+                            <input type="text" name="apellidos" class="form-control" value="{{ usuario.apellidos if usuario else '' }}">
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Rol</label>
+                            <select name="rol_id" class="form-select" required>
+                                {% for r in roles %}
+                                <option value="{{ r.id }}" {% if usuario and usuario.rol_id == r.id %}selected{% endif %}>{{ r.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Empresa (Opcional)</label>
+                            <select name="empresa_id" class="form-select">
+                                <option value="">--- Ninguna ---</option>
+                                {% for e in empresas %}
+                                <option value="{{ e.id }}" {% if usuario and usuario.empresa_id == e.id %}selected{% endif %}>{{ e.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('admin.lista_users') }}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary px-4">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Audit-Salarial{% endblock %}</title>
+  
+  <!-- Modern Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  
+  <!-- Premium Custom Styles -->
+  <style>
+    :root {
+      --primary-color: #6366f1; /* Indigo */
+      --secondary-color: #8b5cf6; /* Violet */
+      --dark-bg: #0f172a; /* Slate 900 */
+      --card-bg: rgba(30, 41, 59, 0.7); /* Slate 800 with opacity for glassmorphism */
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--dark-bg) 0%, #1e1b4b 100%);
+      background-attachment: fixed;
+      color: #e2e8f0;
+      padding-top: 85px; /* Offset for navbar */
+      min-height: 100vh;
+    }
+
+    /* Glassmorphism Navbar */
+    .navbar.fixed-top {
+      background: rgba(15, 23, 42, 0.8) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      padding: 0.8rem 1rem;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      background: linear-gradient(to right, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+      font-size: 1.4rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: #cbd5e1 !important;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: #fff !important;
+      transform: translateY(-1px);
+    }
+
+    /* Cards with Glassmorphism & Hover */
+    .card {
+      background: var(--card-bg) !important;
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 1rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+      background: rgba(255, 255, 255, 0.03) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+      border-top-left-radius: 1rem !important;
+      border-top-right-radius: 1rem !important;
+      padding: 1.2rem;
+    }
+
+    /* Buttons with gradients and micro-animations */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      border: none;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      border: none;
+      color: white;
+      transition: transform 0.2s ease;
+    }
+    .btn-warning:hover { color: white; transform: scale(1.05); }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+      border: none;
+      transition: transform 0.2s ease;
+    }
+    .btn-danger:hover { transform: scale(1.05); }
+
+    /* Tables UI overhaul */
+    .table {
+      color: #e2e8f0;
+      --bs-table-bg: transparent;
+      margin-bottom: 0;
+    }
+    .table-hover tbody tr:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+    .table thead th {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .table td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      vertical-align: middle;
+      padding: 1rem 0.5rem;
+    }
+
+    /* Forms UI overhaul */
+    .form-control, .form-select {
+      background-color: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #f8fafc;
+      transition: all 0.2s ease;
+    }
+    .form-control:focus, .form-select:focus {
+      background-color: rgba(15, 23, 42, 0.8);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25);
+      color: white;
+    }
+    .form-label {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+
+    /* Alerts */
+    .alert {
+      border: none;
+      border-radius: 0.75rem;
+      backdrop-filter: blur(8px);
+    }
+    .alert-success { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .alert-danger { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+    /* Animations */
+    @keyframes fadeInSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up {
+      animation: fadeInSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+  </style>
+</head>
+<body>
+  
+  {% if current_user.is_authenticated %}
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand" href="{{ url_for('admin.home') }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2 pb-1" style="color:#818cf8"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        AuditSalarial
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+          {% if current_user.rol.nombre in ['ADMIN', 'AUDITOR'] %}
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded" href="{{ url_for('admin.lista_empresas') }}">Empresas</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded" href="{{ url_for('admin.lista_auditorias') }}">Auditorías</a>
+          </li>
+          {% if current_user.rol.nombre == 'ADMIN' %}
+          <li class="nav-item">
+            <a class="nav-link px-3 rounded" href="{{ url_for('admin.lista_users') }}">Usuarios</a>
+          </li>
+          {% endif %}
+        </ul>
+        <div class="d-flex flex-column flex-lg-row align-items-lg-center mt-3 mt-lg-0">
+          <div class="text-lg-end me-lg-4 mb-2 mb-lg-0 text-start">
+            <div class="fw-bold text-white fs-6 lh-1">{{ current_user.nombre }}</div>
+            <small class="text-info opacity-75" style="font-size:0.75rem; letter-spacing:0.5px;">{{ current_user.rol.nombre }}</small>
+          </div>
+          <a class="btn btn-outline-light rounded-pill px-4" href="{{ url_for('auth.logout') }}">Cerrar Sesión</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  {% endif %}
+
+  <div class="container fade-in-up">
+    <div class="mt-2 mb-4">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, msg in messages %}
+            {% set alert_class = 'alert-success' if category == 'success' else 'alert-danger' %}
+            <div class="alert {{ alert_class }} alert-dismissible fade show d-flex align-items-center shadow" role="alert">
+              {% if category == 'success' %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-3 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-3 flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              {% endif %}
+              <div class="fw-medium">{{ msg }}</div>
+              <button type="button" class="btn-close btn-close-white opacity-50" data-bs-dismiss="alert"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    {% block content %}{% endblock %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmxc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

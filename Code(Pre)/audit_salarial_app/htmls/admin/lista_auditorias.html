@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Histórico de Auditorías{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Histórico de Auditorías</h2>
+    <a href="{{ url_for('admin.auditoria_nueva') }}" class="btn btn-primary">Subir Fichero (Nueva)</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0 text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Empresa</th>
+                        <th>Cliente Vinculado</th>
+                        <th>Estado</th>
+                        <th>Fecha Origen</th>
+                        <th>Archivos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in auditorias %}
+                    <tr>
+                        <td>{{ a.id }}</td>
+                        <td class="fw-bold">{{ a.empresa.nombre }}</td>
+                        <td>{{ a.cliente.nombre if a.cliente else 'N/A' }}</td>
+                        <td>
+                            {% if a.estado == 'COMPLETADA' %}
+                            <span class="badge bg-success">Completada</span>
+                            {% elif a.estado == 'ERROR' %}
+                            <span class="badge bg-danger">Error</span>
+                            {% else %}
+                            <span class="badge bg-warning text-dark">{{ a.estado | capitalize }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ a.creada_en.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            <span class="badge bg-info text-dark me-2">{{ a.archivos|length }} fic.</span>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="{{ url_for('admin.auditoria_editar', id=a.id) }}" class="btn btn-warning btn-sm shadow-sm rounded">Editar</a>
+                                {% if a.estado != 'RECHAZADA' %}
+                                <form action="{{ url_for('admin.auditoria_eliminar', id=a.id) }}" method="post" class="d-inline" onsubmit="return confirm('¿Asegurar rechazar esta petición?');">
+                                    <button type="submit" class="btn btn-danger btn-sm shadow-sm rounded">Rechazar</button>
+                                </form>
+                                {% else %}
+                                <form action="{{ url_for('admin.auditoria_activar', id=a.id) }}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-success btn-sm shadow-sm rounded">Activar</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-muted p-4">No hay auditorías registradas.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

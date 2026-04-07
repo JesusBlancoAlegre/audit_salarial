@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Usuarios{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Usuarios</h2>
+    <a href="{{ url_for('admin.user_nuevo') }}" class="btn btn-primary">Nuevo Usuario</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0 text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th>Empresa</th>
+                        <th>Activo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr class="{% if not u.activo %}table-danger{% endif %}">
+                        <td>{{ u.id }}</td>
+                        <td class="fw-bold">{{ u.email }}</td>
+                        <td>{{ u.nombre }} {{ u.apellidos or '' }}</td>
+                        <td>
+                            <span class="badge bg-secondary">{{ u.role_name }}</span>
+                        </td>
+                        <td>{{ u.empresa.nombre if u.empresa else '-' }}</td>
+                        <td>
+                            {% if u.activo %}
+                            <span class="badge bg-success">Sí</span>
+                            {% else %}
+                            <span class="badge bg-danger">No</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="{{ url_for('admin.user_editar', id=u.id) }}" class="btn btn-warning btn-sm shadow-sm rounded">Editar</a>
+                                {% if u.activo %}
+                                <form action="{{ url_for('admin.user_eliminar', id=u.id) }}" method="post" class="d-inline" onsubmit="return confirm('¿Seguro que deseas desactivar este usuario?');">
+                                    <button type="submit" class="btn btn-danger btn-sm shadow-sm rounded">Eliminar</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-muted p-4">No hay usuarios registrados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

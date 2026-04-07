@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Editar Auditoría{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm border-0 fade-in-up">
+      <div class="card-header text-center bg-primary text-white">
+        <h4 class="mb-0">Editar Auditoría #{{ auditoria.id }}</h4>
+      </div>
+      <div class="card-body p-4">
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Empresa Auditada</label>
+            <input class="form-control" value="{{ auditoria.empresa.nombre }}" disabled>
+            <div class="form-text">La empresa no puede cambiarse una vez insertada.</div>
+          </div>
+          
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Estado</label>
+              <select name="estado" class="form-select" required>
+                <option value="PENDIENTE" {% if auditoria.estado == 'PENDIENTE' %}selected{% endif %}>Pendiente</option>
+                <option value="PROCESANDO" {% if auditoria.estado == 'PROCESANDO' %}selected{% endif %}>Procesando</option>
+                <option value="REVISION" {% if auditoria.estado == 'REVISION' %}selected{% endif %}>En Revisión</option>
+                <option value="COMPLETADA" {% if auditoria.estado == 'COMPLETADA' %}selected{% endif %}>Completada</option>
+                <option value="ERROR" {% if auditoria.estado == 'ERROR' %}selected{% endif %}>Error Técnico</option>
+                <option value="RECHAZADA" {% if auditoria.estado == 'RECHAZADA' %}selected{% endif %}>Rechazada (Oculta)</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Auditor Asignado</label>
+              <select name="auditor_usuario_id" class="form-select">
+                <option value="">-- Sin asignar --</option>
+                {% for u in auditores %}
+                <option value="{{ u.id }}" {% if auditoria.auditor_usuario_id == u.id %}selected{% endif %}>{{ u.nombre }} ({{ u.email }})</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          
+          <h5 class="fw-bold mt-4 border-bottom pb-2" style="color:var(--primary-color)">Periodo de Evaluación</h5>
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Fecha Inicio</label>
+              <input type="date" name="fecha_periodo_ini" class="form-control" value="{{ auditoria.fecha_periodo_ini or '' }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Fecha Fin</label>
+              <input type="date" name="fecha_periodo_fin" class="form-control" value="{{ auditoria.fecha_periodo_fin or '' }}">
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between mt-4">
+            <a href="{{ url_for('admin.lista_auditorias') }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary px-5">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
