@@ -4,7 +4,7 @@
 
 Audit-Salarial es una aplicación web desarrollada en Python (Flask) diseñada para ayudar a las empresas a cumplir con el **Real Decreto 902/2020** de igualdad retributiva entre mujeres y hombres. La plataforma permite la automatización del cálculo de la brecha salarial, la generación de informes oficiales y el análisis demográfico mediante un panel interactivo.
 
-## 🚀 Características Principales
+## Características Principales
 
 - **Gestión de Roles Segura**: Autenticación para Administradores, Auditores y Clientes utilizando Flask-Login y cifrado de contraseñas (Werkzeug).
 - **Procesamiento de Archivos (RAHE)**: Subida y procesamiento automático de plantillas de Excel con Pandas para calcular salarios medios, medianos y la brecha salarial.
@@ -16,7 +16,7 @@ Audit-Salarial es una aplicación web desarrollada en Python (Flask) diseñada p
 
 ---
 
-## 🛠️ Requisitos del Sistema
+## Requisitos del Sistema
 
 - **Python**: 3.10 o superior.
 - **Base de datos**: MySQL Server.
@@ -24,7 +24,7 @@ Audit-Salarial es una aplicación web desarrollada en Python (Flask) diseñada p
 
 ---
 
-## ⚙️ Instalación y Despliegue Local
+## Instalación y Despliegue Local
 
 Sigue estos pasos para desplegar la aplicación en tu entorno local de desarrollo:
 
@@ -78,7 +78,7 @@ La aplicación estará disponible en tu navegador en la dirección: **http://127
 
 ---
 
-## 👥 Acceso de Prueba (Credenciales por defecto)
+## Acceso de Prueba (Credenciales por defecto)
 
 Si has importado los datos de prueba (`insertsaudit.sql`), puedes iniciar sesión con:
 
@@ -88,7 +88,7 @@ Si has importado los datos de prueba (`insertsaudit.sql`), puedes iniciar sesió
 
 ---
 
-## 🛡️ Notas de Seguridad
+## Notas de Seguridad
 Este proyecto ha sido refactorizado para garantizar un estándar de seguridad:
 - Se ha incluido un fichero `.gitignore` para proteger los archivos subidos por clientes (`/uploads`) y prevenir fugas de datos confidenciales (RGPD).
 - Todos los formularios cuentan con protección nativa mediante **Tokens CSRF**.
