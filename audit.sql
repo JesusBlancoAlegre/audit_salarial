@@ -31,7 +31,7 @@ CREATE TABLE dimension (
     nombre        VARCHAR(80) NOT NULL,
     descripcion   VARCHAR(255) NULL,
     orden         TINYINT UNSIGNED DEFAULT 0,
-    activo        TINYINT(1) NOT NULL DEFAULT 1,
+    activo        BOOLEAN NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     UNIQUE KEY uq_dimension_codigo (codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -50,7 +50,7 @@ CREATE TABLE empresa (
     direccion          VARCHAR(200) NULL,
     sector_id          INT UNSIGNED NULL,
     creada_en          DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    activa             TINYINT(1) NOT NULL DEFAULT 1,
+    activa             BOOLEAN NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     UNIQUE KEY uq_empresa_cif (cif),
     KEY idx_empresa_sector (sector_id),
@@ -71,7 +71,7 @@ CREATE TABLE usuario (
     apellidos       VARCHAR(160) NULL,
     telefono        VARCHAR(20) NULL,
     ultimo_login    DATETIME NULL,
-    activo          TINYINT(1) NOT NULL DEFAULT 1,
+    activo          BOOLEAN NOT NULL DEFAULT 1,
     creado_en       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     UNIQUE KEY uq_usuario_email (email),
@@ -233,7 +233,7 @@ CREATE TABLE anomalia (
     
     severidad       ENUM('BAJA','MEDIA','ALTA') NOT NULL DEFAULT 'MEDIA',
     descripcion     VARCHAR(500) NULL,
-    revisada        TINYINT(1) NOT NULL DEFAULT 0,
+    revisada        BOOLEAN NOT NULL DEFAULT 0,
     revisada_por    BIGINT UNSIGNED NULL,
     
     creado_en       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -265,7 +265,7 @@ CREATE TABLE recomendacion_catalogo (
     coste_estimado_default DECIMAL(12,2) NULL,
     impacto_default DECIMAL(5,2) NULL,
     meses_default   TINYINT UNSIGNED NULL,
-    activa          TINYINT(1) NOT NULL DEFAULT 1,
+    activa          BOOLEAN NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     UNIQUE KEY uq_reco_codigo (codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -280,7 +280,7 @@ CREATE TABLE auditoria_recomendacion (
     impacto_reduccion_pct    DECIMAL(7,3) NULL,
     meses_estimados          TINYINT UNSIGNED NULL,
     
-    aplicada                 TINYINT(1) NOT NULL DEFAULT 0,
+    aplicada                 BOOLEAN NOT NULL DEFAULT 0,
     fecha_aplicacion         DATETIME NULL,
     notas                    VARCHAR(600) NULL,
     
@@ -356,8 +356,8 @@ CREATE TABLE alerta (
     canal           ENUM('EMAIL','SISTEMA','AMBOS') NOT NULL DEFAULT 'AMBOS',
     asunto          VARCHAR(190) NULL,
     mensaje         TEXT NOT NULL,
-    leida           TINYINT(1) NOT NULL DEFAULT 0,
-    enviada         TINYINT(1) NOT NULL DEFAULT 0,
+    leida           BOOLEAN NOT NULL DEFAULT 0,
+    enviada         BOOLEAN NOT NULL DEFAULT 0,
     enviada_en      DATETIME NULL,
     creada_en       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     
