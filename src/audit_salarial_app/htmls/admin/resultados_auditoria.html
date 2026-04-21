@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% block title %}Resultados de Auditoría #{{ auditoria.id }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Resultados de Auditoría #{{ auditoria.id }}</h2>
+    <a href="{{ url_for('admin.lista_auditorias') }}" class="btn btn-secondary">Volver al Listado</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-dark text-white"><i class="bi bi-pie-chart-fill me-2"></i>Distribución por Género</div>
+            <div class="card-body d-flex justify-content-center">
+                <div style="width: 300px; height: 300px;">
+                    <canvas id="genderChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-dark text-white"><i class="bi bi-bar-chart-fill me-2"></i>Salario Medio Global</div>
+            <div class="card-body d-flex justify-content-center">
+                <canvas id="salaryChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">1. Cálculo de Brecha Global</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0 text-center align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nº Hombres</th>
+                        <th>Nº Mujeres</th>
+                        <th>Nº Total</th>
+                        <th>Media Hombres (€)</th>
+                        <th>Media Mujeres (€)</th>
+                        <th>Brecha Media (%)</th>
+                        <th>Brecha Mediana (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if res_global %}
+                    <tr>
+                        <td>{{ res_global.n_hombres }}</td>
+                        <td>{{ res_global.n_mujeres }}</td>
+                        <td>{{ res_global.n_total }}</td>
+                        <td>{{ "%.2f"|format(res_global.media_hombres) }}</td>
+                        <td>{{ "%.2f"|format(res_global.media_mujeres) }}</td>
+                        <td class="{% if res_global.brecha_media_pct > 25 %}text-danger fw-bold{% elif res_global.brecha_media_pct > 0 %}text-warning fw-bold{% else %}text-success fw-bold{% endif %}">
+                            {{ "%.2f"|format(res_global.brecha_media_pct) }}%
+                        </td>
+                        <td>{{ "%.2f"|format(res_global.brecha_mediana_pct) }}%</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-muted p-3">No hay datos globales calculados.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">2. Cálculo de Brecha por Dimensiones (Grupo Profesional)</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0 text-center align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Grupo / Nivel</th>
+                        <th>Nº Hombres</th>
+                        <th>Nº Mujeres</th>
+                        <th>Media Hombres (€)</th>
+                        <th>Media Mujeres (€)</th>
+                        <th>Brecha Media (%)</th>
+                        <th>Brecha Mediana (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for res in res_grupos %}
+                    <tr>
+                        <td class="fw-bold text-start">{{ res.dimension_valor }}</td>
+                        <td>{{ res.n_hombres }}</td>
+                        <td>{{ res.n_mujeres }}</td>
+                        <td>{{ "%.2f"|format(res.media_hombres) }}</td>
+                        <td>{{ "%.2f"|format(res.media_mujeres) }}</td>
+                        <td class="{% if res.brecha_media_pct > 25 %}text-danger fw-bold{% elif res.brecha_media_pct > 0 %}text-warning fw-bold{% else %}text-success fw-bold{% endif %}">
+                            {{ "%.2f"|format(res.brecha_media_pct) }}%
+                        </td>
+                        <td>{{ "%.2f"|format(res.brecha_mediana_pct) }}%</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-muted p-3">No hay datos por grupos profesionales calculados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        {% if res_global %}
+        const genderCtx = document.getElementById('genderChart').getContext('2d');
+        new Chart(genderCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Hombres', 'Mujeres'],
+                datasets: [{
+                    data: [{{ res_global.n_hombres }}, {{ res_global.n_mujeres }}],
+                    backgroundColor: ['#36A2EB', '#FF6384']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        const salaryCtx = document.getElementById('salaryChart').getContext('2d');
+        new Chart(salaryCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Hombres', 'Mujeres'],
+                datasets: [{
+                    label: 'Salario Medio (€)',
+                    data: [{{ res_global.media_hombres|default(0) }}, {{ res_global.media_mujeres|default(0) }}],
+                    backgroundColor: ['#36A2EB', '#FF6384']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { 
+                    y: { 
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' €';
+                            }
+                        }
+                    } 
+                }
+            }
+        });
+        {% endif %}
+    });
+</script>
+{% endblock %}

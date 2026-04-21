@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}Histórico de Auditorías{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Histórico de Auditorías</h2>
+    <a href="{{ url_for('admin.auditoria_nueva') }}" class="btn btn-primary">Subir Fichero (Nueva)</a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0 text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Empresa</th>
+                        <th>Cliente Vinculado</th>
+                        <th>Estado</th>
+                        <th>Fecha Origen</th>
+                        <th>Archivos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in auditorias %}
+                    <tr>
+                        <td>{{ a.id }}</td>
+                        <td class="fw-bold">{{ a.empresa.nombre }}</td>
+                        <td>{{ a.cliente.nombre if a.cliente else 'N/A' }}</td>
+                        <td>
+                            {% if a.estado == 'COMPLETADA' %}
+                            <span class="badge bg-success">Completada</span>
+                            {% elif a.estado == 'ERROR' %}
+                            <span class="badge bg-danger">Error</span>
+                            {% else %}
+                            <span class="badge bg-warning text-dark">{{ a.estado | capitalize }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ a.creada_en.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            {% if a.archivos %}
+                            <button type="button" class="btn btn-outline-info btn-sm text-dark fw-bold" data-bs-toggle="modal" data-bs-target="#modalArchivos{{ a.id }}">
+                                📁 Ver Archivos ({{ a.archivos|length }})
+                            </button>
+                            {% else %}
+                            <span class="badge bg-secondary">Sin ficheros</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <a href="{{ url_for('admin.auditoria_editar', id=a.id) }}" class="btn btn-warning btn-sm shadow-sm rounded">Editar</a>
+                                <a href="{{ url_for('admin.auditoria_resultados', id=a.id) }}" class="btn btn-info btn-sm shadow-sm rounded">📊 Resultados</a>
+                                {% if a.estado != 'RECHAZADA' %}
+                                <form action="{{ url_for('admin.auditoria_eliminar', id=a.id) }}" method="post" class="d-inline" onsubmit="return confirm('¿Asegurar rechazar esta petición?');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                    <button type="submit" class="btn btn-danger btn-sm shadow-sm rounded">Rechazar</button>
+                                </form>
+                                {% else %}
+                                <form action="{{ url_for('admin.auditoria_activar', id=a.id) }}" method="post" class="d-inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                    <button type="submit" class="btn btn-success btn-sm shadow-sm rounded">Activar</button>
+                                </form>
+                                <form action="{{ url_for('admin.auditoria_destruir', id=a.id) }}" method="post" class="d-inline" onsubmit="return confirm('¿Aseguras querer ELIMINAR esta auditoría completamente de la base de datos?');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                    <button type="submit" class="btn btn-danger btn-sm shadow-sm rounded ms-1">Eliminar</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Modal Archivos -->
+                    <div class="modal fade" id="modalArchivos{{ a.id }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content text-start">
+                                <div class="modal-header bg-light">
+                                    <h5 class="modal-title">Gestor de Archivos - Auditoría #{{ a.id }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {% if a.archivos %}
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped align-middle text-center mb-0">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>Nombre del Archivo</th>
+                                                    <th>Tipo de Documento</th>
+                                                    <th>Descarga</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for archivo in a.archivos %}
+                                                <tr>
+                                                    <td class="text-start text-break">{{ archivo.nombre }}</td>
+                                                    <td><span class="badge bg-secondary">{{ archivo.tipo }}</span></td>
+                                                    <td>
+                                                        <a href="{{ url_for('admin.descargar_archivo', id=archivo.id) }}" class="btn btn-primary btn-sm shadow-sm">
+                                                            ⬇ Descargar
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {% else %}
+                                    <p class="text-muted mb-0">No hay archivos vinculados a esta auditoría.</p>
+                                    {% endif %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-muted p-4">No hay auditorías registradas.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
