@@ -1,0 +1,1362 @@
+2026-05-05 22:33:01 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:33:01 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:33:13 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:13] "[32mGET / HTTP/1.1[0m" 302 -
+2026-05-05 22:33:13 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:13] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06')
+2026-05-05 22:33:13 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:13] "[31m[1m\x16\x03\x01\x06 \x01\x00\x06\x9c\x03\x03ÍóD\x19i"\x0eµ[0m" 400 -
+2026-05-05 22:33:13 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:13] code 400, message Bad request version ('jj\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063')
+2026-05-05 22:33:13 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:13] "[31m[1m\x16\x03\x01\x06 \x01\x00\x06\x9c\x03\x03&1\x12#Ú~½(,\x0fÈ\x8cFðVÅ\x9fPs\x155\x88\x90»Z\x82\x16XýZ\x08ð  \x871\x97E\x85&é\x16Î\x99Ð·èZæÃºa\x0foÚ/\x9fmâ6Ñf\x0f\x95×\x00 jj\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063[0m" 400 -
+2026-05-05 22:33:14 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:14] code 400, message Bad request version ('\x00\x02\x01\x00\x003\x04ï\x04íjj\x00\x01\x00\x11ì\x04À¿Y)AD\x9d>ükáú3¥ó4XaµÐ\x94LÝ³A+óªV\x91.A¤aæ\x1aQz\x18$\x04$$\x06\x981¸²L\x18\x99;s"\x15·Û[Ó\x83')
+2026-05-05 22:33:14 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:14] "[31m[1m\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03ð è\x08\x00ìí¡V¿!\x00M\x1d¯\x8bÆ/í?Ï»\x84Eû~%\x1bÛ\x00ÐV \x86\x89v\x136që4\x03ô\x1d\x15éº5\x97\x1d\x11h}çÎ\x9b´\x86_éØ\x13\x02\x05@\x00 êê\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93zz\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00þ\x0d\x01\x1a\x00\x00\x01\x00\x01\x19\x00 \x0ecÒÅP\x01¶7\x91ð\x9dç\x1cdßcýÇ\x0fK0\x86_hË\x08\x9aË{i\x1f\x14\x00ðé&\x0c\x8e«Û\x0cþ6\x011^h\x0ep\x93S\x19\x7fÖ¾\x18dÚm\x15\x09\x00.ù}Q\x84TÉ\x1fä¬µé´ô\x86\x07d\x11\x16]dåíÿ\x8dSÖÕã*fN±±î®´>*Î3«ÊÞ\x0cGc.\x81Y`\x91>QIÇ_·]}Q]QÅÕa·]\x7feÓ{#\x0c\x02r¯¥TlïL\x1fìaÒ*\x06\x04>ýÝ\x9aC*\x0bls\x08HöZr@;oð\x8cãß\x1b\x0cÚ>)Ë°9Ä~¡\x01>v\x92Fö@UCüØJ?h÷ûx\x15\x1aeøi§Y¬T´ÁàN´\x81npl}-\x03¢\x00ÂT¯7ÃJ\x18Û&º\x16;rÕ\x94°\x8e×H±Ty_©?\x88ö¥\x10()©<\x9bÞÊôrÍÕ\x9bÒÜ¯Fè\x9b\x05\x8e\x11\x84\x00\x17\x00\x00\x00\x0b\x00\x02\x01\x00\x003\x04ï\x04íjj\x00\x01\x00\x11ì\x04À¿Y)AD\x9d>ükáú3¥ó4XaµÐ\x94LÝ³A+óªV\x91.A¤aæ\x1aQz\x18$\x04$$\x06\x981¸²L\x18\x99;s"\x15·Û[Ó\x83[0m" 400 -
+2026-05-05 22:33:14 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:14] code 400, message Bad request version ('ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Súú\x00\x00\x00#\x00\x00\x00+\x00\x07\x06')
+2026-05-05 22:33:14 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:14] "[31m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03*þ¹\x12?\x9d(<(ß,êª\x80¹\x88\x84È !òRß¾\x00Ñößß\x8b-| !MØ\x06ñ¼\x1aMb¢Å«L\x11H\x84þ\x802m¡2;á*\x9f\x10>\x8f\x91CÎ\x00 ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Súú\x00\x00\x00#\x00\x00\x00+\x00\x07\x06[0m" 400 -
+2026-05-05 22:33:16 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:16] code 400, message Bad request version ('\x02h2\x08http/1.1DÍ\x00\x05\x00\x03\x02h2\x00#\x00\x00\x00')
+2026-05-05 22:33:16 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:16] "[31m[1m\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03\x81+\x85@§x\x0f\x0cð\x8e\x00\x9a\x16Þ¼,»'\x80µs ²RvÒ(ëKï6¥ \x1b©\x06¬YÐ¹\x9dËvkUAÞø9Ç«ÕÀ/\x98e¬Î¿-\x98ÖRÌ\x94\x00 ::\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06sÚÚ\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00\x0b\x00\x02\x01\x00\x00\x10\x00\x0e\x00\x0c\x02h2\x08http/1.1DÍ\x00\x05\x00\x03\x02h2\x00#\x00\x00\x00[0m" 400 -
+2026-05-05 22:33:16 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:16] code 400, message Bad request version ('ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Súú\x00\x00\x00')
+2026-05-05 22:33:16 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:16] "[31m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03õ\x07¢\x12§½10\x07pð\x13\x12»{\x1fz\x0f\x99?4\x84\x86ÅÝ§'ûg|\x84\x1f \x1b2¾©ØD¢æýûñ\x86\x18\x8f±e'&a\x03È(·\x0c®\x1b\x86¦\x84ØVE\x00 ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Súú\x00\x00\x00[0m" 400 -
+2026-05-05 22:33:19 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:19] code 400, message Bad request version ('ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Sªª\x00\x00\x00')
+2026-05-05 22:33:19 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:19] "[31m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03¦ó©¤\x86\x08\x01ùUâ[\x9bÃ¬\x95²³J¶_ÙouÚÒñ­¾#§û\x96 \x90vÀ\x88\x8cm20ô\x97\x97ÒU¯)ûØ\x90ÄÂ36\x07!¸\x02wõ%y\x14[\x00 ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Sªª\x00\x00\x00[0m" 400 -
+2026-05-05 22:33:19 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:19] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03\x8dTØ|=\x19z[tJ')
+2026-05-05 22:33:19 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:19] "[31m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03\x8dTØ|=\x19z[tJ\x09W;Ðæ'*àÚ\x819\x95\x07G)i[0m" 400 -
+2026-05-05 22:33:51 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:51] "[32mGET / HTTP/1.1[0m" 302 -
+2026-05-05 22:33:51 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:51] code 400, message Bad request version ('\x13Gâ')
+2026-05-05 22:33:51 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:51] "[31m[1m\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03d§Ì;÷\x8b\x14¾Æ£3}©Ì\x8aáG;q\x9fÿRô\x83\x00\x9a\x8dßJAÆb \x02\x85\x19ï°Ðá¼FbxËK\x84Q\x8an^3\x18\x06ºæ\x8e\x1fÊÉ_) )}\x00 \x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s\x9a\x9a\x00\x00DÍ\x00\x05\x00\x03\x02h2\x00\x0b\x00\x02\x01\x00\x00-\x00\x02\x01\x01\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x12\x00\x00\x003\x04ï\x04íúú\x00\x01\x00\x11ì\x04À#\x9a¼ÓË.\x1e\x10§\x17\x02 \x10v¼¶úIÜ±\x9d[\x06\x92Í\x11fÌØ\x18¾·ias\x02vg¨\x0d\x13Gâ[0m" 400 -
+2026-05-05 22:33:51 [ERROR] - 127.0.0.1 - - [05/May/2026 22:33:51] code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063')
+2026-05-05 22:33:51 [INFO] - 127.0.0.1 - - [05/May/2026 22:33:51] "[31m[1m\x16\x03\x01\x06 \x01\x00\x06\x9c\x03\x03(\x94G@\x12ß²\x89®EúdÂÅãª7\x07o>#7º.£Ñ\x01ðxµ\x82\x0e ¿S\x82§g\x80ö¬\x94.±è9\x86\x04è|+@ì®\x1f\x9d\x93Ïë!ÂÐß<¥\x00 JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063[0m" 400 -
+2026-05-05 22:34:55 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:34:55 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:35:03 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:03] code 400, message Bad request version ('u,n8R£\x8cG#\x99l\x02Ã\x05¶éx\x84¹c\x9f\x11kÎ\x1aq¿×qE?\x86lQ\\\x98#\x95©èTÇ\x10\x08\x1bºPp=E\x07|\x8a+d×lïb?\xad')
+2026-05-05 22:35:03 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:03] "[31m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03\x07\x18ô¦\x8aÉ9¨\x80\x01RÄö,\x82\x1b\x12AË3Ù«\x04TpéÄ¤R¾Zy \x07\x8dÊ£û6ó÷h\x85"-\x05ÂÚqé\x99¼\x0c§\x15Á\x8bsë²^àu£¾\x00 JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06S::\x00\x00\x00\x12\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x003\x04ï\x04íÚÚ\x00\x01\x00\x11ì\x04Àt\x99<\x06çÃ\x9e²HÉ\x89#©\x95O¹\x07½ ûX>\x9a\x0f%q\x89â5°{«[T·­Ã"1!¤¡Á\x83NöU=\x13°EÇ+¬¾Ä\x10×hËCq9h\x1ac\x8aTvì| u,n8R£\x8cG#\x99l\x02Ã\x05¶éx\x84¹c\x9f\x11kÎ\x1aq¿×qE?\x86lQ\\\x98#\x95©èTÇ\x10\x08\x1bºPp=E\x07|\x8a+d×lïb?­[0m" 400 -
+2026-05-05 22:35:03 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:03] code 400, message Bad request version ('²Øëßj')
+2026-05-05 22:35:03 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:03] "[31m[1m\x16\x03\x01\x06 \x01\x00\x06\x9c\x03\x03\x1e²Øëßj[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ("'N¯ôôÉs\x0e")
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x06 \x01\x00\x06\x9c\x03\x03o ï¦\x9e¨%± \x9f\x90\x05\x10\x90hdbûTÓ\x08éVÄö^\x09J8ðö+ \x1e´Í\x95©Î\x15Â}hþÔSar\x1f\x06ÇÛ\x9f6ý\x97&o\x83æ.@\x9bÚ.\x00 \x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063ÊÊ\x00\x00þ\x0d\x00º\x00\x00\x01\x00\x01Q\x00 WR/O¨ù?häÑ\x95Ì¿\x12\x8fäbkT§\x9fÈë\x95%õ\x84\x9c:\x1bÕ(\x00\x90ÀI\x82\x15ÅIEW\x1c­A K\x96\x12\x97ßÚ­§\x1a\\­s å¿H³Ö\x0c'N¯ôôÉs\x0e[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ('³>´W6')
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x06 \x01\x00\x06\x9c\x03\x03\x8dÃñ%¦×7yN°\x80Ñ%H`qà\x11\x85ÞàóÔ\x80\x17,×ã¨\x09ñø Þþ\x8aØzÚï$æKlaL©XaÇÆÝ\x8b\x80d\x84PÌ\x18h\x19ÀpP&\x00 \x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063úú\x00\x00þ\x0d\x00º\x00\x00\x01\x00\x01Ê\x00 ·ï¦\x81¦;¨cÈ1ãÍ\x90³¨\x90Í¼y^Ê _¶\x93Õ\x08\x01´É?R\x00\x90\x8dÂ\x12÷gì\x03\x81\x1f´pégãnão\x8f\x81\x95©\x0f\x97\x8f¾99ªºTÝ'ü\x0bIé±dÂíúìò·\x0d³>´W6[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ('áôüm\x003\x04ï\x04íjj\x00\x01\x00\x11ì\x04À~zkíKÊ¨ç\x84t\x91´\x89\x19\x8e÷ÄE\x9fúaFÀSA\x8096õ\\Á$\x9aÉá¡\x0fgOõè¾')
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x06 \x01\x00\x06\x9c\x03\x03«ùÀQ ØÂ^K\x12\x12Ó+Aï\x97\x92$æ\x13\x14g®\x19;ìÁ¿Eµ¦û b[Ðeê\x03\x12Y8\x8cà$Þ\x1aê\x15¼oÆA\x89ÍVÛì\x0d\x1c¾;ÝÇË\x00 ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x063ZZ\x00\x00\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00\x0b\x00\x02\x01\x00\x00\x12\x00\x00DÍ\x00\x05\x00\x03\x02h2\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00#\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00\x10\x00\x0e\x00\x0c\x02h2\x08http/1.1þ\x0d\x00º\x00\x00\x01\x00\x01î\x00 bÕÏGø\x8fWîÚ\x90è`y¯\x1bcÜ\x9fÎ¥³¦\x99Ç#Ú\x0c\x9a$zo\x1e\x00\x90\x01A\x1clööúU\x8e\x0e\x1fT{áÑ¹@\x94R\x08©$A\x8b\x9a·\x8c\x93\x8cuÊÿöØÇa$\x9a\x7f\x84QüÂ\x85­\x15\x95î?a@ûP¬O§\x92'Ý+ª\x99îq\x8c\x95\x13¿?%?VlV:Ñ\x19\x84öÞ´\x8d´ôââÐ\x1b\x07\x18å\x0cÙÏ\x85fâôª\x0b\x8e¸Pô'-ÿI\x1e\x90Ì\x9e\x18\x0eO\x12Ý\x1bä3Õy\x18Æ\x8fïÙQ£\x19ë+Î´ÏÑæÆè\x85áôüm\x003\x04ï\x04íjj\x00\x01\x00\x11ì\x04À~zkíKÊ¨ç\x84t\x91´\x89\x19\x8e÷ÄE\x9fúaFÀSA\x8096õ\\Á$\x9aÉá¡\x0fgOõè¾[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ('èHK')
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03£î\x06\x8de3\x86Ôs²3P\x1cQc+¢Úã×I(\x1cèHK[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01ÿ\x01\x00\x01\x00\x00')
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03\x16»\x1c\x0b2º\x9fw/x&Îz\x18;\x15\x1c\x13yÄx\x0fá6I\x18ïkê­óZ \x90B`ÆÂ½<8±;­Bõ\x8fö\x9avÄ!f`\x9e\x07;sÅSNIDAa\x00 \x1a\x1a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93ÚÚ\x00\x00\x00\x17\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00-\x00\x02\x01\x01\x00\x12\x00\x00\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01ÿ\x01\x00\x01\x00\x00[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ("Nx÷@ÈSN\x89'}wF\x8eñº£(±\x99\x04\x84¼Û;\x80ñ6¿y2\x9fþöÊ\x15ÅÏ\x9d[¯JÒ6&\x15g³\x90ZÕæeÜà7Ú©cÄ\x96Bmõ\x15âikKû\x81¿Ô\x9an")
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03±¦\x0c:Ç\x94\x1aÄ+\x88#Ô\x8aAá¯,%¤¡'w\x87iVKäDÙÔwâ \x96\x19\x0fIW\x83 ë6]\\qs\x00\x90ñR¼Cº5\x88ÔeÜ6(k+\\j\x1f\x00 jj\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06SÊÊ\x00\x00DÍ\x00\x05\x00\x03\x02h2\x00\x10\x00\x0e\x00\x0c\x02h2\x08http/1.1\x00\x0b\x00\x02\x01\x00\x00\x17\x00\x00\x00+\x00\x07\x06::\x03\x04\x03\x03\x00\x05\x00\x05\x01\x00\x00\x00\x00þ\x0d\x00Ú\x00\x00\x01\x00\x015\x00 \x83Jr|h\x89ÂBWÕÏæ5½é\x0d~\x1a=7]Lø³ãÓ;úô\x9b\x14B\x00°#6¤@\x18ò4\x06\x04¦»«¾ÈÑÙºF\x94¥\x96\x80ÿeÆA\x80\x07ú\x8c\x0c\x04ê¯d)¤\x1cë$\x1c|L\x96\x15\x8c\x03\x97gë$Ä-;EW\x92Ë\x83\x09\x88³G[\\Sqþ¯£\x8e;\x8eé¯\x9c:\x94lÅÄ<\x06ö°\x09\x09-Yy\x06ü\x1536`â6Ù\x8fb5É\x8aýÀ\x033±|ô²\x80(\x10\x9aö\x0d\x97±3´Ð\x82\x9d­ÒÔ÷\x7f¾áIÈ¨LÿÑÀÇç³)Ö+g\x9f\x8c\x03J²§&L\x89v\x9eI¢ñ¨e®\x06O¶«û§\x8cNÁs\x1dm®\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00-\x00\x02\x01\x01\x00\x1b\x00\x03\x02\x00\x02\x00#\x00\x00\x00\x12\x00\x00\x003\x04ï\x04íÊÊ\x00\x01\x00\x11ì\x04À¼7=E³¯\x00Ä§ñglIÕ¹Ü¡¤\x1d%~­Zx\x1dz\x1au4f\x03if?\x16+åUE\x9b5\x05,ba\x9bHV\x1aÊÇ\x05áÌ&$CM·ÂÏ\x0b\x11Z©¬õ+\x08\x85((/\x1cNx÷@ÈSN\x89'}wF\x8eñº£(±\x99\x04\x84¼Û;\x80ñ6¿y2\x9fþöÊ\x15ÅÏ\x9d[¯JÒ6&\x15g³\x90ZÕæeÜà7Ú©cÄ\x96Bmõ\x15âikKû\x81¿Ô\x9an[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ('@\x15ðF{Ö¹%')
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03­ZÇ§å{ç&c¾[\x189R#®i±\x9cß\x18bØ´Dß-*Ü\\I7 ´£=p\x8d£tå?õ\x90\x1a\x8a÷¨3@¯dè\x8c\x1fqS«Ï\x90Â\x93;\x10\x8b\x00 ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06sêê\x00\x00\x00\x12\x00\x00\x00-\x00\x02\x01\x01DÍ\x00\x05\x00\x03\x02h2\x00\x1b\x00\x03\x02\x00\x02\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01þ\x0d\x00ú\x00\x00\x01\x00\x01\x8d\x00 @\x15ðF{Ö¹%[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ('\x9btæ°')
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x07\x00\x01\x00\x06ü\x03\x03Ø\x9aÈþAÚ²s*]\x97%Z\x82\x14\x06\x0cÚE×ð\x08¯n\x0f±£^Öüÿ9 ë\x8aæ\x90½\x11[{\x05¡r(\x00{°\x93O\x9béj\x7f*{ªÆ÷È\x98"\x0dºt\x00 \x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06\x93ºº\x00\x00\x00\x1b\x00\x03\x02\x00\x02þ\x0d\x01\x1a\x00\x00\x01\x00\x01Á\x00 \x1c¾Bn\x808ò­ÃJª>\x14!\x042Õ\x95ÍAð¦\x10ù\x8f\x95é7\x86´Lv\x00ð><¨»Íô%\x9a³\x0b\x0fé\x1d\x0eç\x0e\x96*\x81Úâ¥í\x0cÀä19\x9b[¤ù\x1a\x7f\x01uoÔÊÁEÔfLöÁÚ\x0f\x8e\x0d\x9btæ°[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00+\x00\x07\x06úú\x03\x04\x03\x03\x00')
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x06à\x01\x00\x06Ü\x03\x03Q=Gôñ¡bç­`\x06æ\x88sÇµÕ0rz\x04äLã\x86\x8c×\x9b5\x0dÈÂ `\x8fÇn-ñ¢·\x8a\x9d{y6°Ëóåa¡±>¨CüJ'ô²e-_¹\x00 ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06s**\x00\x00\x00\x0b\x00\x02\x01\x00\x00#\x00\x00\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00\x1b\x00\x03\x02\x00\x02\x00\x10\x00\x0e\x00\x0c\x02h2\x08http/1.1DÍ\x00\x05\x00\x03\x02h2\x00\x0d\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00+\x00\x07\x06úú\x03\x04\x03\x03\x00[0m" 400 -
+2026-05-05 22:35:04 [ERROR] - 127.0.0.1 - - [05/May/2026 22:35:04] code 400, message Bad request version ('ZZ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Sºº\x00\x00\x00+\x00\x07\x06**\x03\x04\x03\x03\x00')
+2026-05-05 22:35:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:04] "[31m[1m\x16\x03\x01\x06À\x01\x00\x06¼\x03\x03à\x02pL5\x0cÐÖ)\x99\x9a¹\x12É\x80\x0e'æE\x92ÆwSJ\x8d£\x85óß#eð ¦<å¯¡(\x84»\x8e\x1e5\x11|á\x84s\x03\x9a\x13\x96Üí\x89ë\x7fW8ÒÃ\x19¤ó\x00 ZZ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x06Sºº\x00\x00\x00+\x00\x07\x06**\x03\x04\x03\x03\x00[0m" 400 -
+2026-05-05 22:35:28 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:35:28 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:35:43 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:35:43 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:35:43 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:43] "[32mGET / HTTP/1.1[0m" 302 -
+2026-05-05 22:35:43 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:43] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 22:35:44 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-05 22:35:53 [ERROR] - Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask_limiter\extension.py", line 1303, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\audit_salarial_app\auth\routes.py", line 18, in login
+    user = Usuario.query.filter_by(email=email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 267, in caching_sha2_password_auth
+    data = sha2_rsa_encrypt(conn.password, conn.salt, conn.server_public_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 144, in sha2_rsa_encrypt
+    raise RuntimeError(
+RuntimeError: 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
+2026-05-05 22:35:53 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:53] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2026-05-05 22:35:55 [ERROR] - Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask_limiter\extension.py", line 1303, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\audit_salarial_app\auth\routes.py", line 18, in login
+    user = Usuario.query.filter_by(email=email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 267, in caching_sha2_password_auth
+    data = sha2_rsa_encrypt(conn.password, conn.salt, conn.server_public_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 144, in sha2_rsa_encrypt
+    raise RuntimeError(
+RuntimeError: 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
+2026-05-05 22:35:55 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:55] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2026-05-05 22:35:58 [INFO] - 127.0.0.1 - - [05/May/2026 22:35:58] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 22:36:04 [ERROR] - Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask_limiter\extension.py", line 1303, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\audit_salarial_app\auth\routes.py", line 18, in login
+    user = Usuario.query.filter_by(email=email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 267, in caching_sha2_password_auth
+    data = sha2_rsa_encrypt(conn.password, conn.salt, conn.server_public_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 144, in sha2_rsa_encrypt
+    raise RuntimeError(
+RuntimeError: 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
+2026-05-05 22:36:04 [INFO] - 127.0.0.1 - - [05/May/2026 22:36:04] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2026-05-05 22:38:07 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:38:07 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:38:13 [ERROR] - Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 268, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+          ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask_limiter\extension.py", line 1303, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\audit_salarial_app\auth\routes.py", line 18, in login
+    user = Usuario.query.filter_by(email=email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 268, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+          ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-05 22:38:13 [INFO] - 127.0.0.1 - - [05/May/2026 22:38:13] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2026-05-05 22:38:17 [INFO] - 127.0.0.1 - - [05/May/2026 22:38:17] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 22:38:24 [ERROR] - Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 268, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+          ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask_limiter\extension.py", line 1303, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\audit_salarial_app\auth\routes.py", line 18, in login
+    user = Usuario.query.filter_by(email=email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 268, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+          ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-05 22:38:24 [INFO] - 127.0.0.1 - - [05/May/2026 22:38:24] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2026-05-05 22:38:36 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:38:36 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:38:43 [ERROR] - Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 268, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+          ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask_limiter\extension.py", line 1303, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\audit_salarial_app\auth\routes.py", line 18, in login
+    user = Usuario.query.filter_by(email=email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 268, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+          ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-05 22:38:43 [INFO] - 127.0.0.1 - - [05/May/2026 22:38:43] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2026-05-05 22:40:45 [ERROR] - Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 268, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+          ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\flask_limiter\extension.py", line 1303, in __inner
+    return cast(R, flask.current_app.ensure_sync(obj)(*a, **k))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\audit_salarial_app\auth\routes.py", line 18, in login
+    user = Usuario.query.filter_by(email=email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2239, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2108, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1187, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3293, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 145, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2448, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 143, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3317, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 448, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1272, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 175, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 389, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
+    with util.safe_reraise():
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 667, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 630, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 669, in connect
+    self._request_authentication()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 268, in caching_sha2_password_auth
+    pkt = _roundtrip(conn, data)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\_auth.py", line 121, in _roundtrip
+    pkt = conn._read_packet()
+          ^^^^^^^^^^^^^^^^^^^
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\TFG\src\.venv\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-05 22:40:45 [INFO] - 127.0.0.1 - - [05/May/2026 22:40:45] "[35m[1mPOST /auth/login HTTP/1.1[0m" 500 -
+2026-05-05 22:41:42 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:41:42 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:41:44 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:44] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 22:41:44 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:44] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 22:41:44 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:44] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 22:41:44 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:44] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 22:41:51 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-05 22:41:51 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:51] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 22:41:51 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:51] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 22:41:53 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:53] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 22:41:54 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:54] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:41:54 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:54] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 22:41:55 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:55] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 22:41:56 [INFO] - 127.0.0.1 - - [05/May/2026 22:41:56] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 22:42:00 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:00] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:42:03 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:02] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 22:42:05 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:05] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:42:06 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:06] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 22:42:08 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:08] "GET /admin/empresas/nueva HTTP/1.1" 200 -
+2026-05-05 22:42:18 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:18] "[32mPOST /admin/empresas/nueva HTTP/1.1[0m" 302 -
+2026-05-05 22:42:18 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:18] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 22:42:20 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:20] "GET /admin/empresas/editar/1 HTTP/1.1" 200 -
+2026-05-05 22:42:22 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:22] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 22:42:24 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:24] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 22:42:25 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:25] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:42:26 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:26] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 22:42:27 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:27] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:42:44 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:44] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:42:45 [INFO] - 127.0.0.1 - - [05/May/2026 22:42:45] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 22:43:02 [INFO] - 127.0.0.1 - - [05/May/2026 22:43:02] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 22:43:02 [INFO] - 127.0.0.1 - - [05/May/2026 22:43:02] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:45:17 [INFO] - 127.0.0.1 - - [05/May/2026 22:45:17] "[32mPOST /admin/auditorias/eliminar/1 HTTP/1.1[0m" 302 -
+2026-05-05 22:45:17 [INFO] - 127.0.0.1 - - [05/May/2026 22:45:17] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:45:19 [WARNING] - La auditoría 1 ha sido destruida (eliminada permanentemente) por el usuario 1 (admin@admin.com)
+2026-05-05 22:45:19 [INFO] - 127.0.0.1 - - [05/May/2026 22:45:19] "[32mPOST /admin/auditorias/destruir/1 HTTP/1.1[0m" 302 -
+2026-05-05 22:45:19 [INFO] - 127.0.0.1 - - [05/May/2026 22:45:19] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:45:46 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:45:46 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:45:49 [INFO] - 127.0.0.1 - - [05/May/2026 22:45:49] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:45:51 [INFO] - 127.0.0.1 - - [05/May/2026 22:45:51] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 22:46:03 [INFO] - 127.0.0.1 - - [05/May/2026 22:46:03] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 22:46:03 [INFO] - 127.0.0.1 - - [05/May/2026 22:46:03] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:48:20 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:48:20 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:48:25 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:25] "[32mPOST /admin/auditorias/eliminar/2 HTTP/1.1[0m" 302 -
+2026-05-05 22:48:25 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:25] "[32mPOST /admin/auditorias/eliminar/2 HTTP/1.1[0m" 302 -
+2026-05-05 22:48:25 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:25] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:48:27 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:27] "[32mPOST /admin/auditorias/eliminar/2 HTTP/1.1[0m" 302 -
+2026-05-05 22:48:27 [WARNING] - La auditoría 2 ha sido destruida (eliminada permanentemente) por el usuario 1 (admin@admin.com)
+2026-05-05 22:48:27 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:27] "[32mPOST /admin/auditorias/destruir/2 HTTP/1.1[0m" 302 -
+2026-05-05 22:48:27 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:27] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:48:27 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:27] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 22:48:34 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:34] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 22:48:34 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:34] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:48:43 [INFO] - 127.0.0.1 - - [05/May/2026 22:48:43] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-05 22:49:20 [INFO] - 127.0.0.1 - - [05/May/2026 22:49:20] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:49:26 [INFO] - 127.0.0.1 - - [05/May/2026 22:49:26] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:49:28 [INFO] - 127.0.0.1 - - [05/May/2026 22:49:28] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-05 22:58:02 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 22:58:02 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 22:58:10 [INFO] - 127.0.0.1 - - [05/May/2026 22:58:10] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-05 22:58:22 [INFO] - 127.0.0.1 - - [05/May/2026 22:58:22] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 22:58:24 [INFO] - 127.0.0.1 - - [05/May/2026 22:58:24] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-05 23:03:50 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 23:03:50 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 23:03:57 [INFO] - 127.0.0.1 - - [05/May/2026 23:03:57] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-05 23:04:52 [INFO] - 127.0.0.1 - - [05/May/2026 23:04:52] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:04:53 [INFO] - 127.0.0.1 - - [05/May/2026 23:04:53] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:04:53 [INFO] - 127.0.0.1 - - [05/May/2026 23:04:53] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:04:57 [INFO] - 127.0.0.1 - - [05/May/2026 23:04:57] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-05 23:24:23 [INFO] - 127.0.0.1 - - [05/May/2026 23:24:23] "GET /admin/auditorias/3/anomalia/55/informe HTTP/1.1" 200 -
+2026-05-05 23:24:23 [INFO] - 127.0.0.1 - - [05/May/2026 23:24:23] "GET /admin/auditorias/3/anomalia/55/informe HTTP/1.1" 200 -
+2026-05-05 23:24:56 [INFO] - 127.0.0.1 - - [05/May/2026 23:24:56] "GET /admin/auditorias/3/anomalia/8/informe HTTP/1.1" 200 -
+2026-05-05 23:30:00 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:00] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:30:01 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:01] "GET /admin/users/nuevo HTTP/1.1" 200 -
+2026-05-05 23:30:26 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:26] "[32mPOST /admin/users/nuevo HTTP/1.1[0m" 302 -
+2026-05-05 23:30:26 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:26] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:30:30 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:30] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:30:30 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:30] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:30:37 [INFO] - Login exitoso para el usuario: jesusblancoalegre12@gmail.com (ID: 2) desde IP: 127.0.0.1
+2026-05-05 23:30:37 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:37] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:30:37 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:37] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:30:38 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:38] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:30:40 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:40] "[31m[1mPOST /admin/auditorias/eliminar/3 HTTP/1.1[0m" 403 -
+2026-05-05 23:30:45 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:45] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:30:51 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:51] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:30:51 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:51] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:30:55 [INFO] - 127.0.0.1 - - [05/May/2026 23:30:55] "GET /admin/auditorias/4/resultados HTTP/1.1" 200 -
+2026-05-05 23:31:17 [INFO] - 127.0.0.1 - - [05/May/2026 23:31:17] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:31:17 [INFO] - 127.0.0.1 - - [05/May/2026 23:31:17] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:31:21 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-05 23:31:21 [INFO] - 127.0.0.1 - - [05/May/2026 23:31:21] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:31:21 [INFO] - 127.0.0.1 - - [05/May/2026 23:31:21] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:31:24 [INFO] - 127.0.0.1 - - [05/May/2026 23:31:24] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:31:40 [INFO] - 127.0.0.1 - - [05/May/2026 23:31:40] "[32mGET /admin/estadisticas-sectoriales/recalcular HTTP/1.1[0m" 302 -
+2026-05-05 23:31:40 [INFO] - 127.0.0.1 - - [05/May/2026 23:31:40] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:32:28 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:28] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:32:29 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:29] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:32:35 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:35] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:32:35 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:35] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:32:42 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:42] "[33mGET /admin/auditorias/estadisticas-sectoriales/recalcular HTTP/1.1[0m" 404 -
+2026-05-05 23:32:47 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:47] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:32:48 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:48] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:32:49 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:49] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:32:50 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:50] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:32:50 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:50] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:32:51 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:51] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:32:58 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:58] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:32:58 [INFO] - 127.0.0.1 - - [05/May/2026 23:32:58] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:33:02 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-05 23:33:02 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:02] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:33:02 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:02] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:33:03 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:03] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:33:03 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:03] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:33:09 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-05 23:33:09 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:09] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:33:09 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:09] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:33:11 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:11] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:33:12 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:12] "GET /admin/empresas/nueva HTTP/1.1" 200 -
+2026-05-05 23:33:16 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:16] "[32mPOST /admin/empresas/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:33:16 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:16] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:33:19 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:19] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:33:20 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:20] "GET /admin/users/nuevo HTTP/1.1" 200 -
+2026-05-05 23:33:32 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:32] "[32mPOST /admin/users/nuevo HTTP/1.1[0m" 302 -
+2026-05-05 23:33:32 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:32] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:33:39 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:39] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:33:41 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:41] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:33:43 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:43] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-05 23:33:48 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:48] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:33:49 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:49] "GET /admin/auditorias/4/resultados HTTP/1.1" 200 -
+2026-05-05 23:33:50 [INFO] - 127.0.0.1 - - [05/May/2026 23:33:50] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:34:03 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:03] "[32mPOST /admin/auditorias/eliminar/3 HTTP/1.1[0m" 302 -
+2026-05-05 23:34:03 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:03] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:34:05 [WARNING] - La auditoría 3 ha sido destruida (eliminada permanentemente) por el usuario 1 (admin@admin.com)
+2026-05-05 23:34:05 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:05] "[32mPOST /admin/auditorias/destruir/3 HTTP/1.1[0m" 302 -
+2026-05-05 23:34:05 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:05] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:34:11 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:11] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:34:12 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:12] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:34:12 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:12] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:34:14 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:14] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:34:14 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:14] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-05 23:34:27 [INFO] - 127.0.0.1 - - [05/May/2026 23:34:27] "GET /admin/auditorias/5/anomalia/167/informe HTTP/1.1" 200 -
+2026-05-05 23:35:16 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 23:35:16 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 23:35:21 [INFO] - 127.0.0.1 - - [05/May/2026 23:35:21] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-05 23:35:22 [INFO] - 127.0.0.1 - - [05/May/2026 23:35:22] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:35:22 [INFO] - 127.0.0.1 - - [05/May/2026 23:35:22] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:38:13 [INFO] - 127.0.0.1 - - [05/May/2026 23:38:13] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-05 23:42:17 [INFO] - 127.0.0.1 - - [05/May/2026 23:42:17] "[32mGET /admin/auditorias/5/resultados HTTP/1.1[0m" 302 -
+2026-05-05 23:42:17 [INFO] - 127.0.0.1 - - [05/May/2026 23:42:17] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:42:19 [INFO] - 127.0.0.1 - - [05/May/2026 23:42:19] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:42:21 [INFO] - 127.0.0.1 - - [05/May/2026 23:42:21] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:42:21 [INFO] - 127.0.0.1 - - [05/May/2026 23:42:21] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:42:25 [INFO] - 127.0.0.1 - - [05/May/2026 23:42:25] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:42:26 [INFO] - 127.0.0.1 - - [05/May/2026 23:42:26] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:42:26 [INFO] - 127.0.0.1 - - [05/May/2026 23:42:26] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:42:47 [INFO] - 127.0.0.1 - - [05/May/2026 23:42:47] "GET /auth/registrarse HTTP/1.1" 200 -
+2026-05-05 23:43:03 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:03] "[32mPOST /auth/registrarse HTTP/1.1[0m" 302 -
+2026-05-05 23:43:03 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:03] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:43:11 [INFO] - ratelimit 5 per 1 minute (127.0.0.1) exceeded at endpoint: auth.login
+2026-05-05 23:43:11 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:11] "[31m[1mPOST /auth/login HTTP/1.1[0m" 429 -
+2026-05-05 23:43:14 [INFO] - ratelimit 5 per 1 minute (127.0.0.1) exceeded at endpoint: auth.login
+2026-05-05 23:43:14 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:14] "[31m[1mGET /auth/login HTTP/1.1[0m" 429 -
+2026-05-05 23:43:17 [INFO] - ratelimit 5 per 1 minute (127.0.0.1) exceeded at endpoint: auth.login
+2026-05-05 23:43:17 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:17] "[31m[1mGET /auth/login HTTP/1.1[0m" 429 -
+2026-05-05 23:43:33 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:33] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:43:39 [WARNING] - Intento de login fallido para el email: julian@gmail.com desde IP: 127.0.0.1
+2026-05-05 23:43:39 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:39] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2026-05-05 23:43:45 [INFO] - Login exitoso para el usuario: julian@gmail.com (ID: 2) desde IP: 127.0.0.1
+2026-05-05 23:43:45 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:45] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:43:45 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:45] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:43:49 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:49] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:43:49 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:49] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:43:55 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-05 23:43:55 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:55] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:43:55 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:55] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:43:57 [INFO] - 127.0.0.1 - - [05/May/2026 23:43:57] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:44:00 [WARNING] - Usuario 2 (julian@gmail.com) ha sido desactivado por el ADMIN 1 (admin@admin.com)
+2026-05-05 23:44:00 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:00] "[32mPOST /admin/users/eliminar/2 HTTP/1.1[0m" 302 -
+2026-05-05 23:44:00 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:00] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:44:04 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:04] "GET /admin/users/editar/2 HTTP/1.1" 200 -
+2026-05-05 23:44:05 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:05] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:44:10 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:10] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:44:10 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:10] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:44:10 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:10] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:44:14 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:14] "GET /admin/users/editar/2 HTTP/1.1" 200 -
+2026-05-05 23:44:18 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:18] "[32mPOST /admin/users/editar/2 HTTP/1.1[0m" 302 -
+2026-05-05 23:44:18 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:18] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:44:31 [INFO] - 127.0.0.1 - - [05/May/2026 23:44:31] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:45:23 [INFO] - 127.0.0.1 - - [05/May/2026 23:45:23] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:45:23 [INFO] - 127.0.0.1 - - [05/May/2026 23:45:23] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:45:33 [INFO] - 127.0.0.1 - - [05/May/2026 23:45:33] "GET /auth/registrarse HTTP/1.1" 200 -
+2026-05-05 23:45:54 [INFO] - 127.0.0.1 - - [05/May/2026 23:45:54] "[32mPOST /auth/registrarse HTTP/1.1[0m" 302 -
+2026-05-05 23:45:54 [INFO] - 127.0.0.1 - - [05/May/2026 23:45:54] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:46:00 [INFO] - Login exitoso para el usuario: juan@gmail.com (ID: 2) desde IP: 127.0.0.1
+2026-05-05 23:46:00 [INFO] - 127.0.0.1 - - [05/May/2026 23:46:00] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:46:00 [INFO] - 127.0.0.1 - - [05/May/2026 23:46:00] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:46:07 [INFO] - 127.0.0.1 - - [05/May/2026 23:46:07] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:46:08 [INFO] - 127.0.0.1 - - [05/May/2026 23:46:08] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:46:20 [INFO] - 127.0.0.1 - - [05/May/2026 23:46:20] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:46:20 [INFO] - 127.0.0.1 - - [05/May/2026 23:46:20] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:47:04 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 23:47:04 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 23:47:08 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:08] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:47:09 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:09] "[31m[1mPOST /admin/auditorias/eliminar/1 HTTP/1.1[0m" 403 -
+2026-05-05 23:47:09 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:09] "[31m[1mPOST /admin/auditorias/eliminar/1 HTTP/1.1[0m" 403 -
+2026-05-05 23:47:13 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:13] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:47:18 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:18] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:47:18 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:18] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:47:30 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-05 23:47:30 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-05 23:47:34 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:34] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:47:35 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:35] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:47:36 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:36] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:47:37 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:37] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:47:38 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:38] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:47:43 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:43] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:47:43 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:43] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:47:46 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:46] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:47:46 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:46] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:47:51 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-05 23:47:51 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:51] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:47:52 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:52] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:47:53 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:53] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:47:54 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:54] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:47:58 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:58] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:47:58 [INFO] - 127.0.0.1 - - [05/May/2026 23:47:58] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:50:10 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:10] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:50:16 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:16] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:50:17 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:17] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:50:18 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:18] "GET /admin/empresas/nueva HTTP/1.1" 200 -
+2026-05-05 23:50:19 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:19] "[32mPOST /admin/empresas/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:50:19 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:19] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:50:21 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:21] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:50:22 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:22] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:50:32 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:32] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:50:32 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:32] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:50:42 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:42] "[32mPOST /admin/auditorias/eliminar/1 HTTP/1.1[0m" 302 -
+2026-05-05 23:50:42 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:42] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:50:43 [WARNING] - La auditoría 1 ha sido destruida (eliminada permanentemente) por el usuario 1 (admin@admin.com)
+2026-05-05 23:50:43 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:43] "[32mPOST /admin/auditorias/destruir/1 HTTP/1.1[0m" 302 -
+2026-05-05 23:50:43 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:43] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:50:44 [INFO] - 127.0.0.1 - - [05/May/2026 23:50:44] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:51:15 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:15] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:51:15 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:15] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:51:28 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-05 23:51:28 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:28] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:51:28 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:28] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:51:31 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:31] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:51:31 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:31] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:51:32 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:32] "GET /auth/registrarse HTTP/1.1" 200 -
+2026-05-05 23:51:49 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:49] "[32mPOST /auth/registrarse HTTP/1.1[0m" 302 -
+2026-05-05 23:51:49 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:49] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:51:58 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-05 23:51:58 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:58] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:51:58 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:58] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:51:59 [INFO] - 127.0.0.1 - - [05/May/2026 23:51:59] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:52:01 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:01] "GET /admin/empresas/editar/1 HTTP/1.1" 200 -
+2026-05-05 23:52:08 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:08] "[32mPOST /admin/empresas/editar/1 HTTP/1.1[0m" 302 -
+2026-05-05 23:52:08 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:08] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-05 23:52:12 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:12] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:52:13 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:13] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:52:16 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:16] "GET /admin/users/editar/2 HTTP/1.1" 200 -
+2026-05-05 23:52:18 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:18] "GET /admin/users HTTP/1.1" 200 -
+2026-05-05 23:52:20 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:20] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:52:22 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:22] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:52:27 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:27] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:52:27 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:27] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:52:38 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:38] "GET /admin/auditorias/1/resultados HTTP/1.1" 200 -
+2026-05-05 23:52:40 [INFO] - 127.0.0.1 - - [05/May/2026 23:52:40] "GET /admin/auditorias/1/exportar/csv HTTP/1.1" 200 -
+2026-05-05 23:53:05 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:05] "GET /admin/auditorias/1/anomalia/55/informe HTTP/1.1" 200 -
+2026-05-05 23:53:43 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:43] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:53:45 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:45] "[32mPOST /admin/auditorias/eliminar/1 HTTP/1.1[0m" 302 -
+2026-05-05 23:53:45 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:45] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:53:46 [WARNING] - La auditoría 1 ha sido destruida (eliminada permanentemente) por el usuario 1 (admin@admin.com)
+2026-05-05 23:53:46 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:46] "[32mPOST /admin/auditorias/destruir/1 HTTP/1.1[0m" 302 -
+2026-05-05 23:53:46 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:46] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:53:48 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:48] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-05 23:53:48 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:48] "GET /auth/login HTTP/1.1" 200 -
+2026-05-05 23:53:52 [INFO] - Login exitoso para el usuario: makenrow@gmail.com (ID: 2) desde IP: 127.0.0.1
+2026-05-05 23:53:52 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:52] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-05 23:53:52 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:52] "GET /admin/ HTTP/1.1" 200 -
+2026-05-05 23:53:54 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:54] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:53:54 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:54] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-05 23:53:58 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:58] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-05 23:53:58 [INFO] - 127.0.0.1 - - [05/May/2026 23:53:58] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-05 23:54:01 [INFO] - 127.0.0.1 - - [05/May/2026 23:54:01] "GET /admin/auditorias/2/resultados HTTP/1.1" 200 -
+2026-05-05 23:54:12 [INFO] - 127.0.0.1 - - [05/May/2026 23:54:12] "GET /admin/auditorias/2/anomalia/89/informe HTTP/1.1" 200 -

@@ -137,3 +137,97 @@ def generar_informe_pdf(auditoria_id):
     db.session.commit()
     
     return True, filename
+
+def generar_informe_individual_pdf(auditoria_id, anomalia_id):
+    from audit_salarial_app.models import Anomalia, Resultado
+    anomalia = db.session.get(Anomalia, anomalia_id)
+    auditoria = db.session.get(Auditoria, auditoria_id)
+    if not anomalia or not auditoria:
+        return False, "Datos no encontrados"
+        
+    resultado_grupo = Resultado.query.filter_by(
+        auditoria_id=auditoria_id,
+        dimension_valor=anomalia.dimension_valor
+    ).first()
+    
+    filename = f"Informe_Individual_Fila_{anomalia.id_fila_excel or 'ND'}_{datetime.now().strftime('%Y%m%d%H%M')}.pdf"
+    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+    
+    doc = SimpleDocTemplate(filepath, pagesize=letter)
+    styles = getSampleStyleSheet()
+    elements = []
+    
+    elements.append(Paragraph(f"Informe Individual de Transparencia Retributiva (RD 902/2020)", styles['Title']))
+    elements.append(Spacer(1, 12))
+    
+    elements.append(Paragraph(f"<b>Empresa:</b> {auditoria.empresa.nombre}", styles['Normal']))
+    elements.append(Paragraph(f"<b>Auditoría ID:</b> #{auditoria_id}", styles['Normal']))
+    elements.append(Paragraph(f"<b>Fecha de Informe:</b> {datetime.now().strftime('%Y-%m-%d')}", styles['Normal']))
+    elements.append(Spacer(1, 24))
+    
+    # 1. Datos del Empleado
+    elements.append(Paragraph("1. Datos de Identificación", styles['Heading2']))
+    data_emp = [
+        ["Fila Excel Referencia", str(anomalia.id_fila_excel or 'N/D')],
+        ["Grupo Profesional", str(anomalia.dimension_valor)],
+        ["Retribución Detectada", f"{anomalia.valor:,.2f} €"]
+    ]
+    t1 = Table(data_emp, colWidths=[200, 200])
+    t1.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (0, -1), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('PADDING', (0, 0), (-1, -1), 6),
+    ]))
+    elements.append(t1)
+    elements.append(Spacer(1, 12))
+    
+    # 2. Análisis de Anomalía
+    elements.append(Paragraph("2. Análisis de Atipicidad (Desviación)", styles['Heading2']))
+    elements.append(Paragraph("Este salario ha sido marcado como un valor atípico estadístico dentro de su grupo.", styles['Normal']))
+    elements.append(Spacer(1, 6))
+    
+    data_anom = [
+        ["Método de Detección", str(anomalia.metodo)],
+        ["Severidad", str(anomalia.severidad)],
+        ["Umbral Superior Grupo", f"{anomalia.umbral_superior:,.2f} €" if anomalia.umbral_superior else "N/D"],
+        ["Umbral Inferior Grupo", f"{anomalia.umbral_inferior:,.2f} €" if anomalia.umbral_inferior else "N/D"],
+        ["Z-Score (Desviación)", f"{anomalia.z_score:,.2f}" if anomalia.z_score else "N/D"]
+    ]
+    t2 = Table(data_anom, colWidths=[200, 200])
+    t2.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (0, -1), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('PADDING', (0, 0), (-1, -1), 6),
+    ]))
+    elements.append(t2)
+    elements.append(Spacer(1, 12))
+    
+    # 3. Contexto del Grupo
+    elements.append(Paragraph("3. Contexto del Grupo Profesional (Igualdad Retributiva)", styles['Heading2']))
+    if resultado_grupo:
+        elements.append(Paragraph(f"La brecha salarial actual en este grupo profesional es del <b>{resultado_grupo.brecha_media_pct:.2f}%</b>.", styles['Normal']))
+        elements.append(Spacer(1, 6))
+        data_grupo = [
+            ["Salario Medio Hombres", f"{resultado_grupo.media_hombres:,.2f} €" if resultado_grupo.media_hombres else "N/D"],
+            ["Salario Medio Mujeres", f"{resultado_grupo.media_mujeres:,.2f} €" if resultado_grupo.media_mujeres else "N/D"],
+            ["Total Empleados en Grupo", str(resultado_grupo.n_total)]
+        ]
+        t3 = Table(data_grupo, colWidths=[200, 200])
+        t3.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (0, -1), colors.lightgrey),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('PADDING', (0, 0), (-1, -1), 6),
+        ]))
+        elements.append(t3)
+    else:
+        elements.append(Paragraph("No hay datos comparativos del grupo disponibles.", styles['Normal']))
+        
+    elements.append(Spacer(1, 12))
+    
+    # 4. Obligaciones Legales
+    elements.append(Paragraph("4. Justificación Objetiva (Art. 28 ET y RD 902/2020)", styles['Heading2']))
+    elements.append(Paragraph("<b>Nota Legal:</b> Dado que este salario representa una anomalía estadística frente a la retribución media de trabajos de igual valor, la empresa debe justificar de manera objetiva, razonable y transparente los factores determinantes de esta diferencia (por ejemplo: pluses de antigüedad, turnicidad, especial calificación, etc.). De lo contrario, podría considerarse un indicio de discriminación retributiva.", styles['Normal']))
+    
+    doc.build(elements)
+    
+    return True, filename

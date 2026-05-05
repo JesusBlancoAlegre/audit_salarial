@@ -1,13 +1,15 @@
+import logging
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
 
-from ..extensions import db
+from ..extensions import db, limiter
 from ..models import Usuario, Rol, Empresa
 
 auth_bp = Blueprint("auth", __name__)
 
 @auth_bp.route("/login", methods=["GET", "POST"])
+@limiter.limit("5 per minute")
 def login():
     if request.method == "POST":
         email = request.form["email"].strip().lower()
@@ -15,10 +17,12 @@ def login():
 
         user = Usuario.query.filter_by(email=email).first()
         if not user or not user.check_password(password):
+            logging.warning(f"Intento de login fallido para el email: {email} desde IP: {request.remote_addr}")
             flash("Credenciales incorrectas", "error")
             return render_template("auth/login.html"), 401
 
         if not user.activo:
+            logging.warning(f"Intento de login bloqueado (usuario inactivo) para: {email} desde IP: {request.remote_addr}")
             flash("Usuario inactivo", "error")
             return render_template("auth/login.html"), 403
 
@@ -26,6 +30,7 @@ def login():
         db.session.commit()
 
         login_user(user)
+        logging.info(f"Login exitoso para el usuario: {email} (ID: {user.id}) desde IP: {request.remote_addr}")
         flash("Login correcto", "success")
         return redirect(url_for("admin.home"))
 

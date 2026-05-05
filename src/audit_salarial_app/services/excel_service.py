@@ -25,12 +25,19 @@ def procesar_archivo_rahe(ruta_archivo):
             # Identificamos el Grupo Profesional si existe
             col_grupo = next((c for c in df.columns if 'grupo' in str(c).lower() or 'clasificaci' in str(c).lower()), None)
             
+            if col_grupo:
+                df[col_grupo] = df[col_grupo].fillna("Sin Grupo Asignado").astype(str).str.strip()
+                df[col_grupo] = df[col_grupo].replace({'nan': 'Sin Grupo Asignado', '': 'Sin Grupo Asignado', 'None': 'Sin Grupo Asignado'})
+            
             # Calcular una "Retribución Total" aproximada sumando todas las numéricas
             # (En un uso real se separarían conceptos normalizables, anualizables, etc.)
             cols_numericas = df.select_dtypes(include=[np.number]).columns
             
             # Para la prueba, sumamos todo lo que parezca salarial como Total Efectivo
             df['Retribucion_Total_Calculada'] = df[cols_numericas].sum(axis=1)
+            
+            # Asignar ID de fila original del Excel (cabecera en fila 8, datos empiezan en 9)
+            df['id_fila_excel'] = df.index + 9
             
             return {
                 "valido": True,

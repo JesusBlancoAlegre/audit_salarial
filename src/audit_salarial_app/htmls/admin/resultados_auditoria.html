@@ -4,7 +4,10 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Resultados de Auditoría #{{ auditoria.id }}</h2>
-    <a href="{{ url_for('admin.lista_auditorias') }}" class="btn btn-secondary">Volver al Listado</a>
+    <div>
+        <a href="{{ url_for('admin.exportar_resultados_csv', id=auditoria.id) }}" class="btn btn-success me-2"><i class="bi bi-file-earmark-spreadsheet me-1"></i>Exportar CSV</a>
+        <a href="{{ url_for('admin.lista_auditorias') }}" class="btn btn-secondary">Volver al Listado</a>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -29,6 +32,62 @@
         </div>
     </div>
 </div>
+
+{% if recomendaciones %}
+<div class="card shadow-sm border-danger mb-4">
+    <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-exclamation-triangle-fill me-2"></i>Recomendaciones Detectadas Automáticamente</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Prioridad</th>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Impacto Estimado</th>
+                        <th>Coste Aprox.</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rec in recomendaciones %}
+                    <tr>
+                        {% set badge_class = "bg-info text-dark" %}
+                        {% if rec.prioridad == 'URGENTE' %}
+                            {% set badge_class = "bg-danger" %}
+                        {% elif rec.prioridad == 'ALTA' %}
+                            {% set badge_class = "bg-warning text-dark" %}
+                        {% endif %}
+                        <td>
+                            <span class="badge {{ badge_class }}">{{ rec.prioridad }}</span>
+                        </td>
+                        <td class="fw-bold">{{ rec.recomendacion.titulo }}</td>
+                        <td class="small">{{ rec.recomendacion.descripcion }}</td>
+                        <td>{{ rec.impacto_reduccion_pct }}%</td>
+                        <td>{{ rec.coste_estimado_eur }} €</td>
+                        <td>
+                            {% if rec.aplicada %}
+                            <span class="badge bg-success">Aplicada</span>
+                            {% else %}
+                            <span class="badge bg-secondary">Pendiente</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not rec.aplicada and auditoria.estado != 'RECHAZADA' %}
+                            <button class="btn btn-sm btn-outline-success">Aplicar</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div class="card shadow-sm border-0 mb-4">
     <div class="card-header bg-dark text-white">
@@ -56,7 +115,13 @@
                         <td>{{ res_global.n_total }}</td>
                         <td>{{ "%.2f"|format(res_global.media_hombres) }}</td>
                         <td>{{ "%.2f"|format(res_global.media_mujeres) }}</td>
-                        <td class="{% if res_global.brecha_media_pct > 25 %}text-danger fw-bold{% elif res_global.brecha_media_pct > 0 %}text-warning fw-bold{% else %}text-success fw-bold{% endif %}">
+                        {% set bg_global_class = "text-success fw-bold" %}
+                        {% if res_global.brecha_media_pct > 25 %}
+                            {% set bg_global_class = "text-danger fw-bold" %}
+                        {% elif res_global.brecha_media_pct > 0 %}
+                            {% set bg_global_class = "text-warning fw-bold" %}
+                        {% endif %}
+                        <td class="{{ bg_global_class }}">
                             {{ "%.2f"|format(res_global.brecha_media_pct) }}%
                         </td>
                         <td>{{ "%.2f"|format(res_global.brecha_mediana_pct) }}%</td>
@@ -71,6 +136,41 @@
         </div>
     </div>
 </div>
+
+{% if est_sector and res_global %}
+<div class="card shadow-sm border-info mb-4">
+    <div class="card-header bg-info text-dark d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-bar-chart-steps me-2"></i>Comparador Sectorial Anónimo</h5>
+    </div>
+    <div class="card-body">
+        <p class="mb-3">Comparativa de tu brecha global (<strong>{{ "%.2f"|format(res_global.brecha_media_pct) }}%</strong>) frente a las empresas de tu sector.</p>
+        <div class="row align-items-center text-center">
+            <div class="col-md-4">
+                <div class="p-3 bg-light rounded border">
+                    <h6 class="text-muted mb-1">Brecha Media Sector</h6>
+                    <h3 class="mb-0">{{ "%.2f"|format(est_sector.brecha_media) }}%</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                {% set dif_class = "bg-success text-white" %}
+                {% if diferencia > 0 %}
+                    {% set dif_class = "bg-danger text-white" %}
+                {% endif %}
+                <div class="p-3 {{ dif_class }} rounded border">
+                    <h6 class="mb-1 text-white-50">Diferencia con el Sector</h6>
+                    <h3 class="mb-0">{% if diferencia > 0 %}+{% endif %}{{ "%.2f"|format(diferencia) }}%</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 bg-light rounded border">
+                    <h6 class="text-muted mb-1">Empresas Analizadas</h6>
+                    <h3 class="mb-0">{{ est_sector.n_empresas }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div class="card shadow-sm border-0">
     <div class="card-header bg-dark text-white">
@@ -98,7 +198,13 @@
                         <td>{{ res.n_mujeres }}</td>
                         <td>{{ "%.2f"|format(res.media_hombres) }}</td>
                         <td>{{ "%.2f"|format(res.media_mujeres) }}</td>
-                        <td class="{% if res.brecha_media_pct > 25 %}text-danger fw-bold{% elif res.brecha_media_pct > 0 %}text-warning fw-bold{% else %}text-success fw-bold{% endif %}">
+                        {% set bg_grupo_class = "text-success fw-bold" %}
+                        {% if res.brecha_media_pct > 25 %}
+                            {% set bg_grupo_class = "text-danger fw-bold" %}
+                        {% elif res.brecha_media_pct > 0 %}
+                            {% set bg_grupo_class = "text-warning fw-bold" %}
+                        {% endif %}
+                        <td class="{{ bg_grupo_class }}">
                             {{ "%.2f"|format(res.brecha_media_pct) }}%
                         </td>
                         <td>{{ "%.2f"|format(res.brecha_mediana_pct) }}%</td>
@@ -114,19 +220,72 @@
     </div>
 </div>
 
+{% if anomalias %}
+<div class="card shadow-sm border-warning mb-4">
+    <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-search me-2"></i>3. Valores Atípicos Detectados (Anomalías Estadísticas)</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 text-center align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Fila Excel</th>
+                        <th>Grupo / Dimensión</th>
+                        <th>Método</th>
+                        <th>Salario (€)</th>
+                        <th>Detalle</th>
+                        <th>Severidad</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for anomalia in anomalias %}
+                    <tr>
+                        <td class="fw-bold">{{ anomalia.id_fila_excel or 'N/D' }}</td>
+                        <td>{{ anomalia.dimension_valor }}</td>
+                        <td>
+                            <span class="badge bg-secondary">{{ anomalia.metodo }}</span>
+                        </td>
+                        <td class="text-danger fw-bold">{{ "%.2f"|format(anomalia.valor) }}</td>
+                        <td class="small text-start">{{ anomalia.descripcion }}</td>
+                        <td>
+                            {% if anomalia.severidad == 'ALTA' %}
+                            <span class="badge bg-danger">ALTA</span>
+                            {% else %}
+                            <span class="badge bg-warning text-dark">{{ anomalia.severidad }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('admin.descargar_informe_individual', id=auditoria.id, anomalia_id=anomalia.id) }}" class="btn btn-sm btn-outline-danger" title="Descargar Informe Individual RD 902/2020">
+                                <i class="bi bi-file-earmark-pdf"></i> PDF
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-light text-muted small">
+            <i class="bi bi-info-circle me-1"></i> Estos salarios se desvían significativamente del resto de su grupo (IQR o Z-Score > 3). Revise si están justificados o son errores.
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}
 
 {% block scripts %}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        {% if res_global %}
+        /* {% if res_global %} */
         const genderCtx = document.getElementById('genderChart').getContext('2d');
         new Chart(genderCtx, {
             type: 'doughnut',
             data: {
                 labels: ['Hombres', 'Mujeres'],
                 datasets: [{
-                    data: [{{ res_global.n_hombres }}, {{ res_global.n_mujeres }}],
+                    data: [Number("{{ res_global.n_hombres }}"), Number("{{ res_global.n_mujeres }}")],
                     backgroundColor: ['#36A2EB', '#FF6384']
                 }]
             },
@@ -143,7 +302,7 @@
                 labels: ['Hombres', 'Mujeres'],
                 datasets: [{
                     label: 'Salario Medio (€)',
-                    data: [{{ res_global.media_hombres|default(0) }}, {{ res_global.media_mujeres|default(0) }}],
+                    data: [Number("{{ res_global.media_hombres|default(0) }}"), Number("{{ res_global.media_mujeres|default(0) }}")],
                     backgroundColor: ['#36A2EB', '#FF6384']
                 }]
             },
@@ -161,7 +320,7 @@
                 }
             }
         });
-        {% endif %}
+        /* {% endif %} */
     });
 </script>
 {% endblock %}

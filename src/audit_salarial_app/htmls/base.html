@@ -46,6 +46,7 @@
       font-weight: 700;
       background: linear-gradient(to right, #818cf8, #c084fc);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: -0.5px;
       font-size: 1.4rem;
@@ -205,6 +206,36 @@
           {% endif %}
         </ul>
         <div class="d-flex flex-column flex-lg-row align-items-lg-center mt-3 mt-lg-0">
+          
+          <!-- Notificaciones Dropdown -->
+          <div class="nav-item dropdown me-lg-4 mb-3 mb-lg-0">
+            <a class="nav-link position-relative" href="#" id="alertsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-bell-fill fs-5 text-white"></i>
+              🔔
+              {% if alertas_no_leidas|length > 0 %}
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
+                {{ alertas_no_leidas|length }}
+              </span>
+              {% endif %}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="alertsDropdown" style="min-width: 300px; max-height: 400px; overflow-y: auto;">
+              <li><h6 class="dropdown-header">Centro de Alertas</h6></li>
+              {% for alerta in alertas_no_leidas %}
+              <li>
+                <a class="dropdown-item border-bottom py-2" href="#">
+                  <div class="fw-bold {% if alerta.severidad == 'CRÍTICA' %}text-danger{% elif alerta.severidad == 'ALTA' %}text-warning{% else %}text-info{% endif %}">
+                    {{ alerta.asunto }}
+                  </div>
+                  <small class="text-muted text-wrap" style="font-size: 0.8rem;">{{ alerta.mensaje[:80] }}...</small><br>
+                  <small class="text-muted" style="font-size: 0.7rem;">{{ alerta.creada_en.strftime('%Y-%m-%d %H:%M') }}</small>
+                </a>
+              </li>
+              {% else %}
+              <li><span class="dropdown-item text-muted">No tienes alertas nuevas.</span></li>
+              {% endfor %}
+            </ul>
+          </div>
+
           <div class="text-lg-end me-lg-4 mb-2 mb-lg-0 text-start">
             <div class="fw-bold text-white fs-6 lh-1">{{ current_user.nombre }}</div>
             <small class="text-info opacity-75" style="font-size:0.75rem; letter-spacing:0.5px;">{{ current_user.rol.nombre }}</small>
@@ -239,7 +270,9 @@
     {% block content %}{% endblock %}
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmxc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  {% block modals %}{% endblock %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

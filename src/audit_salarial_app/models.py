@@ -154,6 +154,7 @@ class Anomalia(db.Model):
     auditoria_id = db.Column(db.BigInteger, db.ForeignKey("auditoria.id"), nullable=False)
     dimension_id = db.Column(db.SmallInteger, db.ForeignKey("dimension.id"))
     dimension_valor = db.Column(db.String(140))
+    id_fila_excel = db.Column(db.Integer)
     
     metodo = db.Column(db.String(30), nullable=False)
     campo = db.Column(db.String(60), nullable=False)

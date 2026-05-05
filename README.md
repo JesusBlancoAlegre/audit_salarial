@@ -4,7 +4,7 @@
 
 Audit-Salarial es una aplicación web desarrollada en Python (Flask) diseñada para ayudar a las empresas a cumplir con el **Real Decreto 902/2020** de igualdad retributiva entre mujeres y hombres. La plataforma permite la automatización del cálculo de la brecha salarial, la generación de informes oficiales y el análisis demográfico mediante un panel interactivo.
 
-## Características Principales
+## 🚀 Características Principales
 
 - **Gestión de Roles Segura**: Autenticación para Administradores, Auditores y Clientes utilizando Flask-Login y cifrado de contraseñas (Werkzeug).
 - **Procesamiento de Archivos (RAHE)**: Subida y procesamiento automático de plantillas de Excel con Pandas para calcular salarios medios, medianos y la brecha salarial.
@@ -16,7 +16,7 @@ Audit-Salarial es una aplicación web desarrollada en Python (Flask) diseñada p
 
 ---
 
-## Requisitos del Sistema
+## 🛠️ Requisitos del Sistema
 
 - **Python**: 3.10 o superior.
 - **Base de datos**: MySQL Server.
@@ -24,7 +24,7 @@ Audit-Salarial es una aplicación web desarrollada en Python (Flask) diseñada p
 
 ---
 
-## Instalación y Despliegue Local
+## ⚙️ Instalación y Despliegue Local
 
 Sigue estos pasos para desplegar la aplicación en tu entorno local de desarrollo:
 
@@ -49,36 +49,44 @@ pip install -r requirements.txt
 
 ### 3. Configurar la Base de Datos
 1. Crea una base de datos en MySQL llamada `audit_salarial`.
-2. Importa la estructura de las tablas ejecutando el script proporcionado en la raíz del proyecto:
+2. Las tablas se generan y actualizan mediante migraciones de Flask-Migrate:
    ```bash
-   mysql -u root -p audit_salarial < ../audit.sql
-   mysql -u root -p audit_salarial < ../insertsaudit.sql
+   flask db upgrade
    ```
+   *(Opcional: Si tienes el script antiguo `audit.sql` o `insertsaudit.sql`, puedes importarlo manualmente, pero se recomiendan las migraciones).*
 
 ### 4. Variables de Entorno (.env)
-El proyecto utiliza un sistema de variables de entorno para no exponer contraseñas en el código.
-Renombra o copia el archivo `src/.env.example` a `src/.env` y ajusta los valores:
+El proyecto utiliza un sistema de variables para no exponer contraseñas.
+Renombra o copia el archivo `src/.env.example` a `src/.env` y ajusta los valores obligatorios:
 ```env
-# Clave secreta de la aplicación (Ejemplo)
+# Clave secreta y base de datos
 SECRET_KEY=clave_muy_segura_para_produccion
-
-# URL de conexión a la base de datos (Usuario, Password, Host, BD)
 DATABASE_URL=mysql+pymysql://root:tu_password@localhost:3306/audit_salarial
+FLASK_DEBUG=False
 
-# Modo Desarrollo (Desactivar en producción)
-FLASK_DEBUG=1
+# Configuración SMTP para alertas por email (Ejemplo Gmail)
+MAIL_SERVER=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USE_TLS=True
+MAIL_USERNAME=tu_correo@gmail.com
+MAIL_PASSWORD=tu_contraseña_de_aplicacion
 ```
 
 ### 5. Iniciar la aplicación
-Una vez configurado todo, levanta el servidor web de Flask:
+**Para desarrollo local:**
 ```bash
 python run.py
+```
+**Para entorno de Producción (Recomendado):**
+Utiliza Gunicorn para arrancar la aplicación de forma robusta y concurrente:
+```bash
+gunicorn -w 4 -b 127.0.0.1:5000 run:app
 ```
 La aplicación estará disponible en tu navegador en la dirección: **http://127.0.0.1:5000**
 
 ---
 
-## Acceso de Prueba (Credenciales por defecto)
+## 👥 Acceso de Prueba (Credenciales por defecto)
 
 Si has importado los datos de prueba (`insertsaudit.sql`), puedes iniciar sesión con:
 
@@ -88,7 +96,7 @@ Si has importado los datos de prueba (`insertsaudit.sql`), puedes iniciar sesió
 
 ---
 
-## Notas de Seguridad
+## 🛡️ Notas de Seguridad
 Este proyecto ha sido refactorizado para garantizar un estándar de seguridad:
 - Se ha incluido un fichero `.gitignore` para proteger los archivos subidos por clientes (`/uploads`) y prevenir fugas de datos confidenciales (RGPD).
 - Todos los formularios cuentan con protección nativa mediante **Tokens CSRF**.
