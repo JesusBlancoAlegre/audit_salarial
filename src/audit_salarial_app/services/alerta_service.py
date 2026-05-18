@@ -1,7 +1,7 @@
 from audit_salarial_app.models import Alerta, Auditoria, Empresa, Usuario
 from audit_salarial_app.extensions import db
 import logging
-
+import smtplib
 def generar_alerta(auditoria_id, tipo, severidad, asunto, mensaje, canal='AMBOS'):
     """
     Genera un registro de alerta in-app y lanza (o mockea) el envío de email.
@@ -51,8 +51,10 @@ def generar_alerta(auditoria_id, tipo, severidad, asunto, mensaje, canal='AMBOS'
                     from datetime import datetime
                     alerta.enviada_en = datetime.utcnow()
                     db.session.commit()
+                except smtplib.SMTPException as smtp_err:
+                    logging.error(f"Error SMTP enviando alerta a {usuario.email}: {str(smtp_err)}")
                 except Exception as e_mail:
-                    logging.error(f"Error al enviar email a {usuario.email}: {str(e_mail)}")
+                    logging.error(f"Error general al enviar email a {usuario.email}: {str(e_mail)}")
                     # No fallamos la transacción general si el correo falla
                     
         return True, "Alerta generada correctamente."

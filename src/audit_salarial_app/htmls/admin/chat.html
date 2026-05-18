@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% block title %}Chat — Auditoría #{{ auditoria.id }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8 col-xl-7">
+
+    {# Header #}
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <div>
+        <h3 class="mb-0 fw-bold" style="color:#c4b5fd;">
+          💬 Chat — Auditoría #{{ auditoria.id }}
+        </h3>
+        <small class="text-muted">{{ auditoria.empresa.nombre }}</small>
+      </div>
+      <a href="{{ url_for('admin.auditoria_resultados', id=auditoria.id) }}"
+         class="btn btn-outline-light btn-sm rounded-pill px-3">
+        ← Volver a Resultados
+      </a>
+    </div>
+
+    {# Chat Card #}
+    <div class="card" id="chat-panel"
+         style="border: 1px solid rgba(99,102,241,0.35); overflow:hidden;">
+
+      {# Messages Area #}
+      <div id="chat-messages"
+           style="height: calc(100vh - 320px); min-height:400px; overflow-y:auto;
+                  padding:20px; display:flex; flex-direction:column; gap:10px;
+                  background: rgba(15,23,42,0.4);">
+        <p class="text-muted text-center small" id="chat-empty-msg" style="margin:auto;">
+          Cargando mensajes…
+        </p>
+      </div>
+
+      {# Input #}
+      <div class="card-footer"
+           style="background:rgba(15,23,42,0.5); border-top:1px solid rgba(255,255,255,0.07);">
+        <form id="chat-form" class="d-flex gap-2 align-items-end">
+          <textarea id="chat-input" rows="2" maxlength="2000"
+                    class="form-control"
+                    placeholder="Escribe un mensaje… (Ctrl+Enter para enviar)"
+                    style="resize:none; font-size:0.9rem;"></textarea>
+          <button type="submit" id="chat-send-btn"
+                  class="btn btn-primary px-4 align-self-end"
+                  style="white-space:nowrap; height:42px;">
+            Enviar&nbsp;📤
+          </button>
+        </form>
+        <small class="text-muted mt-1 d-block" style="font-size:0.72rem;">
+          Los mensajes quedan registrados en el sistema de forma permanente.
+        </small>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  "use strict";
+
+  const AUDITORIA_ID   = Number("{{ auditoria.id }}");
+  const CURRENT_UID    = Number("{{ current_user.id }}");
+  const CHAT_URL       = "{{ url_for('admin.auditoria_chat', id=auditoria.id) }}";
+  const CSRF_TOKEN     = document.querySelector('meta[name="csrf-token"]')?.content ?? "";
+
+  const messagesEl = document.getElementById("chat-messages");
+  const emptyMsg   = document.getElementById("chat-empty-msg");
+  const inputEl    = document.getElementById("chat-input");
+  const form       = document.getElementById("chat-form");
+  const sendBtn    = document.getElementById("chat-send-btn");
+
+  let lastId = 0;
+
+  /* ---- Render bubble ---- */
+  function renderBubble(msg, animate = false) {
+    const isOwn = msg.autor_id === CURRENT_UID;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "d-flex flex-column " + (isOwn ? "align-items-end" : "align-items-start");
+    if (animate) wrapper.style.cssText = "opacity:0;transform:translateY(8px);transition:all .25s ease";
+
+    const roleLabel = { "CLIENTE": "🏢 Cliente", "AUDITOR": "🔍 Auditor", "ADMIN": "⚙️ Admin" }[msg.rol] ?? msg.rol;
+
+    wrapper.innerHTML = `
+      <div style="
+        max-width:75%; padding:10px 14px; border-radius:${isOwn ? '16px 16px 4px 16px' : '16px 16px 16px 4px'};
+        background:${isOwn ? 'linear-gradient(135deg,#6366f1,#8b5cf6)' : 'rgba(30,41,59,0.9)'};
+        border:1px solid ${isOwn ? 'transparent' : 'rgba(255,255,255,0.08)'};
+        color:#f8fafc; font-size:.88rem; line-height:1.55; word-break:break-word; white-space:pre-wrap;">
+        ${escHtml(msg.contenido)}
+      </div>
+      <small style="font-size:.7rem;color:#64748b;margin-top:3px;">
+        ${escHtml(msg.autor)} · ${roleLabel} · ${escHtml(msg.fecha)}
+      </small>`;
+
+    messagesEl.appendChild(wrapper);
+
+    if (animate) {
+      requestAnimationFrame(() => {
+        wrapper.style.opacity = "1";
+        wrapper.style.transform = "translateY(0)";
+      });
+    }
+  }
+
+  function escHtml(str) {
+    const d = document.createElement("div");
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  function scrollBottom() {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  /* ---- Initial load ---- */
+  async function cargarMensajes() {
+    try {
+      const res  = await fetch(`${CHAT_URL}?after=0`);
+      const data = await res.json();
+
+      emptyMsg.style.display = data.length ? "none" : "block";
+      if (data.length === 0) {
+        emptyMsg.textContent = "Aún no hay mensajes. ¡Sé el primero en escribir!";
+      }
+
+      data.forEach(m => { renderBubble(m); lastId = Math.max(lastId, m.id); });
+      scrollBottom();
+    } catch (e) {
+      emptyMsg.textContent = "Error al cargar mensajes.";
+    }
+  }
+
+  /* ---- Polling (5s) ---- */
+  async function pollNuevos() {
+    try {
+      const res  = await fetch(`${CHAT_URL}?after=${lastId}`);
+      const data = await res.json();
+      if (!Array.isArray(data)) return;
+
+      const atBottom = messagesEl.scrollHeight - messagesEl.scrollTop - messagesEl.clientHeight < 60;
+
+      data.forEach(m => {
+        renderBubble(m, true);
+        lastId = Math.max(lastId, m.id);
+        emptyMsg.style.display = "none";
+      });
+
+      if (data.length && atBottom) scrollBottom();
+    } catch (_) { /* silent */ }
+  }
+
+  /* ---- Send ---- */
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const contenido = inputEl.value.trim();
+    if (!contenido) return;
+
+    sendBtn.disabled = true;
+    sendBtn.textContent = "Enviando…";
+
+    try {
+      const res = await fetch(CHAT_URL, {
+        method:  "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken":  CSRF_TOKEN,
+        },
+        body: JSON.stringify({ contenido }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        inputEl.value = "";
+        renderBubble(data, true);
+        lastId = Math.max(lastId, data.id);
+        emptyMsg.style.display = "none";
+        scrollBottom();
+      } else {
+        alert("Error: " + (data.error ?? "No se pudo enviar el mensaje."));
+      }
+    } catch (_) {
+      alert("Error de red al enviar el mensaje.");
+    } finally {
+      sendBtn.disabled = false;
+      sendBtn.textContent = "Enviar 📤";
+      inputEl.focus();
+    }
+  });
+
+  /* Ctrl+Enter to send */
+  inputEl.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && e.ctrlKey) form.requestSubmit();
+  });
+
+  /* ---- Start ---- */
+  cargarMensajes();
+  setInterval(pollNuevos, 5000);
+})();
+</script>
+{% endblock %}

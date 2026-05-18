@@ -231,3 +231,138 @@ def generar_informe_individual_pdf(auditoria_id, anomalia_id):
     doc.build(elements)
     
     return True, filename
+
+def generar_plan_actuacion_pdf(auditoria_id):
+    """Genera un PDF formal del Plan de Actuación (RD 902/2020)."""
+    from ..models import PlanActuacion, AuditoriaRecomendacion, Tarea
+
+    auditoria = db.session.get(Auditoria, auditoria_id)
+    if not auditoria:
+        return False, "Auditoría no encontrada"
+
+    plan = PlanActuacion.query.filter_by(auditoria_id=auditoria_id).first()
+    res_global = Resultado.query.join(Dimension).filter(
+        Resultado.auditoria_id == auditoria_id, Dimension.codigo == 'GLOBAL'
+    ).first()
+    recomendaciones = AuditoriaRecomendacion.query.filter_by(auditoria_id=auditoria_id).all()
+    tareas = Tarea.query.filter_by(auditoria_id=auditoria_id).order_by(Tarea.fecha_inicio).all()
+
+    filename = f"Plan_Actuacion_Audit_{auditoria_id}_{datetime.now().strftime('%Y%m%d%H%M')}.pdf"
+    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+
+    doc = SimpleDocTemplate(filepath, pagesize=letter)
+    styles = getSampleStyleSheet()
+    elements = []
+
+    # Title
+    elements.append(Paragraph("Plan de Actuación para la Igualdad Retributiva", styles['Title']))
+    elements.append(Paragraph(f"(Conforme al Real Decreto 902/2020)", styles['Normal']))
+    elements.append(Spacer(1, 12))
+    elements.append(Paragraph(f"<b>Empresa:</b> {auditoria.empresa.nombre}", styles['Normal']))
+    elements.append(Paragraph(f"<b>Auditoría ID:</b> #{auditoria_id}", styles['Normal']))
+    elements.append(Paragraph(f"<b>Fecha:</b> {datetime.now().strftime('%d/%m/%Y')}", styles['Normal']))
+    elements.append(Spacer(1, 24))
+
+    # Section 1: Diagnostic
+    elements.append(Paragraph("1. Diagnóstico de la Situación Retributiva", styles['Heading2']))
+    if res_global:
+        diag_data = [
+            ["Métrica", "Valor"],
+            ["Total Empleados", str(res_global.n_total)],
+            ["Hombres", str(res_global.n_hombres)],
+            ["Mujeres", str(res_global.n_mujeres)],
+            ["Brecha Salarial Media", f"{res_global.brecha_media_pct:.2f}%"],
+            ["Brecha Salarial Mediana", f"{res_global.brecha_mediana_pct:.2f}%"],
+            ["Nivel de Riesgo", res_global.nivel_riesgo or "N/D"],
+            ["Score de Riesgo", f"{res_global.score_riesgo:.1f}/100" if res_global.score_riesgo else "N/D"],
+        ]
+        t = Table(diag_data, colWidths=[220, 120])
+        t.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#4338ca')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f0f0ff')),
+            ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#c7d2fe')),
+            ('ALIGN', (1, 0), (1, -1), 'CENTER'),
+        ]))
+        elements.append(t)
+    else:
+        elements.append(Paragraph("No hay datos de diagnóstico calculados.", styles['Normal']))
+    elements.append(Spacer(1, 18))
+
+    # Section 2: Objectives
+    elements.append(Paragraph("2. Objetivos del Plan", styles['Heading2']))
+    if plan:
+        elements.append(Paragraph(f"<b>Objetivo General:</b> {plan.objetivo_general or 'No definido'}", styles['Normal']))
+        elements.append(Paragraph(f"<b>Objetivo de Brecha:</b> {plan.objetivo_brecha_pct}%" if plan.objetivo_brecha_pct else "<b>Objetivo de Brecha:</b> No definido", styles['Normal']))
+        elements.append(Paragraph(f"<b>Plazo:</b> {plan.plazo_meses} meses", styles['Normal']))
+        elements.append(Paragraph(f"<b>Estado:</b> {plan.estado}", styles['Normal']))
+    else:
+        elements.append(Paragraph("Plan de actuación no definido aún.", styles['Normal']))
+    elements.append(Spacer(1, 18))
+
+    # Section 3: Corrective Measures
+    elements.append(Paragraph("3. Medidas Correctoras", styles['Heading2']))
+    if recomendaciones:
+        rec_data = [["Prioridad", "Medida", "Impacto", "Plazo", "Estado"]]
+        for r in recomendaciones:
+            rec_data.append([
+                r.prioridad,
+                r.recomendacion.titulo if r.recomendacion else "N/D",
+                f"{r.impacto_reduccion_pct}%" if r.impacto_reduccion_pct else "N/D",
+                f"{r.meses_estimados} meses" if r.meses_estimados else "N/D",
+                "Aplicada" if r.aplicada else "Pendiente",
+            ])
+        t2 = Table(rec_data, colWidths=[65, 170, 55, 55, 55])
+        t2.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#b45309')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, -1), 8),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#fef3c7')),
+            ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#fbbf24')),
+        ]))
+        elements.append(t2)
+    else:
+        elements.append(Paragraph("No se han generado medidas correctoras.", styles['Normal']))
+    elements.append(Spacer(1, 18))
+
+    # Section 4: Timeline
+    elements.append(Paragraph("4. Cronograma de Actuación", styles['Heading2']))
+    if tareas:
+        tar_data = [["Tarea", "Tipo", "Inicio", "Fin", "Estado"]]
+        for t_item in tareas:
+            tar_data.append([
+                t_item.titulo,
+                t_item.tipo,
+                t_item.fecha_inicio.strftime('%d/%m/%Y'),
+                t_item.fecha_fin.strftime('%d/%m/%Y'),
+                t_item.estado,
+            ])
+        t3 = Table(tar_data, colWidths=[150, 60, 70, 70, 70])
+        t3.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#059669')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, -1), 8),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#ecfdf5')),
+            ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#6ee7b7')),
+        ]))
+        elements.append(t3)
+    else:
+        elements.append(Paragraph("No hay tareas asignadas al cronograma.", styles['Normal']))
+    elements.append(Spacer(1, 18))
+
+    # Section 5: Legal
+    elements.append(Paragraph("5. Marco Legal Aplicable", styles['Heading2']))
+    elements.append(Paragraph(
+        "<b>Real Decreto 902/2020</b>, de 13 de octubre, de igualdad retributiva entre mujeres y hombres. "
+        "El presente plan de actuación se elabora conforme a los artículos 6 a 9 del citado Real Decreto, "
+        "que establece la obligación de las empresas de llevar a cabo una auditoría retributiva y de "
+        "establecer un plan de actuación con objetivos concretos, medidas correctoras y un cronograma "
+        "de implementación para garantizar la igualdad retributiva efectiva.",
+        styles['Normal']
+    ))
+
+    doc.build(elements)
+    return True, filename

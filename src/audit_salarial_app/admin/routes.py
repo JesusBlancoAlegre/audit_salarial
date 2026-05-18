@@ -1,19 +1,110 @@
 import os
+import re
 import logging
 from werkzeug.utils import secure_filename
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, send_file
 from flask_login import login_required, current_user
 
 from ..extensions import db
-from ..models import Empresa, Usuario, Rol, Auditoria, AuditoriaArchivo, Resultado, Dimension
+from ..models import Empresa, Usuario, Rol, Auditoria, AuditoriaArchivo, Resultado, Dimension, AuditoriaEvento
 from ..auth.decorators import role_required
 
 admin_bp = Blueprint("admin", __name__)
 
+# -------------------------------------------------------
+# HELPER: registrar evento en el histórico
+# -------------------------------------------------------
+def _registrar_evento(auditoria_id, evento, detalle=None,
+                      estado_anterior=None, estado_nuevo=None):
+    """Inserta una fila en auditoria_evento para trazabilidad."""
+    try:
+        ev = AuditoriaEvento(
+            auditoria_id=auditoria_id,
+            usuario_id=current_user.id,
+            evento=evento,
+            estado_anterior=estado_anterior,
+            estado_nuevo=estado_nuevo,
+            detalle=detalle,
+            ip_origen=request.remote_addr,
+        )
+        db.session.add(ev)
+        db.session.commit()
+    except Exception as exc:
+        logging.warning(f"No se pudo registrar evento '{evento}': {exc}")
+
 @admin_bp.get("/")
 @login_required
 def home():
-    return render_template("admin/home.html")
+    from sqlalchemy import func
+    from ..models import Alerta, Tarea, CitaPlanificada
+    from datetime import datetime, date
+
+    rol = current_user.role_name
+    empresa_id = current_user.empresa_id
+
+    # --- Base queries filtered by role ---
+    aud_q = Auditoria.query
+    if rol == 'CLIENTE' and empresa_id:
+        aud_q = aud_q.filter_by(empresa_id=empresa_id)
+
+    # KPI 1: Auditorías activas
+    total_auditorias = aud_q.count()
+    auditorias_activas = aud_q.filter(Auditoria.estado.in_(['PENDIENTE', 'PROCESANDO', 'REVISION'])).count()
+
+    # KPI 2: Brecha media global
+    brecha_q = db.session.query(func.avg(Resultado.brecha_media_pct)).join(Dimension).filter(
+        Dimension.codigo == 'GLOBAL', Resultado.brecha_media_pct.isnot(None)
+    )
+    if rol == 'CLIENTE' and empresa_id:
+        brecha_q = brecha_q.join(Auditoria).filter(Auditoria.empresa_id == empresa_id)
+    brecha_media_global = brecha_q.scalar() or 0
+
+    # KPI 3: Alertas no leídas
+    alerta_q = Alerta.query.filter_by(leida=False)
+    if rol == 'CLIENTE' and empresa_id:
+        alerta_q = alerta_q.filter_by(usuario_id=current_user.id)
+    alertas_pendientes = alerta_q.count()
+
+    # KPI 4: Tareas pendientes
+    tarea_q = Tarea.query.filter(Tarea.estado != 'COMPLETADA')
+    if rol == 'CLIENTE' and empresa_id:
+        tarea_q = tarea_q.join(Auditoria).filter(Auditoria.empresa_id == empresa_id)
+    tareas_pendientes = tarea_q.count()
+
+    # Últimas 5 auditorías
+    ultimas_auditorias = aud_q.order_by(Auditoria.creada_en.desc()).limit(5).all()
+
+    # Próximas 5 citas
+    cita_q = CitaPlanificada.query.filter(CitaPlanificada.fecha_hora >= datetime.utcnow())
+    if rol == 'CLIENTE' and empresa_id:
+        cita_q = cita_q.join(Auditoria).filter(Auditoria.empresa_id == empresa_id)
+    proximas_citas = cita_q.order_by(CitaPlanificada.fecha_hora.asc()).limit(5).all()
+
+    # Distribución de riesgo
+    riesgo_dist = db.session.query(
+        Resultado.nivel_riesgo, func.count(Resultado.id)
+    ).join(Dimension).filter(
+        Dimension.codigo == 'GLOBAL', Resultado.nivel_riesgo.isnot(None)
+    ).group_by(Resultado.nivel_riesgo).all()
+    riesgo_map = {r[0]: r[1] for r in riesgo_dist}
+
+    # Últimas alertas
+    alerta_recientes_q = Alerta.query
+    if rol == 'CLIENTE' and empresa_id:
+        alerta_recientes_q = alerta_recientes_q.filter_by(usuario_id=current_user.id)
+    ultimas_alertas = alerta_recientes_q.order_by(Alerta.creada_en.desc()).limit(5).all()
+
+    return render_template("admin/home.html",
+        total_auditorias=total_auditorias,
+        auditorias_activas=auditorias_activas,
+        brecha_media_global=brecha_media_global,
+        alertas_pendientes=alertas_pendientes,
+        tareas_pendientes=tareas_pendientes,
+        ultimas_auditorias=ultimas_auditorias,
+        proximas_citas=proximas_citas,
+        riesgo_map=riesgo_map,
+        ultimas_alertas=ultimas_alertas,
+    )
 
 # -----------------------
 # EMPRESAS
@@ -21,8 +112,9 @@ def home():
 @admin_bp.get("/empresas")
 @role_required("ADMIN", "AUDITOR")
 def lista_empresas():
-    empresas = Empresa.query.order_by(Empresa.id.desc()).all()
-    return render_template("admin/lista_empresas.html", empresas=empresas)
+    page = request.args.get('page', 1, type=int)
+    pagination = Empresa.query.order_by(Empresa.id.desc()).paginate(page=page, per_page=20, error_out=False)
+    return render_template("admin/lista_empresas.html", pagination=pagination)
 
 @admin_bp.route("/empresas/nueva", methods=["GET", "POST"])
 @role_required("ADMIN")
@@ -87,8 +179,9 @@ def empresa_activar(id):
 @admin_bp.get("/users")
 @role_required("ADMIN")
 def lista_users():
-    users = Usuario.query.order_by(Usuario.id.desc()).all()
-    return render_template("admin/lista_users.html", users=users)
+    page = request.args.get('page', 1, type=int)
+    pagination = Usuario.query.order_by(Usuario.id.desc()).paginate(page=page, per_page=20, error_out=False)
+    return render_template("admin/lista_users.html", pagination=pagination)
 
 @admin_bp.route("/users/nuevo", methods=["GET", "POST"])
 @role_required("ADMIN")
@@ -202,7 +295,8 @@ def lista_auditorias():
         Auditoria.id.desc()
     )
 
-    resultados_raw = query.all()
+    page = request.args.get('page', 1, type=int)
+    pagination_raw = query.paginate(page=page, per_page=20, error_out=False)
     
     # audits will be a list of objects with a and riesgo attributes for easy templating
     class AuditRow:
@@ -210,9 +304,22 @@ def lista_auditorias():
             self.a = auditoria
             self.riesgo = riesgo
             
-    audits = [AuditRow(r[0], r[1]) for r in resultados_raw]
+    audits = [AuditRow(r[0], r[1]) for r in pagination_raw.items]
+    
+    # Simulate the pagination object but with our custom wrapped items
+    class CustomPagination:
+        def __init__(self, original_pagination, new_items):
+            self.items = new_items
+            self.has_prev = original_pagination.has_prev
+            self.has_next = original_pagination.has_next
+            self.page = original_pagination.page
+            self.pages = original_pagination.pages
+            self.iter_pages = original_pagination.iter_pages
+            self.total = original_pagination.total
 
-    return render_template("admin/lista_auditorias.html", auditorias=audits, q=q, estado_filtro=estado_filtro)
+    pagination = CustomPagination(pagination_raw, audits)
+    
+    return render_template("admin/lista_auditorias.html", pagination=pagination, q=q, estado_filtro=estado_filtro)
 
 @admin_bp.route("/auditorias/nueva", methods=["GET", "POST"])
 @login_required
@@ -289,7 +396,13 @@ def auditoria_nueva():
                 flash(f"Auditoría creada, pero falló el cálculo: {msg}", "warning")
         else:
             flash(f"Auditoría creada. Falló la lectura interactiva del Excel: {info_excel['mensaje']}", "warning")
-        
+
+        _registrar_evento(
+            a.id,
+            evento='SUBIDA_EXCEL',
+            detalle=f"Archivo subido: {filename}",
+            estado_nuevo='PENDIENTE',
+        )
         return redirect(url_for("admin.lista_auditorias"))
         
     return render_template("admin/auditoria_form.html", empresas=empresas)
@@ -308,6 +421,7 @@ def auditoria_editar(id):
     if request.method == "POST":
         from datetime import datetime
         
+        estado_prev = auditoria.estado
         auditoria.estado = request.form.get("estado")
         auditor_id = request.form.get("auditor_usuario_id")
         auditoria.auditor_usuario_id = int(auditor_id) if auditor_id else None
@@ -325,10 +439,17 @@ def auditoria_editar(id):
         else:
             auditoria.fecha_periodo_fin = None
             
+        _registrar_evento(
+            id,
+            evento='CAMBIO_ESTADO',
+            detalle=f"Estado actualizado por {current_user.email}",
+            estado_anterior=estado_prev,
+            estado_nuevo=auditoria.estado,
+        )
         db.session.commit()
         flash("Auditoría actualizada correctamente", "success")
         return redirect(url_for("admin.lista_auditorias"))
-        
+
     return render_template("admin/auditoria_form_editar.html", auditoria=auditoria, auditores=auditores)
 
 @admin_bp.post("/auditorias/eliminar/<int:id>")
@@ -522,16 +643,22 @@ def exportar_resultados_csv(id):
     writer = csv.writer(output)
     writer.writerow(['Dimension', 'Valor', 'Hombres', 'Mujeres', 'Media Hombres', 'Media Mujeres', 'Brecha Media %', 'Nivel Riesgo'])
     
+    def sanitize_csv(val):
+        """Previene CSV Injection prefijando con comilla simple."""
+        if val and isinstance(val, str) and val.startswith(('=', '+', '-', '@')):
+            return f"'{val}"
+        return val
+
     for r in resultados:
         writer.writerow([
-            r.dimension.nombre if r.dimension else '',
-            r.dimension_valor,
+            sanitize_csv(r.dimension.nombre if r.dimension else ''),
+            sanitize_csv(r.dimension_valor),
             r.n_hombres,
             r.n_mujeres,
-            f"{r.media_hombres:.2f}",
-            f"{r.media_mujeres:.2f}",
-            f"{r.brecha_media_pct:.2f}",
-            r.nivel_riesgo or 'N/D'
+            f"{r.media_hombres:.2f}" if r.media_hombres is not None else "0.00",
+            f"{r.media_mujeres:.2f}" if r.media_mujeres is not None else "0.00",
+            f"{r.brecha_media_pct:.2f}" if r.brecha_media_pct is not None else "0.00",
+            sanitize_csv(r.nivel_riesgo or 'N/D')
         ])
         
     output.seek(0)
@@ -541,3 +668,584 @@ def exportar_resultados_csv(id):
     mem.seek(0)
     
     return send_file(mem, as_attachment=True, download_name=f'resultados_auditoria_{id}.csv', mimetype='text/csv')
+
+
+# -----------------------
+# BLOQUE 6: CHAT INTERNO
+# -----------------------
+from flask import jsonify
+
+@admin_bp.route("/auditorias/<int:id>/chat", methods=["GET", "POST"])
+@login_required
+def auditoria_chat(id):
+    """
+    GET  → devuelve mensajes JSON (acepta ?after=<id> para polling incremental).
+    POST → crea un nuevo mensaje (JSON body: {contenido: "..."}).
+    Ambos verifican que el usuario tiene acceso a la auditoría.
+    """
+    auditoria = db.session.get(Auditoria, id)
+    if not auditoria:
+        return jsonify({"error": "Auditoría no encontrada"}), 404
+
+    # Verificación de acceso
+    rol = current_user.role_name
+    if rol == "CLIENTE" and auditoria.empresa_id != current_user.empresa_id:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    from ..models import ChatMensaje
+    from ..services.chat_service import crear_mensaje, obtener_mensajes
+
+    if request.method == "GET":
+        after_id = request.args.get("after", 0, type=int)
+        mensajes = obtener_mensajes(id, after_id=after_id)
+        return jsonify([
+            {
+                "id":        m.id,
+                "autor_id":  m.autor_id,
+                "autor":     m.autor.nombre,
+                "rol":       m.autor.rol.nombre if m.autor.rol else "",
+                "contenido": m.contenido,
+                "fecha":     m.creado_en.strftime("%d/%m/%Y %H:%M"),
+            }
+            for m in mensajes
+        ])
+
+    # POST
+    data = request.get_json(silent=True) or {}
+    contenido = (data.get("contenido") or "").strip()
+    if not contenido:
+        return jsonify({"error": "El mensaje no puede estar vacío"}), 400
+    if len(contenido) > 2000:
+        return jsonify({"error": "Máximo 2 000 caracteres"}), 400
+
+    try:
+        msg = crear_mensaje(id, current_user, contenido)
+    except ValueError as exc:
+        return jsonify({"error": str(exc)}), 400
+
+    return jsonify({
+        "id":        msg.id,
+        "autor_id":  msg.autor_id,
+        "autor":     msg.autor.nombre,
+        "rol":       msg.autor.rol.nombre if msg.autor.rol else "",
+        "contenido": msg.contenido,
+        "fecha":     msg.creado_en.strftime("%d/%m/%Y %H:%M"),
+    }), 201
+
+@admin_bp.get("/auditorias/<int:id>/chat/vista")
+@login_required
+def chat_vista(id):
+    auditoria = db.session.get(Auditoria, id)
+    if not auditoria:
+        flash("Auditoría no encontrada", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+    if current_user.role_name == 'CLIENTE' and auditoria.empresa_id != current_user.empresa_id:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+    return render_template("admin/chat.html", auditoria=auditoria)
+
+# -----------------------
+# BLOQUE 7: CALENDARIO + TAREAS + CITAS
+# -----------------------
+from ..models import Tarea, CitaPlanificada
+from datetime import date, timedelta
+
+@admin_bp.get("/calendario")
+@login_required
+def calendario():
+    rol = current_user.role_name
+    if rol == 'CLIENTE' and current_user.empresa_id:
+        auditorias_list = Auditoria.query.filter_by(empresa_id=current_user.empresa_id).order_by(Auditoria.id.desc()).all()
+    elif rol in ('ADMIN',):
+        auditorias_list = Auditoria.query.order_by(Auditoria.id.desc()).all()
+    else:
+        auditorias_list = Auditoria.query.order_by(Auditoria.id.desc()).all()
+    return render_template("admin/calendario.html", auditorias=auditorias_list)
+
+@admin_bp.get("/api/eventos")
+@login_required
+def api_eventos():
+    from datetime import datetime as dt
+    aid = request.args.get("auditoria_id", type=int)
+    rol = current_user.role_name
+
+    tq = Tarea.query.join(Auditoria)
+    cq = CitaPlanificada.query.join(Auditoria)
+
+    if rol == 'CLIENTE' and current_user.empresa_id:
+        tq = tq.filter(Auditoria.empresa_id == current_user.empresa_id)
+        cq = cq.filter(Auditoria.empresa_id == current_user.empresa_id)
+    if aid:
+        tq = tq.filter(Tarea.auditoria_id == aid)
+        cq = cq.filter(CitaPlanificada.auditoria_id == aid)
+
+    color_map = {'TAREA': '#6366f1', 'HITO': '#10b981', 'REUNION': '#f59e0b'}
+    eventos = []
+
+    for t in tq.all():
+        eventos.append({
+            "id": f"tarea-{t.id}",
+            "title": t.titulo,
+            "start": t.fecha_inicio.isoformat(),
+            "end": (t.fecha_fin + timedelta(days=1)).isoformat(),
+            "backgroundColor": color_map.get(t.tipo, '#6366f1'),
+            "allDay": True,
+            "extendedProps": {
+                "event_type": "tarea", "db_id": t.id,
+                "auditoria_id": t.auditoria_id,
+                "empresa": t.auditoria.empresa.nombre if t.auditoria.empresa else "",
+                "descripcion": t.descripcion or "",
+                "tipo": t.tipo, "prioridad": t.prioridad, "estado": t.estado,
+            }
+        })
+
+    for c in cq.all():
+        eventos.append({
+            "id": f"cita-{c.id}",
+            "title": f"📌 {c.titulo}",
+            "start": c.fecha_hora.isoformat(),
+            "backgroundColor": "#ec4899",
+            "allDay": False,
+            "extendedProps": {
+                "event_type": "cita", "db_id": c.id,
+                "auditoria_id": c.auditoria_id,
+                "empresa": c.auditoria.empresa.nombre if c.auditoria.empresa else "",
+                "descripcion": c.descripcion or "",
+                "lugar": c.lugar or "", "duracion_min": c.duracion_min,
+            }
+        })
+
+    return jsonify(eventos)
+
+@admin_bp.route("/tareas", methods=["POST"])
+@login_required
+def crear_tarea():
+    data = request.get_json(silent=True) or {}
+    required = ["auditoria_id", "titulo", "fecha_inicio", "fecha_fin"]
+    for f in required:
+        if not data.get(f):
+            return jsonify({"error": f"Campo '{f}' requerido"}), 400
+    auditoria = db.session.get(Auditoria, int(data["auditoria_id"]))
+    if not auditoria:
+        return jsonify({"error": "Auditoría no encontrada"}), 404
+    if current_user.role_name == 'CLIENTE' and auditoria.empresa_id != current_user.empresa_id:
+        return jsonify({"error": "Acceso denegado"}), 403
+    from datetime import datetime as dt
+    t = Tarea(
+        auditoria_id=auditoria.id, creador_id=current_user.id,
+        titulo=data["titulo"].strip(), descripcion=(data.get("descripcion") or "").strip() or None,
+        tipo=data.get("tipo", "TAREA"), prioridad=data.get("prioridad", "MEDIA"),
+        fecha_inicio=dt.strptime(data["fecha_inicio"], "%Y-%m-%d").date(),
+        fecha_fin=dt.strptime(data["fecha_fin"], "%Y-%m-%d").date(),
+    )
+    db.session.add(t)
+    db.session.commit()
+    return jsonify({"ok": True, "id": t.id}), 201
+
+@admin_bp.delete("/tareas/<int:id>")
+@login_required
+def eliminar_tarea(id):
+    t = db.session.get(Tarea, id)
+    if not t:
+        return jsonify({"error": "No encontrada"}), 404
+    if current_user.role_name == 'CLIENTE' and t.auditoria.empresa_id != current_user.empresa_id:
+        return jsonify({"error": "Acceso denegado"}), 403
+    db.session.delete(t)
+    db.session.commit()
+    return jsonify({"ok": True})
+
+@admin_bp.route("/citas", methods=["POST"])
+@login_required
+def crear_cita():
+    data = request.get_json(silent=True) or {}
+    required = ["auditoria_id", "titulo", "fecha_hora"]
+    for f in required:
+        if not data.get(f):
+            return jsonify({"error": f"Campo '{f}' requerido"}), 400
+    auditoria = db.session.get(Auditoria, int(data["auditoria_id"]))
+    if not auditoria:
+        return jsonify({"error": "Auditoría no encontrada"}), 404
+    if current_user.role_name == 'CLIENTE' and auditoria.empresa_id != current_user.empresa_id:
+        return jsonify({"error": "Acceso denegado"}), 403
+    from datetime import datetime as dt
+    c = CitaPlanificada(
+        auditoria_id=auditoria.id, creador_id=current_user.id,
+        titulo=data["titulo"].strip(), descripcion=(data.get("descripcion") or "").strip() or None,
+        fecha_hora=dt.fromisoformat(data["fecha_hora"]),
+        duracion_min=int(data.get("duracion_min", 60)),
+        lugar=(data.get("lugar") or "").strip() or None,
+    )
+    db.session.add(c)
+    db.session.commit()
+    return jsonify({"ok": True, "id": c.id}), 201
+
+@admin_bp.delete("/citas/<int:id>")
+@login_required
+def eliminar_cita(id):
+    c = db.session.get(CitaPlanificada, id)
+    if not c:
+        return jsonify({"error": "No encontrada"}), 404
+    if current_user.role_name == 'CLIENTE' and c.auditoria.empresa_id != current_user.empresa_id:
+        return jsonify({"error": "Acceso denegado"}), 403
+    db.session.delete(c)
+    db.session.commit()
+    return jsonify({"ok": True})
+
+# -----------------------
+# BLOQUE 8: PLAN DE ACTUACIÓN (RD 902/2020)
+# -----------------------
+from ..models import PlanActuacion, AuditoriaRecomendacion
+
+@admin_bp.route("/auditorias/<int:id>/plan", methods=["GET", "POST"])
+@login_required
+def plan_actuacion(id):
+    auditoria = db.session.get(Auditoria, id)
+    if not auditoria:
+        flash("Auditoría no encontrada", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+    if current_user.role_name == 'CLIENTE' and auditoria.empresa_id != current_user.empresa_id:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+
+    plan = PlanActuacion.query.filter_by(auditoria_id=id).first()
+
+    if request.method == "POST":
+        if not plan:
+            plan = PlanActuacion(auditoria_id=id)
+            db.session.add(plan)
+        plan.objetivo_general = (request.form.get("objetivo_general") or "").strip() or None
+        obj_pct = request.form.get("objetivo_brecha_pct")
+        plan.objetivo_brecha_pct = float(obj_pct) if obj_pct else None
+        plan.plazo_meses = int(request.form.get("plazo_meses", 12))
+        plan.estado = request.form.get("estado", "BORRADOR")
+        if plan.estado == 'ACTIVO' and not plan.aprobado_por:
+            plan.aprobado_por = current_user.id
+            from datetime import datetime as dt
+            plan.aprobado_en = dt.utcnow()
+        db.session.commit()
+        flash("Plan de actuación guardado correctamente", "success")
+        return redirect(url_for("admin.plan_actuacion", id=id))
+
+    res_global = Resultado.query.join(Dimension).filter(
+        Resultado.auditoria_id == id, Dimension.codigo == 'GLOBAL'
+    ).first()
+    res_grupos = Resultado.query.join(Dimension).filter(
+        Resultado.auditoria_id == id, Dimension.codigo == 'GRUPO_PROFESIONAL'
+    ).order_by(Resultado.dimension_valor).all()
+    recomendaciones = AuditoriaRecomendacion.query.filter_by(auditoria_id=id).all()
+    tareas = Tarea.query.filter_by(auditoria_id=id).order_by(Tarea.fecha_inicio).all()
+
+    return render_template("admin/plan_actuacion.html",
+        auditoria=auditoria, plan=plan, res_global=res_global,
+        res_grupos=res_grupos, recomendaciones=recomendaciones, tareas=tareas)
+
+@admin_bp.get("/auditorias/<int:id>/plan/exportar")
+@login_required
+def exportar_plan_pdf(id):
+    auditoria = db.session.get(Auditoria, id)
+    if not auditoria:
+        flash("Auditoría no encontrada", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+    if current_user.role_name == 'CLIENTE' and auditoria.empresa_id != current_user.empresa_id:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+    from ..services.report_service import generar_plan_actuacion_pdf
+    exito, resultado = generar_plan_actuacion_pdf(id)
+    if not exito:
+        flash(f"Error: {resultado}", "error")
+        return redirect(url_for("admin.plan_actuacion", id=id))
+    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], resultado)
+    return send_file(filepath, as_attachment=True, download_name=resultado)
+
+# -----------------------
+# BLOQUE 9: VALORACIÓN DE PUESTOS (VPT — RD 902/2020, art. 4)
+# -----------------------
+from ..models import ValoracionPuesto
+
+@admin_bp.route("/auditorias/<int:id>/vpt", methods=["GET", "POST"])
+@login_required
+def vpt_auditoria(id):
+    auditoria = db.session.get(Auditoria, id)
+    if not auditoria:
+        flash("Auditoría no encontrada", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+    if current_user.role_name == 'CLIENTE' and auditoria.empresa_id != current_user.empresa_id:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+
+    if request.method == "POST":
+        f_form = int(request.form.get("factor_formacion", 5))
+        f_cond = int(request.form.get("factor_condiciones", 5))
+        f_esf  = int(request.form.get("factor_esfuerzo", 5))
+        f_resp = int(request.form.get("factor_responsabilidad", 5))
+        puntuacion = round((f_form + f_cond + f_esf + f_resp) / 4 * 10, 2)
+
+        sal_h = request.form.get("salario_medio_h")
+        sal_m = request.form.get("salario_medio_m")
+        sal_h = float(sal_h) if sal_h else None
+        sal_m = float(sal_m) if sal_m else None
+        brecha = None
+        if sal_h and sal_m and sal_h > 0:
+            brecha = round(((sal_h - sal_m) / sal_h) * 100, 3)
+
+        vp = ValoracionPuesto(
+            auditoria_id=id,
+            nombre_puesto=request.form["nombre_puesto"].strip(),
+            grupo_profesional=(request.form.get("grupo_profesional") or "").strip() or None,
+            factor_formacion=f_form,
+            factor_condiciones=f_cond,
+            factor_esfuerzo=f_esf,
+            factor_responsabilidad=f_resp,
+            puntuacion_total=puntuacion,
+            n_ocupantes=int(request.form.get("n_ocupantes", 0)),
+            n_hombres=int(request.form.get("n_hombres", 0)),
+            n_mujeres=int(request.form.get("n_mujeres", 0)),
+            salario_medio_h=sal_h,
+            salario_medio_m=sal_m,
+            brecha_puesto_pct=brecha,
+        )
+        db.session.add(vp)
+        db.session.commit()
+        flash(f"Puesto '{vp.nombre_puesto}' valorado correctamente (puntuación: {puntuacion})", "success")
+        return redirect(url_for("admin.vpt_auditoria", id=id))
+
+    puestos = ValoracionPuesto.query.filter_by(auditoria_id=id).order_by(
+        ValoracionPuesto.puntuacion_total.desc()
+    ).all()
+
+    import json
+    puestos_serialized = json.dumps([
+        {
+            "label": p.nombre_puesto,
+            "data": [p.factor_formacion, p.factor_condiciones, p.factor_esfuerzo, p.factor_responsabilidad]
+        }
+        for p in puestos
+    ])
+
+    return render_template("admin/vpt.html", auditoria=auditoria, puestos=puestos, puestos_serialized=puestos_serialized)
+
+@admin_bp.route("/auditorias/<int:id>/vpt/<int:puesto_id>/eliminar", methods=["POST"])
+@login_required
+def eliminar_vpt(id, puesto_id):
+    vp = db.session.get(ValoracionPuesto, puesto_id)
+    if not vp or vp.auditoria_id != id:
+        flash("Puesto no encontrado", "error")
+        return redirect(url_for("admin.vpt_auditoria", id=id))
+    db.session.delete(vp)
+    db.session.commit()
+    flash("Puesto eliminado", "success")
+    return redirect(url_for("admin.vpt_auditoria", id=id))
+
+
+# -----------------------
+# BLOQUE 10: PERFIL PROPIO
+# -----------------------
+@admin_bp.route("/perfil", methods=["GET", "POST"])
+@login_required
+def perfil():
+    if request.method == "POST":
+        accion = request.form.get("accion", "datos")
+
+        if accion == "datos":
+            nuevo_email = request.form.get("email", "").strip().lower()
+            nuevo_nombre = request.form.get("nombre", "").strip()
+            nuevos_apellidos = (request.form.get("apellidos") or "").strip() or None
+
+            if not nuevo_email or not nuevo_nombre:
+                flash("El nombre y el email son obligatorios.", "error")
+                return render_template("admin/perfil.html")
+
+            # Comprobar que el email no lo tiene otro usuario
+            conflicto = Usuario.query.filter(
+                Usuario.email == nuevo_email,
+                Usuario.id != current_user.id
+            ).first()
+            if conflicto:
+                flash("Ese email ya está en uso por otra cuenta.", "error")
+                return render_template("admin/perfil.html")
+
+            current_user.email = nuevo_email
+            current_user.nombre = nuevo_nombre
+            current_user.apellidos = nuevos_apellidos
+            db.session.commit()
+            flash("Datos actualizados correctamente.", "success")
+
+        elif accion == "password":
+            actual = request.form.get("password_actual", "")
+            nueva = request.form.get("password_nueva", "")
+            confirmar = request.form.get("password_confirmar", "")
+
+            if not current_user.check_password(actual):
+                flash("La contraseña actual no es correcta.", "error")
+                return render_template("admin/perfil.html")
+
+            if nueva != confirmar:
+                flash("La nueva contraseña y su confirmación no coinciden.", "error")
+                return render_template("admin/perfil.html")
+
+            if not re.match(
+                r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+                nueva
+            ):
+                flash(
+                    "La contraseña debe tener al menos 8 caracteres, "
+                    "una mayúscula, una minúscula, un número y un carácter especial.",
+                    "error",
+                )
+                return render_template("admin/perfil.html")
+
+            current_user.set_password(nueva)
+            current_user.must_change_password = False
+            db.session.commit()
+            flash("Contraseña cambiada correctamente.", "success")
+
+        return redirect(url_for("admin.perfil"))
+
+    return render_template("admin/perfil.html")
+
+
+# -----------------------
+# BLOQUE 11: DOCUMENTOS ADICIONALES POR AUDITORÍA
+# -----------------------
+ALLOWED_DOC_EXTENSIONS = {
+    "pdf", "doc", "docx", "xls", "xlsx",
+    "jpg", "jpeg", "png", "gif",
+    "txt", "csv", "zip",
+}
+
+def _extension_permitida(filename):
+    return (
+        "." in filename
+        and filename.rsplit(".", 1)[1].lower() in ALLOWED_DOC_EXTENSIONS
+    )
+
+
+@admin_bp.route("/auditorias/<int:id>/documentos", methods=["GET", "POST"])
+@login_required
+def documentos_auditoria(id):
+    auditoria = db.session.get(Auditoria, id)
+    if not auditoria:
+        flash("Auditoría no encontrada", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+
+    # Verificar acceso
+    if current_user.role_name == "CLIENTE" and auditoria.empresa_id != current_user.empresa_id:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+
+    if request.method == "POST":
+        file = request.files.get("documento")
+        descripcion = (request.form.get("descripcion") or "").strip() or None
+
+        if not file or file.filename == "":
+            flash("No has seleccionado ningún archivo.", "error")
+            return redirect(request.url)
+
+        if not _extension_permitida(file.filename):
+            flash(
+                f"Tipo de archivo no permitido. Extensiones válidas: "
+                f"{', '.join(sorted(ALLOWED_DOC_EXTENSIONS))}",
+                "error",
+            )
+            return redirect(request.url)
+
+        os.makedirs(current_app.config["UPLOAD_FOLDER"], exist_ok=True)
+        filename = secure_filename(file.filename)
+        # Evitar colisiones de nombre
+        from datetime import datetime as _dt
+        ts = _dt.now().strftime("%Y%m%d%H%M%S")
+        filename = f"{ts}_{filename}"
+        filepath = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
+        file.save(filepath)
+
+        doc = AuditoriaArchivo(
+            auditoria_id=id,
+            tipo="DOCUMENTO_ADICIONAL",
+            ruta=filepath,
+            nombre=filename,
+        )
+        # Guardar descripción en el campo nombre visible
+        if descripcion:
+            doc.nombre = f"{descripcion[:120]} | {filename}"
+        db.session.add(doc)
+        db.session.commit()
+
+        _registrar_evento(
+            id,
+            evento="SUBIDA_DOCUMENTO",
+            detalle=f"Documento adicional subido: {filename}",
+        )
+        flash("Documento subido correctamente.", "success")
+        return redirect(url_for("admin.documentos_auditoria", id=id))
+
+    # Solo documentos adicionales
+    docs = AuditoriaArchivo.query.filter_by(
+        auditoria_id=id, tipo="DOCUMENTO_ADICIONAL"
+    ).order_by(AuditoriaArchivo.creado_en.desc()).all()
+
+    return render_template("admin/documentos.html", auditoria=auditoria, docs=docs)
+
+
+@admin_bp.post("/auditorias/<int:id>/documentos/<int:doc_id>/eliminar")
+@login_required
+def eliminar_documento(id, doc_id):
+    doc = db.session.get(AuditoriaArchivo, doc_id)
+    if not doc or doc.auditoria_id != id or doc.tipo != "DOCUMENTO_ADICIONAL":
+        flash("Documento no encontrado.", "error")
+        return redirect(url_for("admin.documentos_auditoria", id=id))
+
+    auditoria = db.session.get(Auditoria, id)
+    if current_user.role_name == "CLIENTE" and auditoria.empresa_id != current_user.empresa_id:
+        flash("Acceso denegado.", "error")
+        return redirect(url_for("admin.documentos_auditoria", id=id))
+
+    # Borrar del disco si existe
+    if os.path.exists(doc.ruta):
+        try:
+            os.remove(doc.ruta)
+        except OSError as exc:
+            logging.warning(f"No se pudo borrar el archivo físico {doc.ruta}: {exc}")
+
+    _registrar_evento(id, evento="ELIMINACION_DOCUMENTO", detalle=f"Eliminado: {doc.nombre}")
+    db.session.delete(doc)
+    db.session.commit()
+    flash("Documento eliminado.", "success")
+    return redirect(url_for("admin.documentos_auditoria", id=id))
+
+
+# -----------------------
+# BLOQUE 12: HISTÓRICO DE ACTIVIDAD
+# -----------------------
+@admin_bp.get("/auditorias/<int:id>/historico")
+@login_required
+def historico_auditoria(id):
+    auditoria = db.session.get(Auditoria, id)
+    if not auditoria:
+        flash("Auditoría no encontrada", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+
+    if current_user.role_name == "CLIENTE" and auditoria.empresa_id != current_user.empresa_id:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+
+    eventos = (
+        AuditoriaEvento.query
+        .filter_by(auditoria_id=id)
+        .order_by(AuditoriaEvento.creado_en.desc())
+        .all()
+    )
+    # También incluir todos los archivos (Excel + informes + docs adicionales)
+    archivos = (
+        AuditoriaArchivo.query
+        .filter_by(auditoria_id=id)
+        .order_by(AuditoriaArchivo.creado_en.desc())
+        .all()
+    )
+
+    return render_template(
+        "admin/historico.html",
+        auditoria=auditoria,
+        eventos=eventos,
+        archivos=archivos,
+    )
+

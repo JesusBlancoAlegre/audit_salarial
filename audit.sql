@@ -223,15 +223,16 @@ CREATE TABLE anomalia (
     auditoria_id    BIGINT UNSIGNED NOT NULL,
     dimension_id    SMALLINT UNSIGNED NULL,
     dimension_valor VARCHAR(140) NULL,
+    id_fila_excel   INT NULL,
     
-    metodo          ENUM('IQR','Z_SCORE','DESVIACION','MANUAL') NOT NULL,
+    metodo          VARCHAR(30) NOT NULL,
     campo           VARCHAR(60) NOT NULL,
     valor           DECIMAL(12,2) NOT NULL,
     umbral_superior DECIMAL(12,2) NULL,
     umbral_inferior DECIMAL(12,2) NULL,
     z_score         DECIMAL(6,3) NULL,
     
-    severidad       ENUM('BAJA','MEDIA','ALTA') NOT NULL DEFAULT 'MEDIA',
+    severidad       VARCHAR(20) NOT NULL DEFAULT 'MEDIA',
     descripcion     VARCHAR(500) NULL,
     revisada        BOOLEAN NOT NULL DEFAULT 0,
     revisada_por    BIGINT UNSIGNED NULL,
@@ -261,7 +262,7 @@ CREATE TABLE recomendacion_catalogo (
     codigo          VARCHAR(40) NOT NULL,
     titulo          VARCHAR(160) NOT NULL,
     descripcion     TEXT NOT NULL,
-    tipo            ENUM('ORGANIZATIVA','RETRIBUTIVA','FORMACION','PROCESO','LEGAL','OTRA') NOT NULL DEFAULT 'OTRA',
+    tipo            VARCHAR(30) NOT NULL DEFAULT 'OTRA',
     coste_estimado_default DECIMAL(12,2) NULL,
     impacto_default DECIMAL(5,2) NULL,
     meses_default   TINYINT UNSIGNED NULL,
@@ -378,4 +379,171 @@ CREATE TABLE alerta (
         FOREIGN KEY (usuario_id) REFERENCES usuario(id)
         ON UPDATE CASCADE
         ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ======================================================
+-- 9) CHAT INTERNO (Mensajería entre cliente y auditor)
+-- ======================================================
+
+CREATE TABLE chat_mensaje (
+    id              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    auditoria_id    BIGINT UNSIGNED NOT NULL,
+    autor_id        BIGINT UNSIGNED NOT NULL,
+    contenido       TEXT NOT NULL,
+    creado_en       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    KEY idx_chat_auditoria (auditoria_id),
+    KEY idx_chat_autor (autor_id),
+    KEY idx_chat_fecha (creado_en),
+    CONSTRAINT fk_chat_auditoria
+        FOREIGN KEY (auditoria_id) REFERENCES auditoria(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_chat_autor
+        FOREIGN KEY (autor_id) REFERENCES usuario(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ======================================================
+-- 10) TAREAS (Calendario y plan de actuación)
+-- ======================================================
+
+CREATE TABLE tarea (
+    id              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    auditoria_id    BIGINT UNSIGNED NOT NULL,
+    creador_id      BIGINT UNSIGNED NOT NULL,
+    asignado_id     BIGINT UNSIGNED NULL,
+
+    titulo          VARCHAR(200) NOT NULL,
+    descripcion     TEXT NULL,
+    tipo            ENUM('TAREA','HITO','REUNION') NOT NULL DEFAULT 'TAREA',
+    prioridad       ENUM('BAJA','MEDIA','ALTA','URGENTE') NOT NULL DEFAULT 'MEDIA',
+    estado          ENUM('PENDIENTE','EN_PROGRESO','COMPLETADA') NOT NULL DEFAULT 'PENDIENTE',
+
+    fecha_inicio    DATE NOT NULL,
+    fecha_fin       DATE NOT NULL,
+    completada_en   DATETIME NULL,
+
+    creada_en       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    KEY idx_tarea_auditoria (auditoria_id),
+    KEY idx_tarea_creador (creador_id),
+    KEY idx_tarea_asignado (asignado_id),
+    KEY idx_tarea_estado (estado),
+    KEY idx_tarea_fechas (fecha_inicio, fecha_fin),
+    CONSTRAINT fk_tarea_auditoria
+        FOREIGN KEY (auditoria_id) REFERENCES auditoria(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_tarea_creador
+        FOREIGN KEY (creador_id) REFERENCES usuario(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_tarea_asignado
+        FOREIGN KEY (asignado_id) REFERENCES usuario(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ======================================================
+-- 11) CITAS PLANIFICADAS (Reuniones auditor-cliente)
+-- ======================================================
+
+CREATE TABLE cita_planificada (
+    id              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    auditoria_id    BIGINT UNSIGNED NOT NULL,
+    creador_id      BIGINT UNSIGNED NOT NULL,
+
+    titulo          VARCHAR(200) NOT NULL,
+    descripcion     TEXT NULL,
+    fecha_hora      DATETIME NOT NULL,
+    duracion_min    INT UNSIGNED NOT NULL DEFAULT 60,
+    lugar           VARCHAR(300) NULL,
+
+    creada_en       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    KEY idx_cita_auditoria (auditoria_id),
+    KEY idx_cita_creador (creador_id),
+    KEY idx_cita_fecha (fecha_hora),
+    CONSTRAINT fk_cita_auditoria
+        FOREIGN KEY (auditoria_id) REFERENCES auditoria(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_cita_creador
+        FOREIGN KEY (creador_id) REFERENCES usuario(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ======================================================
+-- 12) PLAN DE ACTUACIÓN (RD 902/2020)
+-- ======================================================
+
+CREATE TABLE plan_actuacion (
+    id                   BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    auditoria_id         BIGINT UNSIGNED NOT NULL,
+
+    objetivo_general     TEXT NULL,
+    objetivo_brecha_pct  DECIMAL(7,3) NULL,
+    plazo_meses          INT UNSIGNED NOT NULL DEFAULT 12,
+
+    estado               ENUM('BORRADOR','ACTIVO','COMPLETADO') NOT NULL DEFAULT 'BORRADOR',
+    aprobado_por         BIGINT UNSIGNED NULL,
+    aprobado_en          DATETIME NULL,
+
+    creado_en            DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    actualizado_en       DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_plan_auditoria (auditoria_id),
+    KEY idx_plan_estado (estado),
+    CONSTRAINT fk_plan_auditoria
+        FOREIGN KEY (auditoria_id) REFERENCES auditoria(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_plan_aprobador
+        FOREIGN KEY (aprobado_por) REFERENCES usuario(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ======================================================
+-- 13) VALORACIÓN DE PUESTOS DE TRABAJO (RD 902/2020, art. 4)
+-- ======================================================
+
+CREATE TABLE valoracion_puesto (
+    id                      BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    auditoria_id            BIGINT UNSIGNED NOT NULL,
+
+    nombre_puesto           VARCHAR(160) NOT NULL,
+    grupo_profesional       VARCHAR(140) NULL,
+
+    -- 4 factores legales (puntuados 1-10)
+    factor_formacion        SMALLINT UNSIGNED NOT NULL DEFAULT 5,
+    factor_condiciones      SMALLINT UNSIGNED NOT NULL DEFAULT 5,
+    factor_esfuerzo         SMALLINT UNSIGNED NOT NULL DEFAULT 5,
+    factor_responsabilidad  SMALLINT UNSIGNED NOT NULL DEFAULT 5,
+    puntuacion_total        DECIMAL(6,2) NULL,
+
+    -- Datos retributivos observados
+    n_ocupantes             INT UNSIGNED DEFAULT 0,
+    n_hombres               INT UNSIGNED DEFAULT 0,
+    n_mujeres               INT UNSIGNED DEFAULT 0,
+    salario_medio_h         DECIMAL(12,2) NULL,
+    salario_medio_m         DECIMAL(12,2) NULL,
+    brecha_puesto_pct       DECIMAL(7,3) NULL,
+
+    creado_en               DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    KEY idx_vpt_auditoria (auditoria_id),
+    KEY idx_vpt_puntuacion (puntuacion_total),
+    CONSTRAINT fk_vpt_auditoria
+        FOREIGN KEY (auditoria_id) REFERENCES auditoria(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

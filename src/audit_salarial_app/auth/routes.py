@@ -39,9 +39,15 @@ def login():
 @auth_bp.route("/registrarse", methods=["GET", "POST"])
 def registrarse():
     if request.method == "POST":
+        import re
         email = request.form["email"].strip().lower()
         nombre = request.form["nombre"].strip()
         password = request.form["password"]
+
+        # Validación de fuerza de contraseña
+        if not re.match(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", password):
+            flash("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.", "error")
+            return render_template("auth/registrarse.html"), 400
 
         if Usuario.query.filter_by(email=email).first():
             flash("Ese email ya está registrado", "error")
@@ -69,14 +75,15 @@ def registrarse():
             nombre=nombre,
             rol_id=rol_cliente.id,
             empresa_id=empresa_id,
-            password_hash="tmp"
+            password_hash="tmp",
+            activo=False  # Por seguridad, el admin debe activarlo
         )
         u.set_password(password)
 
         db.session.add(u)
         db.session.commit()
 
-        flash("Registro correcto. Ya puedes iniciar sesión.", "success")
+        flash("Registro correcto. Tu cuenta debe ser aprobada por un administrador antes de poder iniciar sesión.", "success")
         return redirect(url_for("auth.login"))
 
     return render_template("auth/registrarse.html")

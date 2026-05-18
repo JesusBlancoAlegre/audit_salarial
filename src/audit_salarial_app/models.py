@@ -38,6 +38,7 @@ class Usuario(UserMixin, db.Model):
     apellidos = db.Column(db.String(160))
     ultimo_login = db.Column(db.DateTime)
     activo = db.Column(db.Boolean, nullable=False, default=True)
+    must_change_password = db.Column(db.Boolean, nullable=False, default=False)
     creado_en = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
     rol = db.relationship("Rol")
@@ -253,3 +254,108 @@ class Alerta(db.Model):
     auditoria = db.relationship("Auditoria")
     empresa = db.relationship("Empresa")
     usuario = db.relationship("Usuario")
+
+class ChatMensaje(db.Model):
+    """Mensaje de chat interno entre cliente y auditor, vinculado a una auditoría."""
+    __tablename__ = "chat_mensaje"
+    id           = db.Column(db.BigInteger, primary_key=True)
+    auditoria_id = db.Column(db.BigInteger, db.ForeignKey("auditoria.id", ondelete="CASCADE"), nullable=False)
+    autor_id     = db.Column(db.BigInteger, db.ForeignKey("usuario.id"), nullable=False)
+    contenido    = db.Column(db.Text, nullable=False)
+    creado_en    = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    auditoria = db.relationship("Auditoria")
+    autor     = db.relationship("Usuario")
+
+class Tarea(db.Model):
+    """Tarea del plan de actuación vinculada a una auditoría."""
+    __tablename__ = "tarea"
+    id             = db.Column(db.BigInteger, primary_key=True)
+    auditoria_id   = db.Column(db.BigInteger, db.ForeignKey("auditoria.id", ondelete="CASCADE"), nullable=False)
+    creador_id     = db.Column(db.BigInteger, db.ForeignKey("usuario.id"), nullable=False)
+    asignado_id    = db.Column(db.BigInteger, db.ForeignKey("usuario.id"))
+
+    titulo         = db.Column(db.String(200), nullable=False)
+    descripcion    = db.Column(db.Text)
+    tipo           = db.Column(db.String(30), nullable=False, default='TAREA')   # TAREA | HITO | REUNION
+    prioridad      = db.Column(db.String(20), nullable=False, default='MEDIA')   # BAJA | MEDIA | ALTA | URGENTE
+    estado         = db.Column(db.String(20), nullable=False, default='PENDIENTE')  # PENDIENTE | EN_PROGRESO | COMPLETADA
+
+    fecha_inicio   = db.Column(db.Date, nullable=False)
+    fecha_fin      = db.Column(db.Date, nullable=False)
+    completada_en  = db.Column(db.DateTime)
+
+    creada_en      = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    auditoria = db.relationship("Auditoria")
+    creador   = db.relationship("Usuario", foreign_keys=[creador_id])
+    asignado  = db.relationship("Usuario", foreign_keys=[asignado_id])
+
+class CitaPlanificada(db.Model):
+    """Cita/reunión planificada entre auditor y cliente."""
+    __tablename__ = "cita_planificada"
+    id             = db.Column(db.BigInteger, primary_key=True)
+    auditoria_id   = db.Column(db.BigInteger, db.ForeignKey("auditoria.id", ondelete="CASCADE"), nullable=False)
+    creador_id     = db.Column(db.BigInteger, db.ForeignKey("usuario.id"), nullable=False)
+
+    titulo         = db.Column(db.String(200), nullable=False)
+    descripcion    = db.Column(db.Text)
+    fecha_hora     = db.Column(db.DateTime, nullable=False)
+    duracion_min   = db.Column(db.Integer, nullable=False, default=60)
+    lugar          = db.Column(db.String(300))
+
+    creada_en      = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    auditoria = db.relationship("Auditoria")
+    creador   = db.relationship("Usuario")
+
+class PlanActuacion(db.Model):
+    """Plan de actuación formal vinculado a una auditoría (RD 902/2020)."""
+    __tablename__ = "plan_actuacion"
+    id                   = db.Column(db.BigInteger, primary_key=True)
+    auditoria_id         = db.Column(db.BigInteger, db.ForeignKey("auditoria.id", ondelete="CASCADE"), nullable=False, unique=True)
+
+    objetivo_general     = db.Column(db.Text)
+    objetivo_brecha_pct  = db.Column(db.Numeric(7, 3))
+    plazo_meses          = db.Column(db.Integer, nullable=False, default=12)
+
+    estado               = db.Column(db.String(20), nullable=False, default='BORRADOR')  # BORRADOR | ACTIVO | COMPLETADO
+    aprobado_por         = db.Column(db.BigInteger, db.ForeignKey("usuario.id"))
+    aprobado_en          = db.Column(db.DateTime)
+
+    creado_en            = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    actualizado_en       = db.Column(db.DateTime, onupdate=datetime.utcnow)
+
+    auditoria = db.relationship("Auditoria")
+    aprobador = db.relationship("Usuario")
+
+class ValoracionPuesto(db.Model):
+    """
+    Valoración de Puestos de Trabajo (VPT) — RD 902/2020, art. 4.
+    Evalúa si puestos distintos son de 'igual valor' usando 4 factores legales.
+    """
+    __tablename__ = "valoracion_puesto"
+    id                     = db.Column(db.BigInteger, primary_key=True)
+    auditoria_id           = db.Column(db.BigInteger, db.ForeignKey("auditoria.id", ondelete="CASCADE"), nullable=False)
+
+    nombre_puesto          = db.Column(db.String(160), nullable=False)
+    grupo_profesional      = db.Column(db.String(140))
+
+    # 4 factores RD 902/2020 (puntuados 1-10)
+    factor_formacion       = db.Column(db.SmallInteger, nullable=False, default=5)
+    factor_condiciones     = db.Column(db.SmallInteger, nullable=False, default=5)
+    factor_esfuerzo        = db.Column(db.SmallInteger, nullable=False, default=5)
+    factor_responsabilidad = db.Column(db.SmallInteger, nullable=False, default=5)
+    puntuacion_total       = db.Column(db.Numeric(6, 2))
+
+    # Datos retributivos observados
+    n_ocupantes            = db.Column(db.Integer, default=0)
+    n_hombres              = db.Column(db.Integer, default=0)
+    n_mujeres              = db.Column(db.Integer, default=0)
+    salario_medio_h        = db.Column(db.Numeric(12, 2))
+    salario_medio_m        = db.Column(db.Numeric(12, 2))
+    brecha_puesto_pct      = db.Column(db.Numeric(7, 3))
+
+    creado_en              = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    auditoria = db.relationship("Auditoria")
