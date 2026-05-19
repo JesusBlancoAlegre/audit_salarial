@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+{% block title %}Detalle de Empresa — {{ empresa.nombre }}{% endblock %}
+{% block content %}
+
+{# ====== BREADCRUMBS & HEADER ====== #}
+<div class="mb-4 d-flex justify-content-between align-items-center fade-in-up">
+  <div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-1">
+        <li class="breadcrumb-item"><a href="{{ url_for('admin.home') }}" class="text-decoration-none" style="color: #818cf8;">Dashboard</a></li>
+        <li class="breadcrumb-item active text-muted" aria-current="page">Empresas</li>
+      </ol>
+    </nav>
+    <h1 class="display-6 fw-bold mb-0"
+        style="background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+      {{ empresa.nombre }}
+    </h1>
+  </div>
+  <div>
+    {% if current_user.rol.nombre == 'ADMIN' %}
+    <a href="{{ url_for('admin.empresa_editar', id=empresa.id) }}" class="btn btn-warning shadow-sm rounded-pill px-4">
+      ✏️ Editar Datos
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+{# ====== KPI CARDS ====== #}
+<div class="row g-3 mb-4">
+  {# KPI 1: Total Auditorías #}
+  <div class="col-6 col-lg-3 fade-in-up" style="animation-delay:0.05s;">
+    <div class="card h-100" style="border:1px solid rgba(99,102,241,0.25); background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(16px);">
+      <div class="card-body text-center py-3">
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+          <span style="font-size:1.5rem;">📊</span>
+          <span class="text-muted small">Auditorías Totales</span>
+        </div>
+        <div class="fs-2 fw-bold" style="color:#818cf8;">{{ total_auditorias }}</div>
+        <div class="small text-muted">{{ auditorias_activas }} en progreso</div>
+      </div>
+    </div>
+  </div>
+
+  {# KPI 2: Brecha Salarial Media #}
+  <div class="col-6 col-lg-3 fade-in-up" style="animation-delay:0.1s;">
+    {% set border_color = 'rgba(239,68,68,0.35)' if brecha_media > 25 else 'rgba(245,158,11,0.35)' if brecha_media > 10 else 'rgba(16,185,129,0.35)' %}
+    <div class="card h-100" style="border:1px solid {{ border_color }}; background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(16px);">
+      <div class="card-body text-center py-3">
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+          <span style="font-size:1.5rem;">⚖️</span>
+          <span class="text-muted small">Brecha Promedio</span>
+        </div>
+        <div class="fs-2 fw-bold {% if brecha_media > 25 %}text-danger{% elif brecha_media > 10 %}text-warning{% else %}text-success{% endif %}">
+          {{ "%.1f"|format(brecha_media) }}%
+        </div>
+        <div class="small text-muted">media global de brecha</div>
+      </div>
+    </div>
+  </div>
+
+  {# KPI 3: Tareas de Actuación #}
+  <div class="col-6 col-lg-3 fade-in-up" style="animation-delay:0.15s;">
+    <div class="card h-100" style="border:1px solid rgba(139,92,246,0.25); background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(16px);">
+      <div class="card-body text-center py-3">
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+          <span style="font-size:1.5rem;">📋</span>
+          <span class="text-muted small">Tareas Pendientes</span>
+        </div>
+        <div class="fs-2 fw-bold" style="color:#a78bfa;">{{ tareas|length }}</div>
+        <div class="small text-muted">en plan de actuación</div>
+      </div>
+    </div>
+  </div>
+
+  {# KPI 4: Próximas Citas #}
+  <div class="col-6 col-lg-3 fade-in-up" style="animation-delay:0.2s;">
+    <div class="card h-100" style="border:1px solid rgba(236,72,153,0.25); background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(16px);">
+      <div class="card-body text-center py-3">
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+          <span style="font-size:1.5rem;">📅</span>
+          <span class="text-muted small">Reuniones</span>
+        </div>
+        <div class="fs-2 fw-bold" style="color:#f472b6;">{{ citas|length }}</div>
+        <div class="small text-muted">citas planificadas</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ====== SECTIONS ROW 1: DATOS CORPORATIVOS & HISTORIAL ====== #}
+<div class="row g-3 mb-4">
+  {# Ficha Corporativa #}
+  <div class="col-lg-4 fade-in-up" style="animation-delay:0.25s;">
+    <div class="card h-100" style="background: rgba(30, 41, 59, 0.35); border: 1px solid rgba(255, 255, 255, 0.08);">
+      <div class="card-header bg-transparent border-0 d-flex align-items-center gap-2 pt-3">
+        <span style="font-size:1.2rem;">🏢</span>
+        <h5 class="mb-0 fw-semibold text-white">Datos Corporativos</h5>
+      </div>
+      <div class="card-body pt-2">
+        <div class="mb-3">
+          <label class="text-muted small d-block mb-1">Nombre Legal</label>
+          <span class="fw-bold text-white">{{ empresa.nombre }}</span>
+        </div>
+        <div class="mb-3">
+          <label class="text-muted small d-block mb-1">CIF / Identificación</label>
+          <span class="text-white fw-semibold">{{ empresa.cif or '—' }}</span>
+        </div>
+        <div class="mb-3">
+          <label class="text-muted small d-block mb-1">Plantilla de Trabajadores</label>
+          <span class="text-white">{{ empresa.num_trabajadores }} empleados</span>
+        </div>
+        <div class="mb-3">
+          <label class="text-muted small d-block mb-1">Contacto Corporativo</label>
+          <span class="text-white d-block small mb-1">📧 {{ empresa.email_contacto or '—' }}</span>
+          <span class="text-white d-block small">📞 {{ empresa.telefono_contacto or '—' }}</span>
+        </div>
+        <div class="mb-3">
+          <label class="text-muted small d-block mb-1">Dirección Física</label>
+          <span class="text-white small">{{ empresa.direccion or '—' }}</span>
+        </div>
+        <div>
+          <label class="text-muted small d-block mb-1">Sector de Actividad</label>
+          <span class="badge bg-secondary">{{ empresa.sector.nombre if empresa.sector else 'General' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# Listado de Auditorías #}
+  <div class="col-lg-8 fade-in-up" style="animation-delay:0.3s;">
+    <div class="card h-100" style="background: rgba(30, 41, 59, 0.35); border: 1px solid rgba(255, 255, 255, 0.08);">
+      <div class="card-header bg-transparent border-0 d-flex align-items-center justify-content-between pt-3">
+        <div class="d-flex align-items-center gap-2">
+          <span style="font-size:1.2rem;">📂</span>
+          <h5 class="mb-0 fw-semibold text-white">Historial de Auditorías</h5>
+        </div>
+        {% if current_user.rol.nombre in ['ADMIN', 'AUDITOR'] %}
+        <a href="{{ url_for('admin.auditoria_nueva') }}" class="btn btn-sm btn-primary rounded-pill px-3">+ Nueva</a>
+        {% endif %}
+      </div>
+      <div class="card-body p-0">
+        {% if auditorias %}
+        <div class="table-responsive">
+          <table class="table table-hover table-striped mb-0 text-center align-middle text-white" style="background: transparent;">
+            <thead>
+              <tr class="table-dark">
+                <th>ID</th>
+                <th>Estado</th>
+                <th>Periodo</th>
+                <th>Fecha Creación</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in auditorias %}
+              <tr>
+                <td class="fw-bold text-white">#{{ a.id }}</td>
+                <td>
+                  {% set estado_colors = {'PENDIENTE':'bg-secondary','PROCESANDO':'bg-info','REVISION':'bg-warning text-dark','COMPLETADA':'bg-success','ERROR':'bg-danger','RECHAZADA':'bg-dark'} %}
+                  <span class="badge {{ estado_colors.get(a.estado, 'bg-secondary') }}">{{ a.estado }}</span>
+                </td>
+                <td class="small">
+                  {% if a.fecha_periodo_ini and a.fecha_periodo_fin %}
+                  {{ a.fecha_periodo_ini.strftime('%Y') }}
+                  {% else %}
+                  Sin definir
+                  {% endif %}
+                </td>
+                <td class="small text-muted">{{ a.creada_en.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>
+                  <div class="d-flex gap-2 justify-content-center">
+                    <a href="{{ url_for('admin.historico_auditoria', id=a.id) }}" class="btn btn-sm btn-outline-secondary rounded-pill px-2">📜 Histórico</a>
+                    <a href="{{ url_for('admin.auditoria_resultados', id=a.id) }}" class="btn btn-sm btn-outline-primary rounded-pill px-2">Ver Resultados</a>
+                    {% if current_user.rol.nombre in ['ADMIN', 'AUDITOR'] %}
+                    <a href="{{ url_for('admin.auditoria_editar', id=a.id) }}" class="btn btn-sm btn-outline-warning rounded-pill px-2">Editar</a>
+                    {% endif %}
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5 text-muted">
+          <p class="mb-3">No hay auditorías registradas para esta empresa.</p>
+          {% if current_user.rol.nombre in ['ADMIN', 'AUDITOR'] %}
+          <a href="{{ url_for('admin.auditoria_nueva') }}" class="btn btn-primary rounded-pill px-4">Subir primer archivo Excel</a>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ====== SECTIONS ROW 2: TAREAS & CITAS DEL CALENDARIO ====== #}
+<div class="row g-3">
+  {# Tareas pendientes #}
+  <div class="col-lg-6 fade-in-up" style="animation-delay:0.35s;">
+    <div class="card h-100" style="background: rgba(30, 41, 59, 0.35); border: 1px solid rgba(255, 255, 255, 0.08);">
+      <div class="card-header bg-transparent border-0 d-flex align-items-center gap-2 pt-3">
+        <span style="font-size:1.2rem;">📋</span>
+        <h5 class="mb-0 fw-semibold text-white">Tareas del Plan de Actuación</h5>
+      </div>
+      <div class="card-body p-0">
+        {% if tareas %}
+        <div class="list-group list-group-flush bg-transparent">
+          {% for t in tareas %}
+          <div class="list-group-item d-flex justify-content-between align-items-center bg-transparent border-color-light text-white p-3">
+            <div>
+              <div class="fw-semibold text-white">{{ t.titulo }}</div>
+              <div class="text-muted small">Fin: {{ t.fecha_fin.strftime('%d/%m/%Y') }} · Prioridad: <span class="badge bg-secondary">{{ t.prioridad }}</span></div>
+            </div>
+            <span class="badge bg-info">{{ t.estado }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-4 text-muted small">
+          ✅ No hay tareas pendientes para esta empresa
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {# Citas / Reuniones #}
+  <div class="col-lg-6 fade-in-up" style="animation-delay:0.4s;">
+    <div class="card h-100" style="background: rgba(30, 41, 59, 0.35); border: 1px solid rgba(255, 255, 255, 0.08);">
+      <div class="card-header bg-transparent border-0 d-flex align-items-center gap-2 pt-3">
+        <span style="font-size:1.2rem;">📅</span>
+        <h5 class="mb-0 fw-semibold text-white">Citas Planificadas</h5>
+      </div>
+      <div class="card-body p-0">
+        {% if citas %}
+        <div class="list-group list-group-flush bg-transparent">
+          {% for c in citas %}
+          <div class="list-group-item d-flex align-items-center gap-3 bg-transparent border-color-light text-white p-3">
+            <div class="text-center" style="min-width:50px;">
+              <div class="fw-bold" style="color:#ec4899; font-size:1.3rem;">{{ c.fecha_hora.strftime('%d') }}</div>
+              <div class="text-muted small" style="font-size:0.7rem; text-transform:uppercase;">{{ c.fecha_hora.strftime('%b') }}</div>
+            </div>
+            <div>
+              <div class="fw-semibold text-white">{{ c.titulo }}</div>
+              <div class="text-muted small">{{ c.fecha_hora.strftime('%H:%M') }} · {% if c.lugar %}📍 {{ c.lugar }}{% else %}Online{% endif %}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-4 text-muted small">
+          Sin reuniones o citas programadas
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mb-5"></div>
+
+{% endblock %}

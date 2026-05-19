@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Auditoría Salarial{% endblock %}
+{% block content %}
+
+{# ====== HEADER ====== #}
+<div class="mb-4 fade-in-up">
+  <h1 class="display-5 fw-bold mb-1"
+      style="background: linear-gradient(to right, #818cf8, #c084fc); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+    Dashboard
+  </h1>
+  <p class="text-muted mb-0">
+    Bienvenido, <strong>{{ current_user.nombre }}</strong> · {{ current_user.rol.nombre }}
+  </p>
+</div>
+
+{% if current_user.rol.nombre in ['ADMIN', 'AUDITOR'] %}
+{# ====== SECCIÓN DE EMPRESAS ASIGNADAS ====== #}
+<div class="mb-4 fade-in-up" style="animation-delay:0.02s;">
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <span style="font-size:1.5rem;">🏢</span>
+    <h3 class="h4 mb-0 fw-bold" style="color:#ffffff;">
+      {% if current_user.rol.nombre == 'ADMIN' %}Todas las Empresas{% else %}Mis Empresas Asignadas{% endif %}
+    </h3>
+  </div>
+  
+  {% if empresas_cards %}
+  <div class="row g-3">
+    {% for emp in empresas_cards %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <a href="{{ url_for('admin.empresa_ver', id=emp.id) }}" class="card h-100 text-decoration-none border-0 shadow-sm glass-card-hover"
+         style="background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); transition: transform 0.2s ease, border-color 0.2s ease; cursor: pointer; border-radius: 12px;">
+        <div class="card-body p-4 d-flex flex-column h-100">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h5 class="fw-bold mb-0 text-white truncate-text">{{ emp.nombre }}</h5>
+            {% set border_color_brecha = 'bg-danger' if emp.brecha_media > 25 else 'bg-warning text-dark' if emp.brecha_media > 10 else 'bg-success' %}
+            <span class="badge {{ border_color_brecha }} px-2 py-1 small">
+              Brecha: {{ "%.1f"|format(emp.brecha_media) }}%
+            </span>
+          </div>
+          <p class="text-muted small mb-3">CIF: {{ emp.cif or '—' }} · {{ emp.num_trabajadores }} empleados</p>
+          
+          <div class="mt-auto d-flex justify-content-between align-items-center">
+            <div class="d-flex gap-3 small text-muted">
+              <span>Auditorías: <strong>{{ emp.total_auditorias }}</strong></span>
+              {% if emp.auditorias_activas > 0 %}
+              <span class="text-info"><i class="bi bi-circle-fill" style="font-size:0.5rem; vertical-align:middle; margin-right:3px;"></i>{{ emp.auditorias_activas }} activas</span>
+              {% endif %}
+            </div>
+            <span class="btn btn-sm btn-outline-light rounded-pill px-3 py-1" style="font-size: 0.75rem;">Ver Empresa →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="card border-0 shadow-sm text-center p-4" style="background: rgba(30, 41, 59, 0.45); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px;">
+    <p class="text-muted mb-0 py-2">No tienes ninguna empresa asignada todavía.</p>
+  </div>
+  {% endif %}
+</div>
+<hr class="my-4" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
+{% endif %}
+
+{# ====== KPI CARDS ====== #}
+<div class="row g-3 mb-4">
+  {# KPI 1: Auditorías #}
+  <div class="col-6 col-lg-3 fade-in-up" style="animation-delay:0.05s;">
+    <div class="card h-100" style="border:1px solid rgba(99,102,241,0.25);">
+      <div class="card-body text-center py-3">
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+          <span style="font-size:1.5rem;">📊</span>
+          <span class="text-muted small">Auditorías</span>
+        </div>
+        <div class="fs-2 fw-bold" style="color:#818cf8;">{{ total_auditorias }}</div>
+        <div class="small text-muted">{{ auditorias_activas }} activa{{ 's' if auditorias_activas != 1 }}</div>
+      </div>
+    </div>
+  </div>
+
+  {# KPI 2: Brecha Media #}
+  <div class="col-6 col-lg-3 fade-in-up" style="animation-delay:0.1s;">
+    {% set border_color = 'rgba(239,68,68,0.35)' if brecha_media_global > 25 else 'rgba(245,158,11,0.35)' if brecha_media_global > 10 else 'rgba(16,185,129,0.35)' %}
+    <div class="card h-100" {{ 'style="border:1px solid ' ~ border_color ~ ';"' | safe }}>
+      <div class="card-body text-center py-3">
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+          <span style="font-size:1.5rem;">⚖️</span>
+          <span class="text-muted small">Brecha Media</span>
+        </div>
+        <div class="fs-2 fw-bold
+          {% if brecha_media_global > 25 %}text-danger{% elif brecha_media_global > 10 %}text-warning{% else %}text-success{% endif %}">
+          {{ "%.1f"|format(brecha_media_global) }}%
+        </div>
+        <div class="small text-muted">promedio global</div>
+      </div>
+    </div>
+  </div>
+
+  {# KPI 3: Alertas #}
+  <div class="col-6 col-lg-3 fade-in-up" style="animation-delay:0.15s;">
+    {% set border_color = 'rgba(245,158,11,0.35)' if alertas_pendientes > 0 else 'rgba(255,255,255,0.08)' %}
+    <div class="card h-100" {{ 'style="border:1px solid ' ~ border_color ~ ';"' | safe }}>
+      <div class="card-body text-center py-3">
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+          <span style="font-size:1.5rem;">🔔</span>
+          <span class="text-muted small">Alertas</span>
+        </div>
+        <div class="fs-2 fw-bold {% if alertas_pendientes > 0 %}text-warning{% else %}text-success{% endif %}">
+          {{ alertas_pendientes }}
+        </div>
+        <div class="small text-muted">sin leer</div>
+      </div>
+    </div>
+  </div>
+
+  {# KPI 4: Tareas #}
+  <div class="col-6 col-lg-3 fade-in-up" style="animation-delay:0.2s;">
+    <div class="card h-100" style="border:1px solid rgba(139,92,246,0.25);">
+      <div class="card-body text-center py-3">
+        <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+          <span style="font-size:1.5rem;">📋</span>
+          <span class="text-muted small">Tareas</span>
+        </div>
+        <div class="fs-2 fw-bold" style="color:#a78bfa;">{{ tareas_pendientes }}</div>
+        <div class="small text-muted">pendientes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ====== ROW 2: Riesgo + Últimas Auditorías ====== #}
+<div class="row g-3 mb-4">
+
+  {# Distribución de Riesgo #}
+  <div class="col-lg-4 fade-in-up" style="animation-delay:0.25s;">
+    <div class="card h-100" style="border:1px solid rgba(255,255,255,0.08);">
+      <div class="card-header d-flex align-items-center gap-2">
+        <span>🎯</span>
+        <h6 class="mb-0 fw-semibold">Distribución de Riesgo</h6>
+      </div>
+      <div class="card-body">
+        {% set riesgo_total = (riesgo_map.values()|list|sum) or 1 %}
+        {% set niveles = [
+          ('BAJO', '#10b981', riesgo_map.get('BAJO', 0)),
+          ('MEDIO', '#f59e0b', riesgo_map.get('MEDIO', 0)),
+          ('ALTO', '#ef4444', riesgo_map.get('ALTO', 0)),
+          ('CRITICO', '#dc2626', riesgo_map.get('CRITICO', 0)),
+        ] %}
+        {% for nombre, color, count in niveles %}
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <div class="d-flex align-items-center gap-2">
+            <span {{ 'style="display:inline-block;width:12px;height:12px;border-radius:3px;background:' ~ color ~ ';"' | safe }}></span>
+            <span class="small">{{ nombre }}</span>
+          </div>
+          <div class="d-flex align-items-center gap-2" style="width:60%;">
+            <div class="progress flex-grow-1" style="height:8px; background:rgba(255,255,255,0.05);">
+              <div class="progress-bar" {{ 'style="width:' ~ ((count/riesgo_total*100)|int) ~ '%;background:' ~ color ~ ';"' | safe }}></div>
+            </div>
+            <span class="small fw-bold" style="min-width:20px;">{{ count }}</span>
+          </div>
+        </div>
+        {% endfor %}
+
+        {% if riesgo_total <= 1 and not riesgo_map %}
+        <p class="text-muted text-center small mb-0 mt-3">Sin datos de riesgo aún</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {# Últimas Auditorías #}
+  <div class="col-lg-8 fade-in-up" style="animation-delay:0.3s;">
+    <div class="card h-100" style="border:1px solid rgba(255,255,255,0.08);">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+          <span>📂</span>
+          <h6 class="mb-0 fw-semibold">Últimas Auditorías</h6>
+        </div>
+        <a href="{{ url_for('admin.lista_auditorias') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">Ver todas</a>
+      </div>
+      <div class="card-body p-0">
+        {% if ultimas_auditorias %}
+        <div class="table-responsive">
+          <table class="table table-hover mb-0 align-middle">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Empresa</th>
+                <th>Estado</th>
+                <th>Riesgo</th>
+                <th>Fecha</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in ultimas_auditorias %}
+              <tr>
+                <td class="fw-bold">#{{ a.id }}</td>
+                <td>{{ a.empresa.nombre if a.empresa else '—' }}</td>
+                <td>
+                  {% set estado_colors = {'PENDIENTE':'bg-secondary','PROCESANDO':'bg-info','REVISION':'bg-warning text-dark','COMPLETADA':'bg-success','ERROR':'bg-danger','RECHAZADA':'bg-dark'} %}
+                  <span class="badge {{ estado_colors.get(a.estado, 'bg-secondary') }}">{{ a.estado }}</span>
+                </td>
+                <td>
+                  {% if a.nivel_riesgo_global %}
+                  {% set riesgo_colors = {'BAJO':'bg-success','MEDIO':'bg-warning text-dark','ALTO':'bg-danger','CRITICO':'bg-danger'} %}
+                  <span class="badge {{ riesgo_colors.get(a.nivel_riesgo_global, 'bg-secondary') }}">{{ a.nivel_riesgo_global }}</span>
+                  {% else %}
+                  <span class="text-muted">—</span>
+                  {% endif %}
+                </td>
+                <td class="small text-muted">{{ a.creada_en.strftime('%d/%m/%Y') }}</td>
+                <td>
+                  <a href="{{ url_for('admin.auditoria_resultados', id=a.id) }}" class="btn btn-sm btn-outline-primary rounded-pill px-2">
+                    Ver
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="text-center py-4 text-muted">
+          <p class="mb-2">No hay auditorías registradas.</p>
+          <a href="{{ url_for('admin.lista_auditorias') }}" class="btn btn-primary btn-sm rounded-pill px-3">Nueva Auditoría</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ====== ROW 3: Alertas + Citas ====== #}
+<div class="row g-3 mb-4">
+
+  {# Últimas Alertas #}
+  <div class="col-lg-6 fade-in-up" style="animation-delay:0.35s;">
+    <div class="card h-100" style="border:1px solid rgba(255,255,255,0.08);">
+      <div class="card-header d-flex align-items-center gap-2">
+        <span>🔔</span>
+        <h6 class="mb-0 fw-semibold">Últimas Alertas</h6>
+      </div>
+      <div class="card-body p-0">
+        {% if ultimas_alertas %}
+        <div class="list-group list-group-flush">
+          {% for al in ultimas_alertas %}
+          <div class="list-group-item d-flex align-items-start gap-3"
+               style="background:transparent; border-color:rgba(255,255,255,0.06);">
+            <span style="font-size:1.2rem;">
+              {% if al.severidad == 'CRITICO' %}🔴
+              {% elif al.severidad == 'ERROR' %}🟠
+              {% elif al.severidad == 'WARNING' %}🟡
+              {% else %}🔵{% endif %}
+            </span>
+            <div class="flex-grow-1">
+              <div class="fw-semibold small">{{ al.asunto or al.tipo }}</div>
+              <div class="text-muted small" style="font-size:0.78rem;">{{ al.mensaje[:120] }}{{ '…' if al.mensaje|length > 120 }}</div>
+            </div>
+            <small class="text-muted" style="white-space:nowrap;">{{ al.creada_en.strftime('%d/%m %H:%M') }}</small>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-4 text-muted small">
+          ✅ Sin alertas recientes
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {# Próximas Citas #}
+  <div class="col-lg-6 fade-in-up" style="animation-delay:0.4s;">
+    <div class="card h-100" style="border:1px solid rgba(255,255,255,0.08);">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+          <span>📅</span>
+          <h6 class="mb-0 fw-semibold">Próximas Citas</h6>
+        </div>
+        <a href="{{ url_for('admin.calendario') }}" class="btn btn-sm btn-outline-light rounded-pill px-3">Calendario</a>
+      </div>
+      <div class="card-body p-0">
+        {% if proximas_citas %}
+        <div class="list-group list-group-flush">
+          {% for c in proximas_citas %}
+          <div class="list-group-item d-flex align-items-center gap-3"
+               style="background:transparent; border-color:rgba(255,255,255,0.06);">
+            <div class="text-center" style="min-width:50px;">
+              <div class="fw-bold" style="color:#ec4899; font-size:1.3rem;">{{ c.fecha_hora.strftime('%d') }}</div>
+              <div class="text-muted small" style="font-size:0.7rem; text-transform:uppercase;">{{ c.fecha_hora.strftime('%b') }}</div>
+            </div>
+            <div class="flex-grow-1">
+              <div class="fw-semibold small">{{ c.titulo }}</div>
+              <div class="text-muted small" style="font-size:0.78rem;">
+                {{ c.fecha_hora.strftime('%H:%M') }} · {{ c.duracion_min }} min
+                {% if c.lugar %} · {{ c.lugar }}{% endif %}
+              </div>
+            </div>
+            <span class="badge bg-secondary small">#{{ c.auditoria_id }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-4 text-muted small">
+          Sin citas próximas
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ====== ACCESOS RÁPIDOS ====== #}
+<div class="row g-3 mb-5">
+  {% if current_user.rol.nombre in ['ADMIN', 'AUDITOR'] %}
+  <div class="col-6 col-md-3 fade-in-up" style="animation-delay:0.45s;">
+    <a href="{{ url_for('admin.lista_empresas') }}" class="card text-decoration-none h-100" style="border:1px solid rgba(99,102,241,0.2); cursor:pointer;">
+      <div class="card-body text-center py-3">
+        <span style="font-size:1.8rem;">🏢</span>
+        <div class="fw-semibold small mt-1">Empresas</div>
+      </div>
+    </a>
+  </div>
+  {% endif %}
+  {% if current_user.rol.nombre == 'ADMIN' %}
+  <div class="col-6 col-md-3 fade-in-up" style="animation-delay:0.5s;">
+    <a href="{{ url_for('admin.lista_users') }}" class="card text-decoration-none h-100" style="border:1px solid rgba(192,132,252,0.2); cursor:pointer;">
+      <div class="card-body text-center py-3">
+        <span style="font-size:1.8rem;">👥</span>
+        <div class="fw-semibold small mt-1">Usuarios</div>
+      </div>
+    </a>
+  </div>
+  {% endif %}
+  <div class="col-6 col-md-3 fade-in-up" style="animation-delay:0.55s;">
+    <a href="{{ url_for('admin.lista_auditorias') }}" class="card text-decoration-none h-100" style="border:1px solid rgba(52,211,153,0.2); cursor:pointer;">
+      <div class="card-body text-center py-3">
+        <span style="font-size:1.8rem;">📂</span>
+        <div class="fw-semibold small mt-1">Auditorías</div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-md-3 fade-in-up" style="animation-delay:0.6s;">
+    <a href="{{ url_for('admin.calendario') }}" class="card text-decoration-none h-100" style="border:1px solid rgba(236,72,153,0.2); cursor:pointer;">
+      <div class="card-body text-center py-3">
+        <span style="font-size:1.8rem;">📅</span>
+        <div class="fw-semibold small mt-1">Calendario</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+{% endblock %}

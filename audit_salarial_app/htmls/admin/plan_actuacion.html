@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+{% block title %}Plan de Actuación — Auditoría #{{ auditoria.id }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h2 class="mb-0 fw-bold"
+        style="background: linear-gradient(to right, #818cf8, #f472b6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+      📋 Plan de Actuación (RD 902/2020)
+    </h2>
+    <small class="text-muted">Auditoría #{{ auditoria.id }} — {{ auditoria.empresa.nombre }}</small>
+  </div>
+  <div class="d-flex gap-2">
+    <a href="{{ url_for('admin.exportar_plan_pdf', id=auditoria.id) }}" class="btn btn-outline-light rounded-pill px-3">
+      📄 Exportar PDF
+    </a>
+    <a href="{{ url_for('admin.auditoria_resultados', id=auditoria.id) }}" class="btn btn-outline-secondary rounded-pill px-3">
+      ← Resultados
+    </a>
+  </div>
+</div>
+
+{# ====== SECCIÓN 1: DIAGNÓSTICO RETRIBUTIVO ====== #}
+<div class="card mb-4" style="border-left: 4px solid #6366f1;">
+  <div class="card-header d-flex align-items-center gap-2">
+    <span style="font-size:1.3rem;">🔍</span>
+    <h5 class="mb-0 fw-semibold">1. Diagnóstico de la Situación Retributiva</h5>
+    {% if res_global and res_global.nivel_riesgo %}
+    <span class="badge ms-auto
+      {% if res_global.nivel_riesgo == 'CRÍTICO' %}bg-danger
+      {% elif res_global.nivel_riesgo == 'ALTO' %}bg-warning text-dark
+      {% elif res_global.nivel_riesgo == 'MEDIO' %}bg-info text-dark
+      {% else %}bg-success{% endif %}">
+      Riesgo: {{ res_global.nivel_riesgo }}
+    </span>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    {% if res_global %}
+    <div class="row text-center mb-3">
+      <div class="col-md-3">
+        <div class="p-3 rounded" style="background:rgba(99,102,241,0.1);">
+          <div class="text-muted small">Empleados</div>
+          <div class="fs-4 fw-bold">{{ res_global.n_total }}</div>
+          <div class="small">♂ {{ res_global.n_hombres }} · ♀ {{ res_global.n_mujeres }}</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="p-3 rounded" style="background:rgba(99,102,241,0.1);">
+          <div class="text-muted small">Brecha Media</div>
+          <div class="fs-4 fw-bold {% if res_global.brecha_media_pct > 25 %}text-danger{% elif res_global.brecha_media_pct > 0 %}text-warning{% else %}text-success{% endif %}">
+            {{ "%.2f"|format(res_global.brecha_media_pct) }}%
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="p-3 rounded" style="background:rgba(99,102,241,0.1);">
+          <div class="text-muted small">Brecha Mediana</div>
+          <div class="fs-4 fw-bold">{{ "%.2f"|format(res_global.brecha_mediana_pct) }}%</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="p-3 rounded" style="background:rgba(99,102,241,0.1);">
+          <div class="text-muted small">Score Riesgo</div>
+          <div class="fs-4 fw-bold">{{ "%.1f"|format(res_global.score_riesgo) }}/100</div>
+        </div>
+      </div>
+    </div>
+
+    {% if res_grupos %}
+    <h6 class="fw-semibold mt-3 mb-2">Desglose por Grupo Profesional</h6>
+    <div class="table-responsive">
+      <table class="table table-sm text-center align-middle">
+        <thead><tr>
+          <th class="text-start">Grupo</th><th>Hombres</th><th>Mujeres</th><th>Brecha Media</th><th>Riesgo</th>
+        </tr></thead>
+        <tbody>
+          {% for r in res_grupos %}
+          <tr>
+            <td class="text-start fw-bold">{{ r.dimension_valor }}</td>
+            <td>{{ r.n_hombres }}</td>
+            <td>{{ r.n_mujeres }}</td>
+            <td class="{% if r.brecha_media_pct > 25 %}text-danger fw-bold{% elif r.brecha_media_pct > 0 %}text-warning{% endif %}">
+              {{ "%.2f"|format(r.brecha_media_pct) }}%
+            </td>
+            <td><span class="badge
+              {% if r.nivel_riesgo == 'CRÍTICO' %}bg-danger
+              {% elif r.nivel_riesgo == 'ALTO' %}bg-warning text-dark
+              {% elif r.nivel_riesgo == 'MEDIO' %}bg-info text-dark
+              {% else %}bg-success{% endif %}">{{ r.nivel_riesgo }}</span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+    {% else %}
+    <p class="text-muted">No hay datos de diagnóstico calculados para esta auditoría.</p>
+    {% endif %}
+  </div>
+</div>
+
+{# ====== SECCIÓN 2: OBJETIVOS ====== #}
+<div class="card mb-4" style="border-left: 4px solid #10b981;">
+  <div class="card-header d-flex align-items-center gap-2">
+    <span style="font-size:1.3rem;">🎯</span>
+    <h5 class="mb-0 fw-semibold">2. Objetivos del Plan</h5>
+    {% if plan %}
+    <span class="badge ms-auto
+      {% if plan.estado == 'ACTIVO' %}bg-success
+      {% elif plan.estado == 'COMPLETADO' %}bg-info
+      {% else %}bg-secondary{% endif %}">
+      {{ plan.estado }}
+    </span>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <form id="form-plan" method="POST" action="{{ url_for('admin.plan_actuacion', id=auditoria.id) }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="mb-3">
+        <label class="form-label">Objetivo General</label>
+        <textarea name="objetivo_general" class="form-control" rows="3"
+                  placeholder="Ej: Reducir la brecha salarial de género por debajo del 5% en todos los grupos profesionales mediante la revisión de la política retributiva y la implantación de bandas salariales transparentes.">{{ plan.objetivo_general if plan and plan.objetivo_general else '' }}</textarea>
+      </div>
+      <div class="row g-3 mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Objetivo de Brecha (%)</label>
+          <input type="number" name="objetivo_brecha_pct" class="form-control" step="0.1" min="0" max="100"
+                 placeholder="5.0"
+                 value="{{ plan.objetivo_brecha_pct if plan and plan.objetivo_brecha_pct else '' }}">
+          <small class="text-muted">% de brecha objetivo a alcanzar</small>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Plazo (meses)</label>
+          <input type="number" name="plazo_meses" class="form-control" min="1" max="60"
+                 value="{{ plan.plazo_meses if plan else 12 }}">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Estado del Plan</label>
+          <select name="estado" class="form-select">
+            <option value="BORRADOR" {% if not plan or plan.estado == 'BORRADOR' %}selected{% endif %}>📝 Borrador</option>
+            <option value="ACTIVO" {% if plan and plan.estado == 'ACTIVO' %}selected{% endif %}>✅ Activo</option>
+            <option value="COMPLETADO" {% if plan and plan.estado == 'COMPLETADO' %}selected{% endif %}>🏁 Completado</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary rounded-pill px-4">
+        💾 Guardar Plan
+      </button>
+    </form>
+  </div>
+</div>
+
+{# ====== SECCIÓN 3: MEDIDAS CORRECTORAS ====== #}
+<div class="card mb-4" style="border-left: 4px solid #f59e0b;">
+  <div class="card-header d-flex align-items-center gap-2">
+    <span style="font-size:1.3rem;">⚡</span>
+    <h5 class="mb-0 fw-semibold">3. Medidas Correctoras</h5>
+    {% if recomendaciones %}
+    <span class="badge bg-warning text-dark ms-auto">{{ recomendaciones|length }} medida(s)</span>
+    {% endif %}
+  </div>
+  <div class="card-body p-0">
+    {% if recomendaciones %}
+    <div class="table-responsive">
+      <table class="table table-hover mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Prioridad</th>
+            <th>Medida</th>
+            <th>Descripción</th>
+            <th>Impacto Est.</th>
+            <th>Coste Est.</th>
+            <th>Plazo</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for rec in recomendaciones %}
+          <tr>
+            <td>
+              {% if rec.prioridad == 'URGENTE' %}
+              <span class="badge bg-danger">URGENTE</span>
+              {% elif rec.prioridad == 'ALTA' %}
+              <span class="badge bg-warning text-dark">ALTA</span>
+              {% else %}
+              <span class="badge bg-info text-dark">{{ rec.prioridad }}</span>
+              {% endif %}
+            </td>
+            <td class="fw-bold">{{ rec.recomendacion.titulo }}</td>
+            <td class="small">{{ rec.recomendacion.descripcion }}</td>
+            <td>{{ rec.impacto_reduccion_pct }}%</td>
+            <td>{{ rec.coste_estimado_eur }} €</td>
+            <td>{{ rec.meses_estimados }} meses</td>
+            <td>
+              {% if rec.aplicada %}
+              <span class="badge bg-success">✅ Aplicada</span>
+              {% else %}
+              <span class="badge bg-secondary">⏳ Pendiente</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="p-4 text-muted text-center">
+      No se han generado recomendaciones automáticas para esta auditoría.
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{# ====== SECCIÓN 4: CRONOGRAMA ====== #}
+<div class="card mb-4" style="border-left: 4px solid #ec4899;">
+  <div class="card-header d-flex align-items-center gap-2">
+    <span style="font-size:1.3rem;">📅</span>
+    <h5 class="mb-0 fw-semibold">4. Cronograma de Actuación</h5>
+    {% if tareas %}
+    <span class="badge bg-secondary ms-auto">{{ tareas|length }} tarea(s)</span>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    {% if tareas %}
+    <div class="table-responsive">
+      <table class="table table-sm align-middle">
+        <thead><tr>
+          <th>Tarea</th><th>Tipo</th><th>Inicio</th><th>Fin</th><th>Estado</th><th>Progreso</th>
+        </tr></thead>
+        <tbody>
+          {% for t in tareas %}
+          <tr>
+            <td class="fw-bold">{{ t.titulo }}</td>
+            <td><span class="badge bg-secondary">{{ t.tipo }}</span></td>
+            <td>{{ t.fecha_inicio.strftime('%d/%m/%Y') }}</td>
+            <td>{{ t.fecha_fin.strftime('%d/%m/%Y') }}</td>
+            <td>
+              {% if t.estado == 'COMPLETADA' %}
+              <span class="badge bg-success">✅ Completada</span>
+              {% elif t.estado == 'EN_PROGRESO' %}
+              <span class="badge bg-info">🔄 En Progreso</span>
+              {% else %}
+              <span class="badge bg-secondary">⏳ Pendiente</span>
+              {% endif %}
+            </td>
+            <td style="width:120px;">
+              {% set progress_class = "bg-success" if t.estado == 'COMPLETADA' else "bg-info" if t.estado == 'EN_PROGRESO' else "bg-secondary" %}
+              {% set progress_val = 100 if t.estado == 'COMPLETADA' else 50 if t.estado == 'EN_PROGRESO' else 0 %}
+              <div class="progress" style="height:8px; background:rgba(255,255,255,0.05);">
+                <div class="progress-bar {{ progress_class }}" {{ 'style="width:' ~ progress_val ~ '%;"' | safe }}></div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="text-end mt-2">
+      <a href="{{ url_for('admin.calendario') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+        📅 Ver en Calendario
+      </a>
+    </div>
+    {% else %}
+    <div class="text-muted text-center py-3">
+      <p class="mb-2">No hay tareas asignadas a esta auditoría.</p>
+      <a href="{{ url_for('admin.calendario') }}" class="btn btn-primary btn-sm rounded-pill px-3">
+        ➕ Crear Tarea en Calendario
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{# ====== SECCIÓN 5: SEGUIMIENTO ====== #}
+<div class="card mb-5" style="border-left: 4px solid #8b5cf6;">
+  <div class="card-header d-flex align-items-center gap-2">
+    <span style="font-size:1.3rem;">📊</span>
+    <h5 class="mb-0 fw-semibold">5. Seguimiento y Progreso</h5>
+  </div>
+  <div class="card-body">
+    <div class="row text-center">
+      <div class="col-md-4 mb-3">
+        <div class="p-3 rounded" style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2);">
+          <div class="text-muted small">Medidas Aplicadas</div>
+          {% set total_rec = recomendaciones|length if recomendaciones else 0 %}
+          {% set aplicadas = recomendaciones|selectattr('aplicada')|list|length if recomendaciones else 0 %}
+          <div class="fs-3 fw-bold text-success">{{ aplicadas }} / {{ total_rec }}</div>
+          <div class="progress mt-2" style="height:6px; background:rgba(255,255,255,0.05);">
+            <div class="progress-bar bg-success" {{ 'style="width:' ~ ((aplicadas/total_rec*100) if total_rec > 0 else 0) ~ '%;"' | safe }}></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="p-3 rounded" style="background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.2);">
+          <div class="text-muted small">Tareas Completadas</div>
+          {% set total_tar = tareas|length if tareas else 0 %}
+          {% set completadas = tareas|selectattr('estado', 'equalto', 'COMPLETADA')|list|length if tareas else 0 %}
+          <div class="fs-3 fw-bold" style="color:#818cf8;">{{ completadas }} / {{ total_tar }}</div>
+          <div class="progress mt-2" style="height:6px; background:rgba(255,255,255,0.05);">
+            <div class="progress-bar" {{ 'style="background:#6366f1;width:' ~ ((completadas/total_tar*100) if total_tar > 0 else 0) ~ '%;"' | safe }}></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="p-3 rounded" style="background:rgba(236,72,153,0.1); border:1px solid rgba(236,72,153,0.2);">
+          <div class="text-muted small">Objetivo de Brecha</div>
+          {% if plan and plan.objetivo_brecha_pct and res_global %}
+          <div class="fs-3 fw-bold" style="color:#f472b6;">
+            {{ "%.1f"|format(res_global.brecha_media_pct) }}% → {{ plan.objetivo_brecha_pct }}%
+          </div>
+          {% else %}
+          <div class="fs-5 text-muted">Sin definir</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
