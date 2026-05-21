@@ -1,0 +1,56 @@
+Para levantar este proyecto (Audit-Salarial) en otro PC, necesitarás configurar el entorno siguiendo los requisitos de tu archivo README.md. Aquí tienes el resumen paso a paso:
+
+1. Requisitos previos (Lo que debes instalar en el nuevo PC)
+Python: Versión 3.10 o superior instalada en el sistema.
+MySQL Server: Necesitas tener un servidor de bases de datos MySQL funcionando localmente (o en remoto, pero accesible).
+2. Copiar el proyecto
+Asegúrate de copiar toda la carpeta del proyecto (d:\TFG actual) al nuevo PC, o clonarla desde tu repositorio Git.
+
+3. Preparar el entorno y dependencias
+Abre una terminal (PowerShell, CMD o la terminal de Linux/Mac), navega hasta la carpeta src/ del proyecto y ejecuta:
+
+Crear y activar un entorno virtual:
+
+bash
+
+
+cd src/
+python -m venv .venv
+# Activar en Windows (PowerShell/CMD):
+.\.venv\Scripts\activate
+# Activar en Linux/Mac:
+source .venv/bin/activate
+Instalar las librerías necesarias:
+
+bash
+
+
+pip install -r requirements.txt
+4. Configurar la Base de Datos
+Abre tu gestor de MySQL (por ejemplo, MySQL Workbench o la línea de comandos) y crea una base de datos llamada audit_salarial.
+Para crear las tablas y rellenar los datos, puedes usar las migraciones de Flask:
+bash
+
+
+flask db upgrade
+(Alternativamente, puedes importar los scripts SQL que tienes en la raíz del proyecto: audit.sql e insertsaudit.sql).
+5. Configurar las Variables de Entorno
+Debes crear el archivo .env para las contraseñas. Dentro de la carpeta src, copia o renombra el archivo .env.example a .env y ajusta su contenido. Lo más importante es que configures la conexión a tu base de datos:
+
+env
+
+
+# Cambia root y tu_password por tu usuario y contraseña de MySQL en el nuevo PC
+DATABASE_URL=mysql+pymysql://root:tu_password@localhost:3306/audit_salarial
+6. Ejecutar la aplicación
+Por último, con el entorno virtual activado y dentro de la carpeta src, arranca la aplicación:
+
+Para desarrollo:
+
+bash
+
+
+python run.py
+La aplicación estará accesible desde tu navegador entrando a: http://127.0.0.1:5000
+
+(Nota: Si cargaste el script insertsaudit.sql, recuerda que puedes probar el acceso de Administrador con el email admin@admin.com y la contraseña admin).
