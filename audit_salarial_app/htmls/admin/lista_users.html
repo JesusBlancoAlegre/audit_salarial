@@ -17,6 +17,7 @@
                         <th>Nombre</th>
                         <th>Rol</th>
                         <th>Empresa</th>
+                        <th>Último Acceso</th>
                         <th>Activo</th>
                         <th>Acciones</th>
                     </tr>
@@ -31,6 +32,7 @@
                             <span class="badge bg-secondary">{{ u.role_name }}</span>
                         </td>
                         <td>{{ u.empresa.nombre if u.empresa else '-' }}</td>
+                        <td>{{ u.ultimo_login.strftime('%d/%m/%Y %H:%M') if u.ultimo_login else 'Nunca' }}</td>
                         <td>
                             {% if u.activo %}
                             <span class="badge bg-success">Sí</span>
@@ -61,7 +63,7 @@
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="7" class="text-muted p-4">No hay usuarios registrados.</td>
+                        <td colspan="8" class="text-muted p-4">No hay usuarios registrados.</td>
                     </tr>
                     {% endfor %}
                 </tbody>

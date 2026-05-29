@@ -32,6 +32,25 @@
                         </div>
                     </div>
 
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold d-block mb-3">Técnicos (Auditores) Asignados</label>
+                            <div class="row">
+                                {% for auditor in auditores %}
+                                <div class="col-md-6 col-lg-4 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="auditor_ids" value="{{ auditor.id }}" id="auditor_{{ auditor.id }}" {% if empresa and auditor in empresa.auditores_asignados %}checked{% endif %}>
+                                        <label class="form-check-label" for="auditor_{{ auditor.id }}">
+                                            {{ auditor.nombre }} <small class="text-muted">({{ auditor.email }})</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-text mt-2 text-muted">Seleccione los técnicos que podrán ver la empresa y gestionar sus auditorías.</div>
+                        </div>
+                    </div>
+
                     <div class="d-flex justify-content-between">
                         <a href="{{ url_for('admin.lista_empresas') }}" class="btn btn-secondary">Cancelar</a>
                         <button type="submit" class="btn btn-primary px-4">Guardar</button>

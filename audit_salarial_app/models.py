@@ -10,6 +10,13 @@ class Rol(db.Model):
     nombre = db.Column(db.String(30), unique=True, nullable=False)
     descripcion = db.Column(db.String(200))
 
+from sqlalchemy.dialects.mysql import BIGINT
+
+empresa_auditor = db.Table('empresa_auditor',
+    db.Column('empresa_id', BIGINT(unsigned=True), db.ForeignKey('empresa.id'), primary_key=True),
+    db.Column('usuario_id', BIGINT(unsigned=True), db.ForeignKey('usuario.id'), primary_key=True)
+)
+
 class Empresa(db.Model):
     __tablename__ = "empresa"
     id = db.Column(db.BigInteger, primary_key=True)
@@ -24,6 +31,7 @@ class Empresa(db.Model):
     activa = db.Column(db.Boolean, nullable=False, default=True)
     
     sector = db.relationship("Sector")
+    auditores_asignados = db.relationship("Usuario", secondary=empresa_auditor, backref="empresas_asignadas")
 
 class Usuario(UserMixin, db.Model):
     __tablename__ = "usuario"

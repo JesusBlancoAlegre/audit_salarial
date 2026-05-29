@@ -2290,3 +2290,616 @@ sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate en
 [parameters: {'cif': '123123', 'nombre': 'joquin', 'num_trabajadores': 120, 'email_contacto': 'joaquibn@gmail.com', 'telefono_contacto': None, 'direccion': None, 'sector_id': None, 'creada_en': datetime.datetime(2026, 5, 19, 21, 57, 10, 508310), 'activa': 1}]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
 2026-05-19 23:57:11 [INFO] - 127.0.0.1 - - [19/May/2026 23:57:11] "[35m[1mPOST /admin/empresas/nueva HTTP/1.1[0m" 500 -
+2026-05-20 00:50:32 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-20 00:50:32 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-20 00:50:34 [INFO] - 127.0.0.1 - - [20/May/2026 00:50:34] "GET /admin/empresas/nueva HTTP/1.1" 200 -
+2026-05-20 00:50:42 [INFO] - 127.0.0.1 - - [20/May/2026 00:50:42] "[32mPOST /admin/empresas/nueva HTTP/1.1[0m" 302 -
+2026-05-20 00:50:42 [INFO] - 127.0.0.1 - - [20/May/2026 00:50:42] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-20 00:50:44 [INFO] - 127.0.0.1 - - [20/May/2026 00:50:44] "GET /admin/empresas/nueva HTTP/1.1" 200 -
+2026-05-20 00:50:50 [INFO] - 127.0.0.1 - - [20/May/2026 00:50:50] "[32mPOST /admin/empresas/nueva HTTP/1.1[0m" 302 -
+2026-05-20 00:50:50 [INFO] - 127.0.0.1 - - [20/May/2026 00:50:50] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-20 00:50:52 [INFO] - 127.0.0.1 - - [20/May/2026 00:50:52] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-20 00:50:52 [INFO] - 127.0.0.1 - - [20/May/2026 00:50:52] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-21 08:44:51 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-21 08:44:51 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-21 08:44:53 [INFO] - 127.0.0.1 - - [21/May/2026 08:44:53] "[32mGET /admin/auditorias HTTP/1.1[0m" 302 -
+2026-05-21 08:44:53 [INFO] - 127.0.0.1 - - [21/May/2026 08:44:53] "GET /auth/login?next=/admin/auditorias HTTP/1.1" 200 -
+2026-05-21 08:44:53 [INFO] - 127.0.0.1 - - [21/May/2026 08:44:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-25 10:33:38 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 10:33:38 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 10:34:42 [INFO] - 127.0.0.1 - - [25/May/2026 10:34:42] "GET /auth/login?next=/admin/auditorias HTTP/1.1" 200 -
+2026-05-25 10:34:42 [INFO] - 127.0.0.1 - - [25/May/2026 10:34:42] "GET /auth/login?next=/admin/auditorias HTTP/1.1" 200 -
+2026-05-25 10:34:42 [INFO] - 127.0.0.1 - - [25/May/2026 10:34:42] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-25 10:35:39 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 10:35:39 [INFO] - 127.0.0.1 - - [25/May/2026 10:35:39] "[32mPOST /auth/login?next=/admin/auditorias HTTP/1.1[0m" 302 -
+2026-05-25 10:35:39 [INFO] - 127.0.0.1 - - [25/May/2026 10:35:39] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 10:35:47 [INFO] - 127.0.0.1 - - [25/May/2026 10:35:47] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 10:38:28 [INFO] - 127.0.0.1 - - [25/May/2026 10:38:28] "GET /admin/empresas/ver/5 HTTP/1.1" 200 -
+2026-05-25 10:38:31 [INFO] - 127.0.0.1 - - [25/May/2026 10:38:31] "GET /admin/empresas/ver/1 HTTP/1.1" 200 -
+2026-05-25 10:39:27 [INFO] - 127.0.0.1 - - [25/May/2026 10:39:27] "GET /admin/empresas/ver/5 HTTP/1.1" 200 -
+2026-05-25 10:39:45 [INFO] - 127.0.0.1 - - [25/May/2026 10:39:45] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:39:50 [INFO] - 127.0.0.1 - - [25/May/2026 10:39:50] "[32mPOST /admin/empresas/activar/3 HTTP/1.1[0m" 302 -
+2026-05-25 10:39:50 [INFO] - 127.0.0.1 - - [25/May/2026 10:39:50] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:39:51 [INFO] - 127.0.0.1 - - [25/May/2026 10:39:51] "[32mPOST /admin/empresas/eliminar/3 HTTP/1.1[0m" 302 -
+2026-05-25 10:39:51 [INFO] - 127.0.0.1 - - [25/May/2026 10:39:51] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:39:54 [INFO] - 127.0.0.1 - - [25/May/2026 10:39:54] "GET /admin/empresas/editar/3 HTTP/1.1" 200 -
+2026-05-25 10:39:55 [INFO] - 127.0.0.1 - - [25/May/2026 10:39:55] "[32mPOST /admin/empresas/editar/3 HTTP/1.1[0m" 302 -
+2026-05-25 10:39:55 [INFO] - 127.0.0.1 - - [25/May/2026 10:39:55] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:09 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:09] "[32mPOST /admin/empresas/eliminar/2 HTTP/1.1[0m" 302 -
+2026-05-25 10:57:09 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:09] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:09 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:09] "[32mPOST /admin/empresas/eliminar/1 HTTP/1.1[0m" 302 -
+2026-05-25 10:57:09 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:09] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:10 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:10] "[32mPOST /admin/empresas/eliminar/5 HTTP/1.1[0m" 302 -
+2026-05-25 10:57:10 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:10] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:11 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:11] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 10:57:13 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:13] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:16 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:16] "[32mPOST /admin/empresas/activar/5 HTTP/1.1[0m" 302 -
+2026-05-25 10:57:16 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:16] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:17 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:17] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 10:57:18 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:18] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:19 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:19] "[32mPOST /admin/empresas/activar/3 HTTP/1.1[0m" 302 -
+2026-05-25 10:57:19 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:19] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:20 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:20] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 10:57:20 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:20] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:21 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:21] "[32mPOST /admin/empresas/activar/2 HTTP/1.1[0m" 302 -
+2026-05-25 10:57:21 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:21] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:22 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:22] "[32mPOST /admin/empresas/activar/1 HTTP/1.1[0m" 302 -
+2026-05-25 10:57:22 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:22] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 10:57:22 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:22] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 10:57:24 [INFO] - 127.0.0.1 - - [25/May/2026 10:57:24] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 11:35:23 [INFO] - 127.0.0.1 - - [25/May/2026 11:35:23] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 11:35:32 [INFO] - 127.0.0.1 - - [25/May/2026 11:35:32] "GET /admin/auditorias/1/historico HTTP/1.1" 200 -
+2026-05-25 11:35:34 [INFO] - 127.0.0.1 - - [25/May/2026 11:35:34] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 11:35:37 [INFO] - 127.0.0.1 - - [25/May/2026 11:35:37] "GET /admin/auditorias/1/resultados HTTP/1.1" 200 -
+2026-05-25 12:06:06 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 12:06:06 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 12:06:10 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:10] "GET /admin/auditorias/1/resultados HTTP/1.1" 200 -
+2026-05-25 12:06:20 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:20] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 12:06:22 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:22] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 12:06:22 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:22] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 12:06:23 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:23] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 12:06:23 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:23] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 12:06:23 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:23] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 12:06:24 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:24] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 12:06:29 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:29] "GET /admin/users/nuevo HTTP/1.1" 200 -
+2026-05-25 12:06:43 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:43] "[32mPOST /admin/users/nuevo HTTP/1.1[0m" 302 -
+2026-05-25 12:06:43 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:43] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 12:06:46 [WARNING] - Usuario 6 (asdasdas@gmail.com) ha sido desactivado por el ADMIN 1 (admin@admin.com)
+2026-05-25 12:06:46 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:46] "[32mPOST /admin/users/eliminar/6 HTTP/1.1[0m" 302 -
+2026-05-25 12:06:46 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:46] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 12:06:48 [INFO] - Usuario 6 (asdasdas@gmail.com) ha sido eliminado permanentemente por el ADMIN 1 (admin@admin.com)
+2026-05-25 12:06:48 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:48] "[32mPOST /admin/users/borrar_permanente/6 HTTP/1.1[0m" 302 -
+2026-05-25 12:06:48 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:48] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 12:06:49 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:49] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 12:06:52 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:52] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 12:06:52 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:52] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 12:06:53 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:53] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 12:06:54 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:54] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 12:06:55 [INFO] - 127.0.0.1 - - [25/May/2026 12:06:55] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 12:24:27 [INFO] - 127.0.0.1 - - [25/May/2026 12:24:27] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 12:24:29 [INFO] - 127.0.0.1 - - [25/May/2026 12:24:29] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 12:24:31 [INFO] - 127.0.0.1 - - [25/May/2026 12:24:31] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 12:24:31 [INFO] - 127.0.0.1 - - [25/May/2026 12:24:31] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 12:24:33 [INFO] - 127.0.0.1 - - [25/May/2026 12:24:33] "GET /admin/perfil HTTP/1.1" 200 -
+2026-05-25 12:24:43 [INFO] - 127.0.0.1 - - [25/May/2026 12:24:43] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 20:04:19 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 20:04:19 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 20:07:45 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 20:07:45 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 20:22:19 [INFO] - 127.0.0.1 - - [25/May/2026 20:22:19] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 20:22:21 [INFO] - 127.0.0.1 - - [25/May/2026 20:22:21] "GET /admin/empresas/ver/5 HTTP/1.1" 200 -
+2026-05-25 20:22:23 [INFO] - 127.0.0.1 - - [25/May/2026 20:22:23] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 20:22:26 [INFO] - 127.0.0.1 - - [25/May/2026 20:22:26] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:22:27 [INFO] - 127.0.0.1 - - [25/May/2026 20:22:27] "GET /admin/empresas/nueva HTTP/1.1" 200 -
+2026-05-25 20:22:35 [INFO] - 127.0.0.1 - - [25/May/2026 20:22:35] "[32mPOST /admin/empresas/nueva HTTP/1.1[0m" 302 -
+2026-05-25 20:22:35 [INFO] - 127.0.0.1 - - [25/May/2026 20:22:35] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:22:37 [INFO] - 127.0.0.1 - - [25/May/2026 20:22:37] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 20:22:37 [INFO] - 127.0.0.1 - - [25/May/2026 20:22:37] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-25 20:23:01 [INFO] - 127.0.0.1 - - [25/May/2026 20:23:01] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 20:23:11 [INFO] - 127.0.0.1 - - [25/May/2026 20:23:11] "GET /admin/users/nuevo HTTP/1.1" 200 -
+2026-05-25 20:23:45 [INFO] - 127.0.0.1 - - [25/May/2026 20:23:45] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:23:50 [INFO] - 127.0.0.1 - - [25/May/2026 20:23:50] "GET /admin/empresas/editar/3 HTTP/1.1" 200 -
+2026-05-25 20:23:52 [INFO] - 127.0.0.1 - - [25/May/2026 20:23:52] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:23:59 [INFO] - 127.0.0.1 - - [25/May/2026 20:23:59] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 20:24:01 [INFO] - 127.0.0.1 - - [25/May/2026 20:24:01] "GET /admin/users/editar/3 HTTP/1.1" 200 -
+2026-05-25 20:47:30 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:30] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:47:32 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:32] "GET /admin/empresas/editar/7 HTTP/1.1" 200 -
+2026-05-25 20:47:33 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:33] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:47:34 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:34] "GET /admin/empresas/nueva HTTP/1.1" 200 -
+2026-05-25 20:47:35 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:35] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:47:36 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:36] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:47:45 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 20:47:45 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 20:47:48 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:48] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:47:50 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:50] "GET /admin/empresas/editar/7 HTTP/1.1" 200 -
+2026-05-25 20:47:54 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:54] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:47:55 [INFO] - 127.0.0.1 - - [25/May/2026 20:47:55] "GET /admin/empresas/nueva HTTP/1.1" 200 -
+2026-05-25 20:57:16 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 20:57:16 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 20:57:18 [INFO] - 127.0.0.1 - - [25/May/2026 20:57:18] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:59:31 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:31] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:59:32 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:32] "GET /admin/empresas/editar/7 HTTP/1.1" 200 -
+2026-05-25 20:59:36 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:36] "[32mPOST /admin/empresas/editar/7 HTTP/1.1[0m" 302 -
+2026-05-25 20:59:37 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:37] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:59:38 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:38] "GET /admin/empresas/editar/7 HTTP/1.1" 200 -
+2026-05-25 20:59:38 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:38] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:59:40 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:40] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 20:59:44 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:44] "GET /admin/auditorias/editar/5 HTTP/1.1" 200 -
+2026-05-25 20:59:47 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:47] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 20:59:50 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:50] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 20:59:51 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:51] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 20:59:52 [INFO] - 127.0.0.1 - - [25/May/2026 20:59:52] "GET /admin/users/editar/3 HTTP/1.1" 200 -
+2026-05-25 21:04:10 [INFO] - 127.0.0.1 - - [25/May/2026 21:04:10] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 21:04:18 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 21:04:18 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 21:04:20 [INFO] - 127.0.0.1 - - [25/May/2026 21:04:20] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 21:04:21 [INFO] - 127.0.0.1 - - [25/May/2026 21:04:21] "GET /admin/users/editar/4 HTTP/1.1" 200 -
+2026-05-25 21:04:22 [INFO] - 127.0.0.1 - - [25/May/2026 21:04:22] "GET /admin/users/editar/4 HTTP/1.1" 200 -
+2026-05-25 21:09:29 [INFO] - 127.0.0.1 - - [25/May/2026 21:09:29] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 21:09:29 [INFO] - 127.0.0.1 - - [25/May/2026 21:09:29] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 21:09:33 [INFO] - 127.0.0.1 - - [25/May/2026 21:09:33] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 21:09:33 [INFO] - 127.0.0.1 - - [25/May/2026 21:09:33] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 21:09:35 [INFO] - 127.0.0.1 - - [25/May/2026 21:09:35] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-25 21:15:02 [INFO] - 127.0.0.1 - - [25/May/2026 21:15:02] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-25 21:15:30 [INFO] - 127.0.0.1 - - [25/May/2026 21:15:30] "GET /admin/auditorias/5/plan HTTP/1.1" 200 -
+2026-05-25 21:24:36 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 21:24:36 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 21:24:50 [INFO] - 127.0.0.1 - - [25/May/2026 21:24:50] "GET /admin/auditorias/5/plan HTTP/1.1" 200 -
+2026-05-25 21:24:58 [INFO] - 127.0.0.1 - - [25/May/2026 21:24:58] "[32mPOST /admin/auditorias/5/recomendacion/5/aplicar HTTP/1.1[0m" 302 -
+2026-05-25 21:24:58 [INFO] - 127.0.0.1 - - [25/May/2026 21:24:58] "GET /admin/auditorias/5/plan HTTP/1.1" 200 -
+2026-05-25 21:30:29 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 21:30:29 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 21:30:32 [INFO] - 127.0.0.1 - - [25/May/2026 21:30:32] "GET /admin/auditorias/5/plan HTTP/1.1" 200 -
+2026-05-25 21:30:34 [INFO] - 127.0.0.1 - - [25/May/2026 21:30:34] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 21:30:34 [INFO] - 127.0.0.1 - - [25/May/2026 21:30:34] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 21:34:02 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 21:34:02 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 21:35:55 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:55 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-25 21:35:55 [INFO] - Usuario 2 (client@example.com) ha sido activado por el ADMIN 1 (admin@example.com)
+2026-05-25 21:35:55 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-25 21:35:55 [INFO] - Usuario 2 (client@example.com) ha sido eliminado permanentemente por el ADMIN 1 (admin@example.com)
+2026-05-25 21:35:56 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:56 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:57 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 21:35:57 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 21:35:57 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 21:35:57 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:57 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:57 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:59 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:35:59 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:35:59 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:35:59 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:35:59 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:35:59 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:59 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:59 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:59 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:59 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:35:59 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:42 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:42 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-25 21:36:42 [INFO] - Usuario 2 (client@example.com) ha sido activado por el ADMIN 1 (admin@example.com)
+2026-05-25 21:36:42 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-25 21:36:42 [INFO] - Usuario 2 (client@example.com) ha sido eliminado permanentemente por el ADMIN 1 (admin@example.com)
+2026-05-25 21:36:43 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:43 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:45 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 21:36:45 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 21:36:45 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 21:36:46 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:46 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:46 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:47 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:36:47 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:36:47 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:36:47 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:36:47 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 21:36:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:36:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 21:41:20 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 21:41:20 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 21:41:22 [INFO] - 127.0.0.1 - - [25/May/2026 21:41:22] "GET /admin/auditorias/5/plan HTTP/1.1" 200 -
+2026-05-25 21:41:33 [INFO] - 127.0.0.1 - - [25/May/2026 21:41:33] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-25 21:41:35 [INFO] - 127.0.0.1 - - [25/May/2026 21:41:35] "GET /admin/auditorias/5/exportar/csv HTTP/1.1" 200 -
+2026-05-25 21:41:51 [INFO] - 127.0.0.1 - - [25/May/2026 21:41:51] "GET /admin/auditorias/5/exportar/csv HTTP/1.1" 200 -
+2026-05-25 21:42:02 [INFO] - 127.0.0.1 - - [25/May/2026 21:42:02] "GET /admin/auditorias/5/exportar/csv HTTP/1.1" 200 -
+2026-05-25 21:47:11 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:11] "GET /admin/auditorias/5/plan HTTP/1.1" 200 -
+2026-05-25 21:47:21 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:21] "[32mPOST /admin/auditorias/5/plan HTTP/1.1[0m" 302 -
+2026-05-25 21:47:21 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:21] "GET /admin/auditorias/5/plan HTTP/1.1" 200 -
+2026-05-25 21:47:25 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:25] "GET /admin/auditorias/5/chat/vista HTTP/1.1" 200 -
+2026-05-25 21:47:28 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:28] "GET /admin/auditorias/5/vpt HTTP/1.1" 200 -
+2026-05-25 21:47:29 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:29] "GET /admin/auditorias/5/vpt HTTP/1.1" 200 -
+2026-05-25 21:47:31 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:31] "GET /admin/auditorias/5/vpt HTTP/1.1" 200 -
+2026-05-25 21:47:35 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:35] "GET /admin/auditorias/5/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 21:47:35 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:35] "GET /admin/auditorias/5/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 21:47:49 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:49] "[32mPOST /admin/auditorias/5/vpt HTTP/1.1[0m" 302 -
+2026-05-25 21:47:49 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:49] "GET /admin/auditorias/5/vpt HTTP/1.1" 200 -
+2026-05-25 21:47:56 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:56] "GET /admin/auditorias/5/documentos HTTP/1.1" 200 -
+2026-05-25 21:47:57 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:57] "GET /admin/auditorias/5/historico HTTP/1.1" 200 -
+2026-05-25 21:47:59 [INFO] - 127.0.0.1 - - [25/May/2026 21:47:59] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-25 21:48:09 [INFO] - 127.0.0.1 - - [25/May/2026 21:48:09] "GET /admin/auditorias/5/plan HTTP/1.1" 200 -
+2026-05-25 21:48:16 [INFO] - 127.0.0.1 - - [25/May/2026 21:48:16] "GET /admin/auditorias/5/plan/exportar HTTP/1.1" 200 -
+2026-05-25 21:48:16 [INFO] - 127.0.0.1 - - [25/May/2026 21:48:16] "GET /admin/auditorias/5/plan/exportar HTTP/1.1" 200 -
+2026-05-25 21:48:47 [INFO] - 127.0.0.1 - - [25/May/2026 21:48:47] "GET /admin/auditorias/5/vpt HTTP/1.1" 200 -
+2026-05-25 21:49:12 [INFO] - 127.0.0.1 - - [25/May/2026 21:49:12] "[32mPOST /admin/auditorias/5/vpt HTTP/1.1[0m" 302 -
+2026-05-25 21:49:12 [INFO] - 127.0.0.1 - - [25/May/2026 21:49:12] "GET /admin/auditorias/5/vpt HTTP/1.1" 200 -
+2026-05-25 21:49:19 [INFO] - 127.0.0.1 - - [25/May/2026 21:49:19] "GET /admin/auditorias/5/documentos HTTP/1.1" 200 -
+2026-05-25 21:49:26 [INFO] - 127.0.0.1 - - [25/May/2026 21:49:26] "[32mPOST /admin/auditorias/5/documentos HTTP/1.1[0m" 302 -
+2026-05-25 21:49:26 [INFO] - 127.0.0.1 - - [25/May/2026 21:49:26] "GET /admin/auditorias/5/documentos HTTP/1.1" 200 -
+2026-05-25 21:49:29 [INFO] - 127.0.0.1 - - [25/May/2026 21:49:29] "GET /admin/auditorias/5/historico HTTP/1.1" 200 -
+2026-05-25 21:49:49 [INFO] - 127.0.0.1 - - [25/May/2026 21:49:49] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-25 21:50:40 [INFO] - 127.0.0.1 - - [25/May/2026 21:50:40] "GET /admin/auditorias/5/vpt HTTP/1.1" 200 -
+2026-05-25 21:50:43 [INFO] - 127.0.0.1 - - [25/May/2026 21:50:43] "GET /admin/auditorias/5/plan HTTP/1.1" 200 -
+2026-05-25 21:51:04 [INFO] - 127.0.0.1 - - [25/May/2026 21:51:04] "GET /admin/auditorias/5/resultados HTTP/1.1" 200 -
+2026-05-25 21:51:10 [INFO] - 127.0.0.1 - - [25/May/2026 21:51:10] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 21:51:15 [INFO] - 127.0.0.1 - - [25/May/2026 21:51:15] "GET /admin/auditorias/editar/3 HTTP/1.1" 200 -
+2026-05-25 21:51:20 [INFO] - 127.0.0.1 - - [25/May/2026 21:51:20] "[32mPOST /admin/auditorias/editar/3 HTTP/1.1[0m" 302 -
+2026-05-25 21:51:20 [INFO] - 127.0.0.1 - - [25/May/2026 21:51:20] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 21:52:46 [INFO] - 127.0.0.1 - - [25/May/2026 21:52:46] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 21:52:46 [INFO] - 127.0.0.1 - - [25/May/2026 21:52:46] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 21:53:41 [INFO] - Login exitoso para el usuario: auditor@demo.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 21:53:41 [INFO] - 127.0.0.1 - - [25/May/2026 21:53:41] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 21:53:41 [INFO] - 127.0.0.1 - - [25/May/2026 21:53:41] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 21:53:47 [INFO] - 127.0.0.1 - - [25/May/2026 21:53:47] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 21:53:52 [INFO] - 127.0.0.1 - - [25/May/2026 21:53:52] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 21:53:55 [INFO] - 127.0.0.1 - - [25/May/2026 21:53:55] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-25 21:54:08 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:08] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 21:54:08 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:08] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 21:54:15 [INFO] - Login exitoso para el usuario: cliente@demo.com (ID: 3) desde IP: 127.0.0.1
+2026-05-25 21:54:15 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:15] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 21:54:15 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:15] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 21:54:18 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:18] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 21:54:18 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:18] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 21:54:18 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:18] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 21:54:19 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:19] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 21:54:20 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:20] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 21:54:23 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:23] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 21:54:24 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:24] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 21:54:25 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:25] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-25 21:54:45 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:45] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-25 21:54:57 [INFO] - 127.0.0.1 - - [25/May/2026 21:54:57] "GET /admin/auditorias/3/plan HTTP/1.1" 200 -
+2026-05-25 22:00:24 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:24 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-25 22:00:24 [INFO] - Usuario 2 (client@example.com) ha sido activado por el ADMIN 1 (admin@example.com)
+2026-05-25 22:00:24 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-25 22:00:24 [INFO] - Usuario 2 (client@example.com) ha sido eliminado permanentemente por el ADMIN 1 (admin@example.com)
+2026-05-25 22:00:24 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:24 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:25 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 22:00:25 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 22:00:25 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 22:00:26 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:26 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:26 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:27 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:00:27 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:00:27 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:00:27 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:00:27 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:00:28 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:28 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:28 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:28 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:28 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:00:28 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:01:29 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 22:01:29 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 22:10:46 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 22:10:46 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 22:10:51 [INFO] - 127.0.0.1 - - [25/May/2026 22:10:51] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-25 22:10:54 [INFO] - 127.0.0.1 - - [25/May/2026 22:10:54] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 22:10:55 [INFO] - 127.0.0.1 - - [25/May/2026 22:10:55] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 22:11:04 [INFO] - Login exitoso para el usuario: cliente@demo.com (ID: 3) desde IP: 127.0.0.1
+2026-05-25 22:11:04 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:04] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 22:11:04 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:04] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 22:11:09 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:09] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 22:11:11 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:11] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 22:11:15 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:15] "GET /admin/auditorias/6/resultados HTTP/1.1" 200 -
+2026-05-25 22:11:18 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:18] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-25 22:11:24 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:24] "GET /admin/auditorias/3/chat/vista HTTP/1.1" 200 -
+2026-05-25 22:11:28 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:28] "GET /admin/auditorias/3/plan HTTP/1.1" 200 -
+2026-05-25 22:11:28 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:28] "GET /admin/auditorias/3/plan HTTP/1.1" 200 -
+2026-05-25 22:11:29 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:29] "GET /admin/auditorias/3/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 22:11:30 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:30] "GET /admin/auditorias/3/plan HTTP/1.1" 200 -
+2026-05-25 22:11:38 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:38] "GET /admin/auditorias/3/vpt HTTP/1.1" 200 -
+2026-05-25 22:11:40 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:40] "GET /admin/auditorias/3/documentos HTTP/1.1" 200 -
+2026-05-25 22:11:41 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:41] "GET /admin/auditorias/3/historico HTTP/1.1" 200 -
+2026-05-25 22:11:41 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:41] "GET /admin/auditorias/3/plan HTTP/1.1" 200 -
+2026-05-25 22:11:42 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:42] "GET /admin/auditorias/3/chat/vista HTTP/1.1" 200 -
+2026-05-25 22:11:42 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:42] "GET /admin/auditorias/3/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 22:11:42 [INFO] - 127.0.0.1 - - [25/May/2026 22:11:42] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-25 22:12:32 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:32 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-25 22:12:32 [INFO] - Usuario 2 (client@example.com) ha sido activado por el ADMIN 1 (admin@example.com)
+2026-05-25 22:12:32 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-25 22:12:32 [INFO] - Usuario 2 (client@example.com) ha sido eliminado permanentemente por el ADMIN 1 (admin@example.com)
+2026-05-25 22:12:32 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:32 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:33 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 22:12:33 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 22:12:33 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-25 22:12:33 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:33 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:33 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:33 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:12:33 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:12:33 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:12:33 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:12:33 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-25 22:12:34 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:34 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:34 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:34 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:34 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:12:34 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 22:42:39 [INFO] - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-25 22:42:39 [INFO] - [33mPress CTRL+C to quit[0m
+2026-05-25 22:42:43 [INFO] - 127.0.0.1 - - [25/May/2026 22:42:43] "GET /admin/auditorias/3/resultados HTTP/1.1" 200 -
+2026-05-25 23:25:15 [INFO] - 127.0.0.1 - - [25/May/2026 23:25:15] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 23:25:15 [INFO] - 127.0.0.1 - - [25/May/2026 23:25:15] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 23:26:38 [INFO] - 127.0.0.1 - - [25/May/2026 23:26:38] "GET /auth/registrarse HTTP/1.1" 200 -
+2026-05-25 23:26:53 [INFO] - 127.0.0.1 - - [25/May/2026 23:26:53] "[31m[1mPOST /auth/registrarse HTTP/1.1[0m" 400 -
+2026-05-25 23:27:13 [INFO] - 127.0.0.1 - - [25/May/2026 23:27:13] "[32mPOST /auth/registrarse HTTP/1.1[0m" 302 -
+2026-05-25 23:27:13 [INFO] - 127.0.0.1 - - [25/May/2026 23:27:13] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 23:27:22 [WARNING] - Intento de login fallido para el email: ma2kenrow@gmail.com desde IP: 127.0.0.1
+2026-05-25 23:27:22 [INFO] - 127.0.0.1 - - [25/May/2026 23:27:22] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2026-05-25 23:27:42 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 23:27:42 [INFO] - 127.0.0.1 - - [25/May/2026 23:27:42] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 23:27:43 [INFO] - 127.0.0.1 - - [25/May/2026 23:27:43] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:27:45 [INFO] - 127.0.0.1 - - [25/May/2026 23:27:45] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 23:27:52 [INFO] - 127.0.0.1 - - [25/May/2026 23:27:52] "GET /admin/empresas/nueva HTTP/1.1" 200 -
+2026-05-25 23:28:13 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:13] "[32mPOST /admin/empresas/nueva HTTP/1.1[0m" 302 -
+2026-05-25 23:28:13 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:13] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 23:28:18 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:18] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:28:19 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:19] "GET /admin/users/nuevo HTTP/1.1" 200 -
+2026-05-25 23:28:20 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:20] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:28:25 [INFO] - Usuario 7 (m2akenrow@gmail.com) ha sido eliminado permanentemente por el ADMIN 1 (admin@admin.com)
+2026-05-25 23:28:25 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:25] "[32mPOST /admin/users/borrar_permanente/7 HTTP/1.1[0m" 302 -
+2026-05-25 23:28:25 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:25] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:28:27 [WARNING] - Usuario 5 (manolo@gmail.com) ha sido desactivado por el ADMIN 1 (admin@admin.com)
+2026-05-25 23:28:27 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:27] "[32mPOST /admin/users/eliminar/5 HTTP/1.1[0m" 302 -
+2026-05-25 23:28:27 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:27] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:28:28 [INFO] - Usuario 5 (manolo@gmail.com) ha sido activado por el ADMIN 1 (admin@admin.com)
+2026-05-25 23:28:28 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:28] "[32mPOST /admin/users/activar/5 HTTP/1.1[0m" 302 -
+2026-05-25 23:28:28 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:28] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:28:29 [INFO] - 127.0.0.1 - - [25/May/2026 23:28:29] "GET /admin/users/nuevo HTTP/1.1" 200 -
+2026-05-25 23:29:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:03] "[32mPOST /admin/users/nuevo HTTP/1.1[0m" 302 -
+2026-05-25 23:29:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:03] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:29:07 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:07] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 23:29:10 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:10] "GET /admin/empresas/editar/8 HTTP/1.1" 200 -
+2026-05-25 23:29:12 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:12] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 23:29:13 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:13] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:29:17 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:17] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:29:18 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:18] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:29:39 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:39] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 23:29:39 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:39] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:29:56 [INFO] - 127.0.0.1 - - [25/May/2026 23:29:56] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:30:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:03] "GET /admin/auditorias/nueva HTTP/1.1" 200 -
+2026-05-25 23:30:31 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:31] "[32mPOST /admin/auditorias/nueva HTTP/1.1[0m" 302 -
+2026-05-25 23:30:31 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:31] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:30:42 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:42] "GET /admin/auditorias/editar/7 HTTP/1.1" 200 -
+2026-05-25 23:30:50 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:50] "[32mPOST /admin/auditorias/editar/7 HTTP/1.1[0m" 302 -
+2026-05-25 23:30:50 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:50] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:30:54 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:54] "[32mPOST /admin/auditorias/eliminar/7 HTTP/1.1[0m" 302 -
+2026-05-25 23:30:54 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:54] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:30:57 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:57] "[32mPOST /admin/auditorias/activar/7 HTTP/1.1[0m" 302 -
+2026-05-25 23:30:57 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:57] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:30:59 [INFO] - 127.0.0.1 - - [25/May/2026 23:30:59] "GET /admin/auditorias/editar/7 HTTP/1.1" 200 -
+2026-05-25 23:31:00 [INFO] - 127.0.0.1 - - [25/May/2026 23:31:00] "[32mPOST /admin/auditorias/editar/7 HTTP/1.1[0m" 302 -
+2026-05-25 23:31:00 [INFO] - 127.0.0.1 - - [25/May/2026 23:31:00] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:31:02 [INFO] - 127.0.0.1 - - [25/May/2026 23:31:02] "GET /admin/auditorias/7/resultados HTTP/1.1" 200 -
+2026-05-25 23:31:12 [INFO] - 127.0.0.1 - - [25/May/2026 23:31:12] "GET /admin/auditorias/7/exportar/csv HTTP/1.1" 200 -
+2026-05-25 23:31:33 [INFO] - 127.0.0.1 - - [25/May/2026 23:31:33] "GET /admin/auditorias/7/anomalia/799/informe HTTP/1.1" 200 -
+2026-05-25 23:32:09 [INFO] - 127.0.0.1 - - [25/May/2026 23:32:09] "GET /admin/auditorias/7/exportar/csv HTTP/1.1" 200 -
+2026-05-25 23:32:40 [INFO] - 127.0.0.1 - - [25/May/2026 23:32:40] "GET /admin/auditorias/7/chat/vista HTTP/1.1" 200 -
+2026-05-25 23:32:40 [INFO] - 127.0.0.1 - - [25/May/2026 23:32:40] "GET /admin/auditorias/7/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 23:32:45 [INFO] - 127.0.0.1 - - [25/May/2026 23:32:45] "GET /admin/auditorias/7/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 23:32:50 [INFO] - 127.0.0.1 - - [25/May/2026 23:32:50] "GET /admin/auditorias/7/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 23:32:55 [INFO] - 127.0.0.1 - - [25/May/2026 23:32:55] "GET /admin/auditorias/7/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 23:32:56 [INFO] - [CHAT] Mensaje #4 de usuario 1 en auditoría #7
+2026-05-25 23:32:56 [INFO] - 127.0.0.1 - - [25/May/2026 23:32:56] "[35m[1mPOST /admin/auditorias/7/chat HTTP/1.1[0m" 201 -
+2026-05-25 23:33:00 [INFO] - 127.0.0.1 - - [25/May/2026 23:33:00] "GET /admin/auditorias/7/chat?after=4 HTTP/1.1" 200 -
+2026-05-25 23:33:01 [INFO] - 127.0.0.1 - - [25/May/2026 23:33:01] "GET /admin/auditorias/7/resultados HTTP/1.1" 200 -
+2026-05-25 23:33:09 [INFO] - 127.0.0.1 - - [25/May/2026 23:33:09] "GET /admin/auditorias/7/plan HTTP/1.1" 200 -
+2026-05-25 23:33:25 [INFO] - 127.0.0.1 - - [25/May/2026 23:33:25] "[32mPOST /admin/auditorias/7/plan HTTP/1.1[0m" 302 -
+2026-05-25 23:33:25 [INFO] - 127.0.0.1 - - [25/May/2026 23:33:25] "GET /admin/auditorias/7/plan HTTP/1.1" 200 -
+2026-05-25 23:33:35 [INFO] - 127.0.0.1 - - [25/May/2026 23:33:35] "[32mPOST /admin/auditorias/7/recomendacion/7/aplicar HTTP/1.1[0m" 302 -
+2026-05-25 23:33:35 [INFO] - 127.0.0.1 - - [25/May/2026 23:33:35] "GET /admin/auditorias/7/plan HTTP/1.1" 200 -
+2026-05-25 23:33:42 [INFO] - 127.0.0.1 - - [25/May/2026 23:33:42] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 23:33:42 [INFO] - 127.0.0.1 - - [25/May/2026 23:33:42] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:34:15 [INFO] - 127.0.0.1 - - [25/May/2026 23:34:15] "[35m[1mPOST /admin/tareas HTTP/1.1[0m" 201 -
+2026-05-25 23:34:15 [INFO] - 127.0.0.1 - - [25/May/2026 23:34:15] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:34:47 [INFO] - 127.0.0.1 - - [25/May/2026 23:34:47] "[35m[1mPOST /admin/citas HTTP/1.1[0m" 201 -
+2026-05-25 23:34:47 [INFO] - 127.0.0.1 - - [25/May/2026 23:34:47] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:34:50 [INFO] - 127.0.0.1 - - [25/May/2026 23:34:50] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:34:53 [INFO] - 127.0.0.1 - - [25/May/2026 23:34:53] "GET /admin/auditorias/7/resultados HTTP/1.1" 200 -
+2026-05-25 23:34:55 [INFO] - 127.0.0.1 - - [25/May/2026 23:34:55] "GET /admin/auditorias/7/plan HTTP/1.1" 200 -
+2026-05-25 23:35:00 [INFO] - 127.0.0.1 - - [25/May/2026 23:35:00] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 23:35:00 [INFO] - 127.0.0.1 - - [25/May/2026 23:35:00] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:35:08 [INFO] - 127.0.0.1 - - [25/May/2026 23:35:08] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 23:35:08 [INFO] - 127.0.0.1 - - [25/May/2026 23:35:08] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:35:17 [INFO] - 127.0.0.1 - - [25/May/2026 23:35:17] "GET /admin/auditorias/7/plan/exportar HTTP/1.1" 200 -
+2026-05-25 23:35:56 [INFO] - 127.0.0.1 - - [25/May/2026 23:35:56] "GET /admin/auditorias/7/vpt HTTP/1.1" 200 -
+2026-05-25 23:36:37 [INFO] - 127.0.0.1 - - [25/May/2026 23:36:37] "[32mPOST /admin/auditorias/7/vpt HTTP/1.1[0m" 302 -
+2026-05-25 23:36:37 [INFO] - 127.0.0.1 - - [25/May/2026 23:36:37] "GET /admin/auditorias/7/vpt HTTP/1.1" 200 -
+2026-05-25 23:37:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:37:03] "[32mPOST /admin/auditorias/7/vpt HTTP/1.1[0m" 302 -
+2026-05-25 23:37:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:37:03] "GET /admin/auditorias/7/vpt HTTP/1.1" 200 -
+2026-05-25 23:37:29 [INFO] - 127.0.0.1 - - [25/May/2026 23:37:29] "[32mPOST /admin/auditorias/7/vpt HTTP/1.1[0m" 302 -
+2026-05-25 23:37:29 [INFO] - 127.0.0.1 - - [25/May/2026 23:37:29] "GET /admin/auditorias/7/vpt HTTP/1.1" 200 -
+2026-05-25 23:37:37 [INFO] - 127.0.0.1 - - [25/May/2026 23:37:37] "GET /admin/auditorias/7/documentos HTTP/1.1" 200 -
+2026-05-25 23:37:54 [INFO] - 127.0.0.1 - - [25/May/2026 23:37:54] "[32mPOST /admin/auditorias/7/documentos HTTP/1.1[0m" 302 -
+2026-05-25 23:37:54 [INFO] - 127.0.0.1 - - [25/May/2026 23:37:54] "GET /admin/auditorias/7/documentos HTTP/1.1" 200 -
+2026-05-25 23:38:05 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:05] "[32mPOST /admin/auditorias/7/documentos HTTP/1.1[0m" 302 -
+2026-05-25 23:38:05 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:05] "GET /admin/auditorias/7/documentos HTTP/1.1" 200 -
+2026-05-25 23:38:06 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:06] "GET /admin/archivos/descargar/24 HTTP/1.1" 200 -
+2026-05-25 23:38:11 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:11] "GET /admin/auditorias/7/historico HTTP/1.1" 200 -
+2026-05-25 23:38:31 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:31] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 23:38:31 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:31] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 23:38:47 [INFO] - Login exitoso para el usuario: cliente@demo.com (ID: 3) desde IP: 127.0.0.1
+2026-05-25 23:38:47 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:47] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 23:38:47 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:47] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:38:49 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:49] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:38:52 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:52] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 23:38:52 [INFO] - 127.0.0.1 - - [25/May/2026 23:38:52] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 23:39:03 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 23:39:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:03] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 23:39:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:03] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:39:04 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:04] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:39:05 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:05] "GET /admin/users/nuevo HTTP/1.1" 200 -
+2026-05-25 23:39:25 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:25] "[32mPOST /admin/users/nuevo HTTP/1.1[0m" 302 -
+2026-05-25 23:39:25 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:25] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:39:28 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:28] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 23:39:28 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:28] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 23:39:35 [WARNING] - Intento de login fallido para el email: elguapo@gmail.com desde IP: 127.0.0.1
+2026-05-25 23:39:35 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:35] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2026-05-25 23:39:46 [WARNING] - Intento de login fallido para el email: elguapo@gmail.com desde IP: 127.0.0.1
+2026-05-25 23:39:46 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:46] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2026-05-25 23:39:53 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 23:39:53 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:53] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 23:39:53 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:53] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:39:54 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:54] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:39:56 [INFO] - 127.0.0.1 - - [25/May/2026 23:39:56] "GET /admin/users/editar/9 HTTP/1.1" 200 -
+2026-05-25 23:40:08 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:08] "[32mPOST /admin/users/editar/9 HTTP/1.1[0m" 302 -
+2026-05-25 23:40:08 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:08] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:40:11 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:11] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 23:40:11 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:11] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 23:40:15 [INFO] - Login exitoso para el usuario: elguapo@gmail.com (ID: 9) desde IP: 127.0.0.1
+2026-05-25 23:40:15 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:15] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 23:40:15 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:15] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:40:25 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:25] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:40:31 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:31] "GET /admin/auditorias/7/resultados HTTP/1.1" 200 -
+2026-05-25 23:40:35 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:35] "GET /admin/auditorias/7/chat/vista HTTP/1.1" 200 -
+2026-05-25 23:40:35 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:35] "GET /admin/auditorias/7/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 23:40:40 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:40] "GET /admin/auditorias/7/chat?after=4 HTTP/1.1" 200 -
+2026-05-25 23:40:41 [INFO] - [CHAT] Mensaje #5 de usuario 9 en auditoría #7
+2026-05-25 23:40:41 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:41] "[35m[1mPOST /admin/auditorias/7/chat HTTP/1.1[0m" 201 -
+2026-05-25 23:40:43 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:43] "GET /admin/auditorias/7/plan HTTP/1.1" 200 -
+2026-05-25 23:40:51 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:51] "GET /admin/auditorias/7/vpt HTTP/1.1" 200 -
+2026-05-25 23:40:56 [INFO] - 127.0.0.1 - - [25/May/2026 23:40:56] "GET /admin/auditorias/7/documentos HTTP/1.1" 200 -
+2026-05-25 23:41:11 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:11] "[32mPOST /admin/auditorias/7/documentos HTTP/1.1[0m" 302 -
+2026-05-25 23:41:11 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:11] "GET /admin/auditorias/7/documentos HTTP/1.1" 200 -
+2026-05-25 23:41:13 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:13] "GET /admin/auditorias/7/historico HTTP/1.1" 200 -
+2026-05-25 23:41:17 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:17] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 23:41:17 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:17] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 23:41:32 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 23:41:32 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:32] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 23:41:32 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:32] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:41:33 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:33] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:41:36 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:36] "GET /admin/users/editar/8 HTTP/1.1" 200 -
+2026-05-25 23:41:44 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:44] "[32mPOST /admin/users/editar/8 HTTP/1.1[0m" 302 -
+2026-05-25 23:41:44 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:44] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:41:45 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:45] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 23:41:45 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:45] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 23:41:51 [INFO] - Login exitoso para el usuario: guapisimo@gmail.com (ID: 8) desde IP: 127.0.0.1
+2026-05-25 23:41:51 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:51] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 23:41:51 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:51] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:41:55 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:55] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 23:41:57 [INFO] - 127.0.0.1 - - [25/May/2026 23:41:57] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:42:00 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:00] "GET /admin/auditorias/7/resultados HTTP/1.1" 200 -
+2026-05-25 23:42:08 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:08] "GET /admin/auditorias/7/chat/vista HTTP/1.1" 200 -
+2026-05-25 23:42:08 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:08] "GET /admin/auditorias/7/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 23:42:12 [INFO] - [CHAT] Mensaje #6 de usuario 8 en auditoría #7
+2026-05-25 23:42:12 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:12] "[35m[1mPOST /admin/auditorias/7/chat HTTP/1.1[0m" 201 -
+2026-05-25 23:42:13 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:13] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:42:14 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:14] "GET /admin/auditorias/7/resultados HTTP/1.1" 200 -
+2026-05-25 23:42:16 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:16] "GET /admin/auditorias/7/plan HTTP/1.1" 200 -
+2026-05-25 23:42:28 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:28] "[32mPOST /admin/auditorias/7/plan HTTP/1.1[0m" 302 -
+2026-05-25 23:42:28 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:28] "GET /admin/auditorias/7/plan HTTP/1.1" 200 -
+2026-05-25 23:42:33 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:33] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 23:42:33 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:33] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:42:54 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:54] "[35m[1mPOST /admin/tareas HTTP/1.1[0m" 201 -
+2026-05-25 23:42:54 [INFO] - 127.0.0.1 - - [25/May/2026 23:42:54] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:43:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:43:03] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 23:43:04 [INFO] - 127.0.0.1 - - [25/May/2026 23:43:04] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:45:11 [INFO] - 127.0.0.1 - - [25/May/2026 23:45:11] "[32mGET /auth/logout HTTP/1.1[0m" 302 -
+2026-05-25 23:45:11 [INFO] - 127.0.0.1 - - [25/May/2026 23:45:11] "GET /auth/login HTTP/1.1" 200 -
+2026-05-25 23:45:24 [WARNING] - Intento de login fallido para el email: admin@admin.com desde IP: 127.0.0.1
+2026-05-25 23:45:24 [INFO] - 127.0.0.1 - - [25/May/2026 23:45:24] "[31m[1mPOST /auth/login HTTP/1.1[0m" 401 -
+2026-05-25 23:45:32 [INFO] - Login exitoso para el usuario: admin@admin.com (ID: 1) desde IP: 127.0.0.1
+2026-05-25 23:45:32 [INFO] - 127.0.0.1 - - [25/May/2026 23:45:32] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2026-05-25 23:45:32 [INFO] - 127.0.0.1 - - [25/May/2026 23:45:32] "GET /admin/ HTTP/1.1" 200 -
+2026-05-25 23:45:48 [INFO] - 127.0.0.1 - - [25/May/2026 23:45:48] "GET /admin/empresas HTTP/1.1" 200 -
+2026-05-25 23:47:11 [INFO] - 127.0.0.1 - - [25/May/2026 23:47:11] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:49:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:49:03] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 23:49:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:49:03] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:49:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:49:03] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:49:04 [INFO] - 127.0.0.1 - - [25/May/2026 23:49:04] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 23:49:04 [INFO] - 127.0.0.1 - - [25/May/2026 23:49:04] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:49:58 [INFO] - 127.0.0.1 - - [25/May/2026 23:49:58] "GET /admin/users HTTP/1.1" 200 -
+2026-05-25 23:50:09 [INFO] - 127.0.0.1 - - [25/May/2026 23:50:09] "GET /admin/calendario HTTP/1.1" 200 -
+2026-05-25 23:50:09 [INFO] - 127.0.0.1 - - [25/May/2026 23:50:09] "GET /admin/api/eventos?start=2026-04-26T00:00:00+02:00&end=2026-06-07T00:00:00+02:00 HTTP/1.1" 200 -
+2026-05-25 23:50:42 [INFO] - 127.0.0.1 - - [25/May/2026 23:50:42] "GET /admin/auditorias HTTP/1.1" 200 -
+2026-05-25 23:50:43 [INFO] - 127.0.0.1 - - [25/May/2026 23:50:43] "GET /admin/auditorias/7/resultados HTTP/1.1" 200 -
+2026-05-25 23:53:04 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:04] "GET /admin/auditorias/7/chat/vista HTTP/1.1" 200 -
+2026-05-25 23:53:04 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:04] "GET /admin/auditorias/7/chat?after=0 HTTP/1.1" 200 -
+2026-05-25 23:53:09 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:09] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:53:15 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:15] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:53:20 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:20] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:53:25 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:25] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:53:30 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:30] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:53:35 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:35] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:53:39 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:39] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:53:44 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:44] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:53:50 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:50] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:53:55 [INFO] - 127.0.0.1 - - [25/May/2026 23:53:55] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:54:00 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:00] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:54:05 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:05] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:54:10 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:10] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:54:15 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:15] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:54:20 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:20] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:54:24 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:24] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:54:30 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:30] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:54:35 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:35] "GET /admin/auditorias/7/chat?after=6 HTTP/1.1" 200 -
+2026-05-25 23:54:36 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:36] "GET /admin/auditorias/7/resultados HTTP/1.1" 200 -
+2026-05-25 23:54:39 [INFO] - 127.0.0.1 - - [25/May/2026 23:54:39] "GET /admin/auditorias/7/plan HTTP/1.1" 200 -
+2026-05-25 23:55:44 [INFO] - 127.0.0.1 - - [25/May/2026 23:55:44] "GET /admin/auditorias/7/vpt HTTP/1.1" 200 -
+2026-05-25 23:56:56 [INFO] - 127.0.0.1 - - [25/May/2026 23:56:56] "GET /admin/auditorias/7/documentos HTTP/1.1" 200 -
+2026-05-25 23:58:22 [INFO] - 127.0.0.1 - - [25/May/2026 23:58:22] "GET /admin/auditorias/7/historico HTTP/1.1" 200 -
+2026-05-25 23:58:54 [INFO] - 127.0.0.1 - - [25/May/2026 23:58:54] "GET /admin/auditorias/7/documentos HTTP/1.1" 200 -
+2026-05-25 23:59:03 [INFO] - 127.0.0.1 - - [25/May/2026 23:59:03] "GET /admin/auditorias/7/historico HTTP/1.1" 200 -
+2026-05-29 10:22:46 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:46 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-29 10:22:46 [INFO] - Usuario 2 (client@example.com) ha sido activado por el ADMIN 1 (admin@example.com)
+2026-05-29 10:22:46 [WARNING] - Usuario 2 (client@example.com) ha sido desactivado por el ADMIN 1 (admin@example.com)
+2026-05-29 10:22:46 [INFO] - Usuario 2 (client@example.com) ha sido eliminado permanentemente por el ADMIN 1 (admin@example.com)
+2026-05-29 10:22:46 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:46 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:47 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-29 10:22:47 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-29 10:22:47 [INFO] - Login exitoso para el usuario: auditor@example.com (ID: 2) desde IP: 127.0.0.1
+2026-05-29 10:22:47 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:47 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:47 [INFO] - Login exitoso para el usuario: admin@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:48 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-29 10:22:48 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-29 10:22:48 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-29 10:22:48 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-29 10:22:48 [WARNING] - Intento de login bloqueado (usuario inactivo) para: test@example.com desde IP: 127.0.0.1
+2026-05-29 10:22:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1
+2026-05-29 10:22:48 [INFO] - Login exitoso para el usuario: test@example.com (ID: 1) desde IP: 127.0.0.1

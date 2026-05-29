@@ -67,7 +67,7 @@
                         <td class="fw-bold">{{ rec.recomendacion.titulo }}</td>
                         <td class="small">{{ rec.recomendacion.descripcion }}</td>
                         <td>{{ rec.impacto_reduccion_pct }}%</td>
-                        <td>{{ rec.coste_estimado_eur }} Ã¢âÂ¬</td>
+                        <td>{{ rec.coste_estimado_eur }} €</td>
                         <td>
                             {% if rec.aplicada %}
                             <span class="badge bg-success">Aplicada</span>
@@ -77,7 +77,10 @@
                         </td>
                         <td>
                             {% if not rec.aplicada and auditoria.estado != 'RECHAZADA' %}
-                            <button class="btn btn-sm btn-outline-success">Aplicar</button>
+                            <form action="{{ url_for('admin.aplicar_recomendacion', id=auditoria.id, rec_id=rec.id) }}" method="post" class="d-inline">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-sm btn-outline-success" onclick="return confirm('¿Desea aplicar esta recomendación? Se marcará como aplicada y se creará una tarea en el Plan de Actuación.');">Aplicar</button>
+                            </form>
                             {% endif %}
                         </td>
                     </tr>
@@ -98,11 +101,11 @@
             <table class="table table-hover table-striped mb-0 text-center align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th>NÃÂº Hombres</th>
-                        <th>NÃÂº Mujeres</th>
-                        <th>NÃÂº Total</th>
-                        <th>Media Hombres (Ã¢âÂ¬)</th>
-                        <th>Media Mujeres (Ã¢âÂ¬)</th>
+                        <th>Nº Hombres</th>
+                        <th>Nº Mujeres</th>
+                        <th>Nº Total</th>
+                        <th>Media Hombres (€)</th>
+                        <th>Media Mujeres (€)</th>
                         <th>Brecha Media (%)</th>
                         <th>Brecha Mediana (%)</th>
                     </tr>
@@ -182,10 +185,10 @@
                 <thead class="table-light">
                     <tr>
                         <th>Grupo / Nivel</th>
-                        <th>NÃÂº Hombres</th>
-                        <th>NÃÂº Mujeres</th>
-                        <th>Media Hombres (Ã¢âÂ¬)</th>
-                        <th>Media Mujeres (Ã¢âÂ¬)</th>
+                        <th>Nº Hombres</th>
+                        <th>Nº Mujeres</th>
+                        <th>Media Hombres (€)</th>
+                        <th>Media Mujeres (€)</th>
                         <th>Brecha Media (%)</th>
                         <th>Brecha Mediana (%)</th>
                     </tr>
@@ -233,7 +236,7 @@
                         <th>Fila Excel</th>
                         <th>Grupo / Dimensión</th>
                         <th>Método</th>
-                        <th>Salario (Ã¢âÂ¬)</th>
+                        <th>Salario (€)</th>
                         <th>Detalle</th>
                         <th>Severidad</th>
                         <th>Acción</th>
@@ -274,16 +277,16 @@
 {% endif %}
 
 {# ======================================================== #}
-{# ACCIONES: Chat + Plan de ActuaciÃ³n + VPT                 #}
+{# ACCIONES: Chat + Plan de Actuación + VPT                 #}
 {# ======================================================== #}
 <div class="row mt-5 mb-5 g-3">
   <div class="col-md-4">
     <a href="{{ url_for('admin.chat_vista', id=auditoria.id) }}" class="card text-decoration-none h-100"
        style="border:1px solid rgba(99,102,241,0.35); cursor:pointer;">
       <div class="card-body text-center py-4">
-        <span style="font-size:2.5rem;">ð¬</span>
+        <span style="font-size:2.5rem;">💬</span>
         <h5 class="mt-2 fw-semibold" style="color:#c4b5fd;">Chat Interno</h5>
-        <p class="text-muted small mb-0">ComunicaciÃ³n directa entre cliente y auditor</p>
+        <p class="text-muted small mb-0">Comunicación directa entre cliente y auditor</p>
       </div>
     </a>
   </div>
@@ -291,8 +294,8 @@
     <a href="{{ url_for('admin.plan_actuacion', id=auditoria.id) }}" class="card text-decoration-none h-100"
        style="border:1px solid rgba(16,185,129,0.35); cursor:pointer;">
       <div class="card-body text-center py-4">
-        <span style="font-size:2.5rem;">ð</span>
-        <h5 class="mt-2 fw-semibold" style="color:#6ee7b7;">Plan de ActuaciÃ³n</h5>
+        <span style="font-size:2.5rem;">📋</span>
+        <h5 class="mt-2 fw-semibold" style="color:#6ee7b7;">Plan de Actuación</h5>
         <p class="text-muted small mb-0">Objetivos, medidas y cronograma (RD 902/2020)</p>
       </div>
     </a>
@@ -301,8 +304,8 @@
     <a href="{{ url_for('admin.vpt_auditoria', id=auditoria.id) }}" class="card text-decoration-none h-100"
        style="border:1px solid rgba(245,158,11,0.35); cursor:pointer;">
       <div class="card-body text-center py-4">
-        <span style="font-size:2.5rem;">âï¸</span>
-        <h5 class="mt-2 fw-semibold" style="color:#fbbf24;">ValoraciÃ³n de Puestos</h5>
+        <span style="font-size:2.5rem;">⚖️</span>
+        <h5 class="mt-2 fw-semibold" style="color:#fbbf24;">Valoración de Puestos</h5>
         <p class="text-muted small mb-0">Trabajos de igual valor (RD 902/2020, art. 4)</p>
       </div>
     </a>
@@ -311,9 +314,9 @@
     <a href="{{ url_for('admin.documentos_auditoria', id=auditoria.id) }}" class="card text-decoration-none h-100"
        style="border:1px solid rgba(139,92,246,0.35); cursor:pointer;">
       <div class="card-body text-center py-4">
-        <span style="font-size:2.5rem;">ð</span>
+        <span style="font-size:2.5rem;">📎</span>
         <h5 class="mt-2 fw-semibold" style="color:#a78bfa;">Documentos adicionales</h5>
-        <p class="text-muted small mb-0">Actas, certificados, informes externosâ¦</p>
+        <p class="text-muted small mb-0">Actas, certificados, informes externos…</p>
       </div>
     </a>
   </div>
@@ -321,8 +324,8 @@
     <a href="{{ url_for('admin.historico_auditoria', id=auditoria.id) }}" class="card text-decoration-none h-100"
        style="border:1px solid rgba(52,211,153,0.35); cursor:pointer;">
       <div class="card-body text-center py-4">
-        <span style="font-size:2.5rem;">ð</span>
-        <h5 class="mt-2 fw-semibold" style="color:#34d399;">HistÃ³rico de actividad</h5>
+        <span style="font-size:2.5rem;">📜</span>
+        <h5 class="mt-2 fw-semibold" style="color:#34d399;">Histórico de actividad</h5>
         <p class="text-muted small mb-0">Registro de subidas y cambios de estado</p>
       </div>
     </a>
@@ -357,7 +360,7 @@
             data: {
                 labels: ['Hombres', 'Mujeres'],
                 datasets: [{
-                    label: 'Salario Medio (Ã¢âÂ¬)',
+                    label: 'Salario Medio (€)',
                     data: [Number("{{ res_global.media_hombres|default(0) }}"), Number("{{ res_global.media_mujeres|default(0) }}")],
                     backgroundColor: ['#36A2EB', '#FF6384']
                 }]
@@ -369,7 +372,7 @@
                         beginAtZero: true,
                         ticks: {
                             callback: function(value) {
-                                return value + ' Ã¢âÂ¬';
+                                return value + ' €';
                             }
                         }
                     } 

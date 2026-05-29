@@ -1,7 +1,19 @@
 {% extends "base.html" %}
 {% block title %}VPT — Auditoría #{{ auditoria.id }}{% endblock %}
 
+{% block breadcrumbs %}
+<div class="breadcrumb-bar">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.home') }}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.lista_auditorias') }}">Auditorías</a></li>
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.auditoria_resultados', id=auditoria.id) }}">#{{ auditoria.id }} — {{ auditoria.empresa.nombre if auditoria.empresa else '' }}</a></li>
+    <li class="breadcrumb-item active">Valoración de Puestos</li>
+  </ol>
+</div>
+{% endblock %}
+
 {% block content %}
+{% include "admin/_audit_subnav.html" %}
 <div class="d-flex justify-content-between align-items-center mb-4">
   <div>
     <h2 class="mb-0 fw-bold"
@@ -11,9 +23,11 @@
     <small class="text-muted">RD 902/2020, art. 4 — Auditoría #{{ auditoria.id }} · {{ auditoria.empresa.nombre }}</small>
   </div>
   <div class="d-flex gap-2">
+    {% if current_user.role_name != 'CLIENTE' %}
     <button class="btn btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#modalNuevoPuesto">
       ➕ Añadir Puesto
     </button>
+    {% endif %}
     <a href="{{ url_for('admin.auditoria_resultados', id=auditoria.id) }}" class="btn btn-outline-secondary rounded-pill px-3">
       ← Resultados
     </a>
@@ -88,11 +102,13 @@
               {% endif %}
             </td>
             <td>
+              {% if current_user.role_name != 'CLIENTE' %}
               <form method="POST" action="{{ url_for('admin.eliminar_vpt', id=auditoria.id, puesto_id=p.id) }}" style="display:inline;">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar"
                         onclick="return confirm('¿Eliminar este puesto?');">✕</button>
               </form>
+              {% endif %}
             </td>
           </tr>
           {% endfor %}

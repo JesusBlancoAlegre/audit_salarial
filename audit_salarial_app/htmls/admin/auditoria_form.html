@@ -24,6 +24,17 @@
                     </div>
 
                     <div class="mb-4">
+                        <label class="form-label fw-bold">Auditor Asignado (Opcional)</label>
+                        <select name="auditor_usuario_id" class="form-select">
+                            <option value="">-- Sin asignar --</option>
+                            {% for auditor in auditores %}
+                            <option value="{{ auditor.id }}">{{ auditor.nombre }} ({{ auditor.email }})</option>
+                            {% endfor %}
+                        </select>
+                        <div class="form-text mt-2 text-muted">Puede asignar el auditor responsable ahora o hacerlo más adelante.</div>
+                    </div>
+
+                    <div class="mb-4">
                         <label class="form-label fw-bold">Fichero Original de Origen (.xlsx, .xls)</label>
                         <input type="file" name="archivo" class="form-control" accept=".xlsx,.xls" required>
                         <div class="form-text mt-2 text-muted">Este fichero quedará protegido y se añadirá al sistema de monitorización histórica.</div>

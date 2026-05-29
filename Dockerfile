@@ -22,9 +22,6 @@ RUN apt-get update \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Instalar herramientas para despliegue
-RUN pip install gunicorn cryptography
-
 # Copiar el proyecto
 COPY . .
 

@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Empresas{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Empresas</h2>
-    {% if current_user.rol.nombre == 'ADMIN' %}
-    <a href="{{ url_for('admin.empresa_nueva') }}" class="btn btn-primary">Nueva Empresa</a>
-    {% endif %}
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+    <h2 class="mb-0">Empresas</h2>
+    <div class="d-flex gap-3 flex-grow-1 justify-content-md-end">
+        <input type="text" id="searchInput" class="form-control shadow-sm" style="max-width: 400px;" placeholder="Buscar empresa por nombre o CIF..." onkeyup="filterTable()">
+        {% if current_user.rol.nombre == 'ADMIN' %}
+        <a href="{{ url_for('admin.empresa_nueva') }}" class="btn btn-primary text-nowrap">Nueva Empresa</a>
+        {% endif %}
+    </div>
 </div>
 
 <div class="card shadow-sm border-0">
@@ -69,4 +72,27 @@
         </div>
     </div>
 </div>
+
+<script>
+function filterTable() {
+    var input = document.getElementById("searchInput");
+    var filter = input.value.toUpperCase();
+    var table = document.querySelector("table.table");
+    var tr = table.getElementsByTagName("tr");
+
+    for (var i = 1; i < tr.length; i++) {
+        var tdCif = tr[i].getElementsByTagName("td")[1];
+        var tdName = tr[i].getElementsByTagName("td")[2];
+        if (tdCif || tdName) {
+            var txtValueCif = tdCif.textContent || tdCif.innerText;
+            var txtValueName = tdName.textContent || tdName.innerText;
+            if (txtValueCif.toUpperCase().indexOf(filter) > -1 || txtValueName.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }       
+    }
+}
+</script>
 {% endblock %}

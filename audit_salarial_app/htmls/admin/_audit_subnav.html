@@ -1,0 +1,32 @@
+{# 
+  Sub-navegación contextual para páginas de auditoría.
+  Uso: {% include "admin/_audit_subnav.html" %}
+  Requiere: variable `auditoria` en el contexto.
+#}
+{% set ep = request.endpoint or '' %}
+<nav class="audit-subnav" aria-label="Secciones de auditoría">
+  <a href="{{ url_for('admin.auditoria_resultados', id=auditoria.id) }}"
+     class="{% if 'resultados' in ep %}active{% endif %}">
+    📊 Resultados
+  </a>
+  <a href="{{ url_for('admin.chat_vista', id=auditoria.id) }}"
+     class="{% if 'chat' in ep %}active{% endif %}">
+    💬 Chat
+  </a>
+  <a href="{{ url_for('admin.plan_actuacion', id=auditoria.id) }}"
+     class="{% if 'plan' in ep %}active{% endif %}">
+    📋 Plan de Actuación
+  </a>
+  <a href="{{ url_for('admin.vpt_auditoria', id=auditoria.id) }}"
+     class="{% if 'vpt' in ep %}active{% endif %}">
+    ⚖️ VPT
+  </a>
+  <a href="{{ url_for('admin.documentos_auditoria', id=auditoria.id) }}"
+     class="{% if 'documento' in ep %}active{% endif %}">
+    📁 Documentos
+  </a>
+  <a href="{{ url_for('admin.historico_auditoria', id=auditoria.id) }}"
+     class="{% if 'historico' in ep %}active{% endif %}">
+    📜 Histórico
+  </a>
+</nav>

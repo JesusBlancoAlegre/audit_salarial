@@ -50,13 +50,20 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">Empresa (Opcional)</label>
-                            <select name="empresa_id" class="form-select">
-                                <option value="">--- Ninguna ---</option>
+                            <label class="form-label fw-bold d-block mb-3">Empresas Asignadas (Opcional)</label>
+                            <div class="row" style="max-height: 150px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">
                                 {% for e in empresas %}
-                                <option value="{{ e.id }}" {% if usuario and usuario.empresa_id == e.id %}selected{% endif %}>{{ e.nombre }}</option>
+                                <div class="col-12 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="empresa_ids" value="{{ e.id }}" id="empresa_{{ e.id }}" {% if usuario and (e in usuario.empresas_asignadas or usuario.empresa_id == e.id) %}checked{% endif %}>
+                                        <label class="form-check-label" for="empresa_{{ e.id }}">
+                                            {{ e.nombre }}
+                                        </label>
+                                    </div>
+                                </div>
                                 {% endfor %}
-                            </select>
+                            </div>
+                            <div class="form-text mt-2 text-muted">Puede seleccionar una o varias empresas.</div>
                         </div>
                     </div>
 

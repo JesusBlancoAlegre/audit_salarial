@@ -1,7 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Plan de Actuación — Auditoría #{{ auditoria.id }}{% endblock %}
 
+{% block breadcrumbs %}
+<div class="breadcrumb-bar">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.home') }}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.lista_auditorias') }}">Auditorías</a></li>
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.auditoria_resultados', id=auditoria.id) }}">#{{ auditoria.id }} — {{ auditoria.empresa.nombre if auditoria.empresa else '' }}</a></li>
+    <li class="breadcrumb-item active">Plan de Actuación</li>
+  </ol>
+</div>
+{% endblock %}
+
 {% block content %}
+{% include "admin/_audit_subnav.html" %}
 <div class="d-flex justify-content-between align-items-center mb-4">
   <div>
     <h2 class="mb-0 fw-bold"
@@ -116,38 +128,74 @@
     {% endif %}
   </div>
   <div class="card-body">
+    {% if plan and plan.aprobado_por %}
+    <div class="alert border-0 shadow-sm d-flex align-items-center gap-3 p-3 mb-4" style="background: rgba(16, 185, 129, 0.1);">
+      <span style="font-size: 1.5rem;">🎉</span>
+      <div>
+        <h6 class="mb-1 fw-bold text-success" style="font-size:0.95rem;">Plan de Actuación Aprobado (Visto Bueno Recibido)</h6>
+        <span class="small text-muted">Aprobado y puesto en marcha por <strong>{{ plan.aprobador.nombre }}</strong> el {{ plan.aprobado_en.strftime('%d/%m/%Y a las %H:%M') }}.</span>
+      </div>
+    </div>
+    {% else %}
+      {% if current_user.role_name == 'CLIENTE' %}
+      <div class="alert border-0 shadow-sm p-4 mb-4" style="background: rgba(245, 158, 11, 0.08); border-left: 4px solid #f59e0b !important;">
+        <h5 class="fw-bold text-warning mb-2" style="font-size:1.1rem;">🎯 Confirmación y Visto Bueno del Plan</h5>
+        <p class="small text-muted mb-3" style="line-height:1.6;">
+          Por favor, revise los objetivos generales de brecha y plazos elaborados por el auditor para su empresa. 
+          Al dar su <strong>Visto Bueno / OK</strong>, el Plan de Actuación pasará a estar formalmente activo y se iniciarán las medidas correctoras.
+        </p>
+        <form method="POST" action="{{ url_for('admin.aprobar_plan', id=auditoria.id) }}" class="m-0">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="btn btn-warning rounded-pill px-4 fw-semibold text-dark shadow-sm">
+            ✅ Dar el Visto Bueno (OK) y Activar Plan
+          </button>
+        </form>
+      </div>
+      {% else %}
+      <div class="alert border-0 shadow-sm p-3 mb-4" style="background: rgba(99, 102, 241, 0.08); border-left: 4px solid #6366f1 !important;">
+        <div class="small text-muted" style="line-height:1.5;">
+          <strong>⏳ Pendiente de Aprobación</strong> — El plan está actualmente en borrador. El cliente recibirá una tarjeta interactiva en su panel pidiéndole su <strong>Visto Bueno (OK)</strong> para poder activarlo formalmente.
+        </div>
+      </div>
+      {% endif %}
+    {% endif %}
+
     <form id="form-plan" method="POST" action="{{ url_for('admin.plan_actuacion', id=auditoria.id) }}">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <div class="mb-3">
-        <label class="form-label">Objetivo General</label>
-        <textarea name="objetivo_general" class="form-control" rows="3"
-                  placeholder="Ej: Reducir la brecha salarial de género por debajo del 5% en todos los grupos profesionales mediante la revisión de la política retributiva y la implantación de bandas salariales transparentes.">{{ plan.objetivo_general if plan and plan.objetivo_general else '' }}</textarea>
-      </div>
-      <div class="row g-3 mb-3">
-        <div class="col-md-4">
-          <label class="form-label">Objetivo de Brecha (%)</label>
-          <input type="number" name="objetivo_brecha_pct" class="form-control" step="0.1" min="0" max="100"
-                 placeholder="5.0"
-                 value="{{ plan.objetivo_brecha_pct if plan and plan.objetivo_brecha_pct else '' }}">
-          <small class="text-muted">% de brecha objetivo a alcanzar</small>
+      <fieldset {% if current_user.role_name == 'CLIENTE' %}disabled{% endif %} style="border:none; padding:0; margin:0;">
+        <div class="mb-3">
+          <label class="form-label">Objetivo General</label>
+          <textarea name="objetivo_general" class="form-control" rows="3"
+                    placeholder="Ej: Reducir la brecha salarial de género por debajo del 5% en todos los grupos profesionales mediante la revisión de la política retributiva y la implantación de bandas salariales transparentes.">{{ plan.objetivo_general if plan and plan.objetivo_general else '' }}</textarea>
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Plazo (meses)</label>
-          <input type="number" name="plazo_meses" class="form-control" min="1" max="60"
-                 value="{{ plan.plazo_meses if plan else 12 }}">
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <label class="form-label">Objetivo de Brecha (%)</label>
+            <input type="number" name="objetivo_brecha_pct" class="form-control" step="0.1" min="0" max="100"
+                   placeholder="5.0"
+                   value="{{ plan.objetivo_brecha_pct if plan and plan.objetivo_brecha_pct else '' }}">
+            <small class="text-muted">% de brecha objetivo a alcanzar</small>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Plazo (meses)</label>
+            <input type="number" name="plazo_meses" class="form-control" min="1" max="60"
+                   value="{{ plan.plazo_meses if plan else 12 }}">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Estado del Plan</label>
+            <select name="estado" class="form-select">
+              <option value="BORRADOR" {% if not plan or plan.estado == 'BORRADOR' %}selected{% endif %}>📝 Borrador</option>
+              <option value="ACTIVO" {% if plan and plan.estado == 'ACTIVO' %}selected{% endif %}>✅ Activo</option>
+              <option value="COMPLETADO" {% if plan and plan.estado == 'COMPLETADO' %}selected{% endif %}>🏁 Completado</option>
+            </select>
+          </div>
         </div>
-        <div class="col-md-4">
-          <label class="form-label">Estado del Plan</label>
-          <select name="estado" class="form-select">
-            <option value="BORRADOR" {% if not plan or plan.estado == 'BORRADOR' %}selected{% endif %}>📝 Borrador</option>
-            <option value="ACTIVO" {% if plan and plan.estado == 'ACTIVO' %}selected{% endif %}>✅ Activo</option>
-            <option value="COMPLETADO" {% if plan and plan.estado == 'COMPLETADO' %}selected{% endif %}>🏁 Completado</option>
-          </select>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary rounded-pill px-4">
-        💾 Guardar Plan
-      </button>
+        {% if current_user.role_name != 'CLIENTE' %}
+        <button type="submit" class="btn btn-primary rounded-pill px-4">
+          💾 Guardar Plan
+        </button>
+        {% endif %}
+      </fieldset>
     </form>
   </div>
 </div>
@@ -197,7 +245,15 @@
               {% if rec.aplicada %}
               <span class="badge bg-success">✅ Aplicada</span>
               {% else %}
-              <span class="badge bg-secondary">⏳ Pendiente</span>
+              <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-secondary">⏳ Pendiente</span>
+                {% if auditoria.estado != 'RECHAZADA' and current_user.role_name != 'CLIENTE' %}
+                <form action="{{ url_for('admin.aplicar_recomendacion', id=auditoria.id, rec_id=rec.id) }}" method="post" class="m-0">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-sm btn-outline-success py-0 px-2" style="font-size: 0.75rem;" onclick="return confirm('¿Desea aplicar esta medida y añadirla al plan de actuación?');">Aplicar</button>
+                </form>
+                {% endif %}
+              </div>
               {% endif %}
             </td>
           </tr>
@@ -265,9 +321,11 @@
     {% else %}
     <div class="text-muted text-center py-3">
       <p class="mb-2">No hay tareas asignadas a esta auditoría.</p>
+      {% if current_user.role_name != 'CLIENTE' %}
       <a href="{{ url_for('admin.calendario') }}" class="btn btn-primary btn-sm rounded-pill px-3">
         ➕ Crear Tarea en Calendario
       </a>
+      {% endif %}
     </div>
     {% endif %}
   </div>
@@ -282,37 +340,46 @@
   <div class="card-body">
     <div class="row text-center">
       <div class="col-md-4 mb-3">
-        <div class="p-3 rounded" style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2);">
+        <div class="p-3 rounded h-100 d-flex flex-column" style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2);">
           <div class="text-muted small">Medidas Aplicadas</div>
           {% set total_rec = recomendaciones|length if recomendaciones else 0 %}
           {% set aplicadas = recomendaciones|selectattr('aplicada')|list|length if recomendaciones else 0 %}
-          <div class="fs-3 fw-bold text-success">{{ aplicadas }} / {{ total_rec }}</div>
-          <div class="progress mt-2" style="height:6px; background:rgba(255,255,255,0.05);">
+          <div class="fs-3 fw-bold text-success flex-grow-1 d-flex align-items-center justify-content-center">{{ aplicadas }} / {{ total_rec }}</div>
+          <div class="progress mt-2 mb-3" style="height:6px; background:rgba(255,255,255,0.05);">
             <div class="progress-bar bg-success" {{ 'style="width:' ~ ((aplicadas/total_rec*100) if total_rec > 0 else 0) ~ '%;"' | safe }}></div>
           </div>
+          <div class="mt-auto"></div>
         </div>
       </div>
       <div class="col-md-4 mb-3">
-        <div class="p-3 rounded" style="background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.2);">
+        <div class="p-3 rounded h-100 d-flex flex-column" style="background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.2);">
           <div class="text-muted small">Tareas Completadas</div>
           {% set total_tar = tareas|length if tareas else 0 %}
           {% set completadas = tareas|selectattr('estado', 'equalto', 'COMPLETADA')|list|length if tareas else 0 %}
-          <div class="fs-3 fw-bold" style="color:#818cf8;">{{ completadas }} / {{ total_tar }}</div>
-          <div class="progress mt-2" style="height:6px; background:rgba(255,255,255,0.05);">
+          <div class="fs-3 fw-bold flex-grow-1 d-flex align-items-center justify-content-center" style="color:#818cf8;">{{ completadas }} / {{ total_tar }}</div>
+          <div class="progress mt-2 mb-3" style="height:6px; background:rgba(255,255,255,0.05);">
             <div class="progress-bar" {{ 'style="background:#6366f1;width:' ~ ((completadas/total_tar*100) if total_tar > 0 else 0) ~ '%;"' | safe }}></div>
           </div>
+          {% if current_user.role_name != 'CLIENTE' %}
+          <a href="{{ url_for('admin.calendario') }}" class="btn btn-sm btn-outline-light mt-auto" style="border-color: rgba(99,102,241,0.5); color: #818cf8;">
+            <i class="bi bi-plus-circle me-1"></i>Crear Tarea
+          </a>
+          {% endif %}
         </div>
       </div>
       <div class="col-md-4 mb-3">
-        <div class="p-3 rounded" style="background:rgba(236,72,153,0.1); border:1px solid rgba(236,72,153,0.2);">
+        <div class="p-3 rounded h-100 d-flex flex-column" style="background:rgba(236,72,153,0.1); border:1px solid rgba(236,72,153,0.2);">
           <div class="text-muted small">Objetivo de Brecha</div>
-          {% if plan and plan.objetivo_brecha_pct and res_global %}
-          <div class="fs-3 fw-bold" style="color:#f472b6;">
-            {{ "%.1f"|format(res_global.brecha_media_pct) }}% → {{ plan.objetivo_brecha_pct }}%
+          <div class="flex-grow-1 d-flex align-items-center justify-content-center">
+            {% if plan and plan.objetivo_brecha_pct and res_global %}
+            <div class="fs-3 fw-bold" style="color:#f472b6;">
+              {{ "%.1f"|format(res_global.brecha_media_pct) }}% → {{ plan.objetivo_brecha_pct }}%
+            </div>
+            {% else %}
+            <div class="fs-5 text-muted">Sin definir</div>
+            {% endif %}
           </div>
-          {% else %}
-          <div class="fs-5 text-muted">Sin definir</div>
-          {% endif %}
+          <div class="mt-auto"></div>
         </div>
       </div>
     </div>

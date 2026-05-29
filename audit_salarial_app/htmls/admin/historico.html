@@ -1,15 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Histórico — Auditoría #{{ auditoria.id }}{% endblock %}
 
+{% block breadcrumbs %}
+<div class="breadcrumb-bar">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.home') }}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.lista_auditorias') }}">Auditorías</a></li>
+    <li class="breadcrumb-item"><a href="{{ url_for('admin.auditoria_resultados', id=auditoria.id) }}">#{{ auditoria.id }} — {{ auditoria.empresa.nombre if auditoria.empresa else '' }}</a></li>
+    <li class="breadcrumb-item active">Histórico</li>
+  </ol>
+</div>
+{% endblock %}
+
 {% block content %}
+{% include "admin/_audit_subnav.html" %}
 <div class="mb-4 fade-in-up">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb mb-2" style="font-size:.85rem;">
-      <li class="breadcrumb-item"><a href="{{ url_for('admin.lista_auditorias') }}" class="text-decoration-none text-muted">Auditorías</a></li>
-      <li class="breadcrumb-item"><a href="{{ url_for('admin.auditoria_resultados', id=auditoria.id) }}" class="text-decoration-none text-muted">#{{ auditoria.id }}</a></li>
-      <li class="breadcrumb-item active text-white">Histórico</li>
-    </ol>
-  </nav>
   <h1 class="display-5 fw-bold mb-1"
       style="background:linear-gradient(to right,#818cf8,#c084fc);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">
     📜 Histórico de actividad
@@ -43,12 +48,14 @@
           {% for ev in eventos %}
 
           {% set ev_icons = {
-            'SUBIDA_EXCEL':          ('⬆️', '#6366f1'),
-            'SUBIDA_DOCUMENTO':      ('📎', '#8b5cf6'),
-            'ELIMINACION_DOCUMENTO': ('🗑️', '#ef4444'),
-            'CAMBIO_ESTADO':         ('🔄', '#f59e0b'),
-            'CREACION_CHAT':         ('💬', '#10b981'),
-            'REVISION':              ('🔍', '#06b6d4'),
+            'SUBIDA_EXCEL':              ('⬆️', '#6366f1'),
+            'SUBIDA_DOCUMENTO':          ('📎', '#8b5cf6'),
+            'ELIMINACION_DOCUMENTO':     ('🗑️', '#ef4444'),
+            'CAMBIO_ESTADO':             ('🔄', '#f59e0b'),
+            'CREACION_CHAT':             ('💬', '#10b981'),
+            'REVISION':                  ('🔍', '#06b6d4'),
+            'NUEVA_VALORACION_PUESTO':   ('⚖️', '#f59e0b'),
+            'ELIMINAR_VALORACION_PUESTO':('🗑️', '#ef4444'),
           } %}
           {% set icon_data = ev_icons.get(ev.evento, ('📌', '#94a3b8')) %}
 

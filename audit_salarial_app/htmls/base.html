@@ -176,6 +176,72 @@
     .fade-in-up {
       animation: fadeInSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
+
+    /* Active nav-link */
+    .nav-link.active-nav {
+      color: #fff !important;
+      background: rgba(99, 102, 241, 0.15);
+      border-bottom: 2px solid #818cf8;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-bar {
+      padding: 0.6rem 0;
+      margin-bottom: 1rem;
+    }
+    .breadcrumb-bar .breadcrumb {
+      margin-bottom: 0;
+      background: transparent;
+      padding: 0;
+      font-size: 0.85rem;
+    }
+    .breadcrumb-bar .breadcrumb-item a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .breadcrumb-bar .breadcrumb-item a:hover {
+      color: #818cf8;
+    }
+    .breadcrumb-bar .breadcrumb-item.active {
+      color: #e2e8f0;
+    }
+    .breadcrumb-bar .breadcrumb-item + .breadcrumb-item::before {
+      color: #475569;
+      content: "/";
+    }
+
+    /* Audit Sub-Navigation Bar */
+    .audit-subnav {
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 1.25rem;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 0.75rem;
+    }
+    .audit-subnav a {
+      padding: 0.4rem 0.85rem;
+      border-radius: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .audit-subnav a:hover {
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .audit-subnav a.active {
+      color: #fff;
+      background: rgba(99, 102, 241, 0.25);
+      box-shadow: inset 0 -2px 0 #818cf8;
+    }
   </style>
 </head>
 <body>
@@ -192,20 +258,21 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+          {% set current_ep = request.endpoint or '' %}
           {% if current_user.rol.nombre in ['ADMIN', 'AUDITOR'] %}
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" href="{{ url_for('admin.lista_empresas') }}">Empresas</a>
+            <a class="nav-link px-3 rounded {% if 'empresa' in current_ep %}active-nav{% endif %}" href="{{ url_for('admin.lista_empresas') }}">Empresas</a>
           </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" href="{{ url_for('admin.lista_auditorias') }}">Auditorías</a>
+            <a class="nav-link px-3 rounded {% if 'auditoria' in current_ep or 'vpt' in current_ep or 'plan' in current_ep or 'historico' in current_ep or 'chat' in current_ep or 'documento' in current_ep %}active-nav{% endif %}" href="{{ url_for('admin.lista_auditorias') }}">Auditorías</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" href="{{ url_for('admin.calendario') }}">📅 Calendario</a>
+            <a class="nav-link px-3 rounded {% if 'calendario' in current_ep or 'eventos' in current_ep %}active-nav{% endif %}" href="{{ url_for('admin.calendario') }}">📅 Calendario</a>
           </li>
           {% if current_user.rol.nombre == 'ADMIN' %}
           <li class="nav-item">
-            <a class="nav-link px-3 rounded" href="{{ url_for('admin.lista_users') }}">Usuarios</a>
+            <a class="nav-link px-3 rounded {% if 'user' in current_ep and 'empresa' not in current_ep %}active-nav{% endif %}" href="{{ url_for('admin.lista_users') }}">Usuarios</a>
           </li>
           {% endif %}
         </ul>
@@ -254,6 +321,10 @@
   {% endif %}
 
   <div class="container fade-in-up">
+    {# ── Breadcrumbs ── #}
+    {% block breadcrumbs %}{% endblock %}
+
+    {# ── Flash Messages ── #}
     <div class="mt-2 mb-4">
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

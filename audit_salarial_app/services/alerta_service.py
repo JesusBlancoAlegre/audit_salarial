@@ -2,26 +2,38 @@ from audit_salarial_app.models import Alerta, Auditoria, Empresa, Usuario
 from audit_salarial_app.extensions import db
 import logging
 import smtplib
-def generar_alerta(auditoria_id, tipo, severidad, asunto, mensaje, canal='AMBOS'):
+def generar_alerta(auditoria_id, tipo, severidad, asunto, mensaje, canal='AMBOS', empresa_id=None, usuario_id=None):
     """
     Genera un registro de alerta in-app y lanza (o mockea) el envío de email.
+    Si auditoria_id es None, se requiere empresa_id o es un aviso global (a los ADMIN).
     """
     try:
-        auditoria = db.session.get(Auditoria, auditoria_id)
-        if not auditoria:
-            return False, "Auditoría no encontrada."
-
-        # Identificar al usuario cliente dueño de la empresa, o al admin
-        if auditoria.cliente_usuario_id:
-            usuario_id = auditoria.cliente_usuario_id
-        else:
-            # Buscar el primer admin si no hay cliente (para testing)
+        auditoria = None
+        if auditoria_id:
+            auditoria = db.session.get(Auditoria, auditoria_id)
+            if not auditoria:
+                return False, "Auditoría no encontrada."
+            
+            # Usar empresa de la auditoría si no se especifica
+            if not empresa_id:
+                empresa_id = auditoria.empresa_id
+            
+            # Si no hay usuario_id, usar cliente de la auditoría o admin
+            if not usuario_id:
+                if auditoria.cliente_usuario_id:
+                    usuario_id = auditoria.cliente_usuario_id
+                else:
+                    admin = Usuario.query.filter(Usuario.rol.has(nombre='ADMIN')).first()
+                    usuario_id = admin.id if admin else None
+                    
+        # Si aún no hay usuario_id (por ejemplo, auditoria_id es None), enviar al Admin por defecto
+        if not usuario_id:
             admin = Usuario.query.filter(Usuario.rol.has(nombre='ADMIN')).first()
             usuario_id = admin.id if admin else None
 
         alerta = Alerta(
             auditoria_id=auditoria_id,
-            empresa_id=auditoria.empresa_id,
+            empresa_id=empresa_id,
             usuario_id=usuario_id,
             tipo=tipo,
             severidad=severidad,

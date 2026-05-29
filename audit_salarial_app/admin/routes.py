@@ -117,10 +117,14 @@ def home():
         if rol == 'ADMIN':
             empresas = Empresa.query.filter_by(activa=True).order_by(Empresa.nombre.asc()).all()
         else:
-            empresas = Empresa.query.join(Auditoria).filter(
+            empresas_directas = [e for e in current_user.empresas_asignadas if e.activa]
+            empresas_auditorias = Empresa.query.join(Auditoria).filter(
                 Auditoria.auditor_usuario_id == current_user.id,
                 Empresa.activa == True
-            ).distinct().order_by(Empresa.nombre.asc()).all()
+            ).all()
+            # Combinar y quitar duplicados
+            empresas = list({e.id: e for e in (empresas_directas + empresas_auditorias)}.values())
+            empresas.sort(key=lambda x: x.nombre)
 
         for emp in empresas:
             total_auds = Auditoria.query.filter_by(empresa_id=emp.id).count()
@@ -169,6 +173,7 @@ def lista_empresas():
 @admin_bp.route("/empresas/nueva", methods=["GET", "POST"])
 @role_required("ADMIN")
 def empresa_nueva():
+    auditores = Usuario.query.join(Rol).filter(Rol.nombre == 'AUDITOR').all()
     if request.method == "POST":
         emp = Empresa(
             nombre=request.form["nombre"].strip(),
@@ -176,12 +181,28 @@ def empresa_nueva():
             num_trabajadores=int(request.form.get("num_trabajadores", "0") or 0),
             email_contacto=(request.form.get("email_contacto") or "").strip() or None,
         )
+        auditor_ids = request.form.getlist("auditor_ids")
+        if auditor_ids:
+            emp.auditores_asignados = Usuario.query.filter(Usuario.id.in_(auditor_ids)).all()
+
         db.session.add(emp)
         db.session.commit()
+        
+        from ..services.alerta_service import generar_alerta
+        generar_alerta(
+            auditoria_id=None,
+            empresa_id=emp.id,
+            tipo='NUEVA_EMPRESA',
+            severidad='INFO',
+            asunto='Nueva empresa registrada',
+            mensaje=f'Se ha registrado una nueva empresa en el sistema: {emp.nombre}',
+            canal='APP'
+        )
+
         flash("Empresa creada", "success")
         return redirect(url_for("admin.lista_empresas"))
 
-    return render_template("admin/empresa_form.html")
+    return render_template("admin/empresa_form.html", auditores=auditores)
 
 @admin_bp.route("/empresas/editar/<int:id>", methods=["GET", "POST"])
 @role_required("ADMIN")
@@ -191,16 +212,22 @@ def empresa_editar(id):
         flash("Empresa no encontrada", "error")
         return redirect(url_for("admin.lista_empresas"))
         
+    auditores = Usuario.query.join(Rol).filter(Rol.nombre == 'AUDITOR').all()
+        
     if request.method == "POST":
         emp.nombre = request.form["nombre"].strip()
         emp.cif = (request.form.get("cif") or "").strip() or None
         emp.num_trabajadores = int(request.form.get("num_trabajadores", "0") or 0)
         emp.email_contacto = (request.form.get("email_contacto") or "").strip() or None
+        
+        auditor_ids = request.form.getlist("auditor_ids")
+        emp.auditores_asignados = Usuario.query.filter(Usuario.id.in_(auditor_ids)).all() if auditor_ids else []
+        
         db.session.commit()
         flash("Empresa actualizada", "success")
         return redirect(url_for("admin.lista_empresas"))
         
-    return render_template("admin/empresa_form.html", empresa=emp)
+    return render_template("admin/empresa_form.html", empresa=emp, auditores=auditores)
 
 @admin_bp.post("/empresas/eliminar/<int:id>")
 @role_required("ADMIN")
@@ -233,11 +260,11 @@ def empresa_ver(id):
         flash("Empresa no encontrada", "error")
         return redirect(url_for("admin.home"))
         
-    # If the user is an AUDITOR, verify they are assigned to this company through audits
+    # If the user is an AUDITOR, verify they are assigned to this company through audits or directly
     if current_user.role_name == 'AUDITOR':
         assigned = Auditoria.query.filter_by(empresa_id=id, auditor_usuario_id=current_user.id).first()
-        if not assigned:
-            flash("No tienes acceso a esta empresa ya que no eres el auditor asignado a sus auditorías.", "error")
+        if not assigned and emp not in current_user.empresas_asignadas:
+            flash("No tienes acceso a esta empresa ya que no eres el auditor asignado.", "error")
             return redirect(url_for("admin.home"))
             
     # KPIs for this specific company
@@ -301,10 +328,16 @@ def user_nuevo():
             nombre=request.form["nombre"].strip(),
             apellidos=(request.form.get("apellidos") or "").strip() or None,
             rol_id=int(request.form["rol_id"]),
-            empresa_id=int(request.form["empresa_id"]) if request.form.get("empresa_id") else None,
             password_hash="tmp"
         )
         u.set_password(request.form["password"])
+        
+        empresa_ids = request.form.getlist("empresa_ids")
+        if empresa_ids:
+            u.empresas_asignadas = Empresa.query.filter(Empresa.id.in_(empresa_ids)).all()
+            u.empresa_id = int(empresa_ids[0])
+        else:
+            u.empresa_id = None
         db.session.add(u)
         db.session.commit()
 
@@ -329,8 +362,14 @@ def user_editar(id):
         u.nombre = request.form["nombre"].strip()
         u.apellidos = (request.form.get("apellidos") or "").strip() or None
         u.rol_id = int(request.form["rol_id"])
-        u.empresa_id = int(request.form["empresa_id"]) if request.form.get("empresa_id") else None
         
+        empresa_ids = request.form.getlist("empresa_ids")
+        if empresa_ids:
+            u.empresas_asignadas = Empresa.query.filter(Empresa.id.in_(empresa_ids)).all()
+            u.empresa_id = int(empresa_ids[0])
+        else:
+            u.empresas_asignadas = []
+            u.empresa_id = None
         if request.form.get("password"):
             u.set_password(request.form["password"])
             
@@ -414,11 +453,20 @@ def lista_auditorias():
             query = query.filter(Auditoria.empresa_id == current_user.empresa_id)
         else:
             # Auditor not assigned to a company sees audits explicitly assigned to them
+            # or from companies they are assigned to
             from sqlalchemy import select
-            empresas_asignadas = select(Auditoria.empresa_id).where(
+            empresas_asignadas_audits = select(Auditoria.empresa_id).where(
                 Auditoria.auditor_usuario_id == current_user.id
             ).distinct()
-            query = query.filter(Auditoria.empresa_id.in_(empresas_asignadas))
+            
+            empresas_asignadas_directamente = [e.id for e in current_user.empresas_asignadas]
+            
+            query = query.filter(
+                or_(
+                    Auditoria.empresa_id.in_(empresas_asignadas_audits),
+                    Auditoria.empresa_id.in_(empresas_asignadas_directamente)
+                )
+            )
             
     if q:
         query = query.join(Empresa).filter(
@@ -482,9 +530,12 @@ def auditoria_nueva():
     else:
         empresas = Empresa.query.filter_by(activa=True).order_by(Empresa.nombre.asc()).all()
         
+    auditores = Usuario.query.join(Rol).filter(Rol.nombre.in_(['ADMIN', 'AUDITOR'])).all()
+        
     if request.method == "POST":
         file = request.files.get("archivo")
         empresa_id = request.form.get("empresa_id")
+        auditor_id = request.form.get("auditor_usuario_id")
         
         if not file or file.filename == "":
             flash("No has seleccionado ningún archivo", "error")
@@ -519,6 +570,7 @@ def auditoria_nueva():
         a = Auditoria(
             empresa_id=int(empresa_id),
             cliente_usuario_id=current_user.id if current_user.role_name == 'CLIENTE' else None,
+            auditor_usuario_id=int(auditor_id) if auditor_id else None,
             estado='PENDIENTE'
         )
         db.session.add(a)
@@ -550,6 +602,17 @@ def auditoria_nueva():
         else:
             flash(f"Auditoría creada. Falló la lectura interactiva del Excel: {info_excel['mensaje']}", "warning")
 
+        from ..services.alerta_service import generar_alerta
+        emp_obj = db.session.get(Empresa, a.empresa_id)
+        generar_alerta(
+            auditoria_id=a.id,
+            tipo='NUEVA_AUDITORIA',
+            severidad='INFO',
+            asunto=f'Nueva Auditoría para {emp_obj.nombre if emp_obj else "Empresa"}',
+            mensaje=f'Se ha iniciado una nueva auditoría por {current_user.nombre}.',
+            canal='APP'
+        )
+
         _registrar_evento(
             a.id,
             evento='SUBIDA_EXCEL',
@@ -558,7 +621,7 @@ def auditoria_nueva():
         )
         return redirect(url_for("admin.lista_auditorias"))
         
-    return render_template("admin/auditoria_form.html", empresas=empresas)
+    return render_template("admin/auditoria_form.html", empresas=empresas, auditores=auditores)
 
 @admin_bp.route("/auditorias/editar/<int:id>", methods=["GET", "POST"])
 @login_required
@@ -1063,6 +1126,10 @@ def plan_actuacion(id):
     plan = PlanActuacion.query.filter_by(auditoria_id=id).first()
 
     if request.method == "POST":
+        if current_user.role_name == "CLIENTE":
+            flash("Acceso denegado: Los clientes no pueden modificar el plan de actuación.", "error")
+            return redirect(url_for("admin.plan_actuacion", id=id))
+
         if not plan:
             plan = PlanActuacion(auditoria_id=id)
             db.session.add(plan)
@@ -1091,6 +1158,39 @@ def plan_actuacion(id):
     return render_template("admin/plan_actuacion.html",
         auditoria=auditoria, plan=plan, res_global=res_global,
         res_grupos=res_grupos, recomendaciones=recomendaciones, tareas=tareas)
+
+@admin_bp.post("/auditorias/<int:id>/plan/aprobar")
+@login_required
+def aprobar_plan(id):
+    auditoria = db.session.get(Auditoria, id)
+    if not auditoria:
+        flash("Auditoría no encontrada", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+    if current_user.role_name == 'CLIENTE' and auditoria.empresa_id != current_user.empresa_id:
+        flash("Acceso denegado", "error")
+        return redirect(url_for("admin.lista_auditorias"))
+
+    plan = PlanActuacion.query.filter_by(auditoria_id=id).first()
+    if not plan:
+        plan = PlanActuacion(auditoria_id=id)
+        db.session.add(plan)
+
+    plan.estado = 'ACTIVO'
+    plan.aprobado_por = current_user.id
+    from datetime import datetime as dt
+    plan.aprobado_en = dt.utcnow()
+    db.session.commit()
+
+    _registrar_evento(
+        id,
+        evento="CAMBIO_ESTADO",
+        detalle=f"Plan de actuación aprobado por el cliente: {current_user.nombre}",
+        estado_anterior="BORRADOR",
+        estado_nuevo="ACTIVO"
+    )
+
+    flash("Plan de actuación aprobado correctamente y puesto en marcha.", "success")
+    return redirect(url_for("admin.plan_actuacion", id=id))
 
 @admin_bp.get("/auditorias/<int:id>/plan/exportar")
 @login_required
@@ -1127,6 +1227,10 @@ def vpt_auditoria(id):
         return redirect(url_for("admin.lista_auditorias"))
 
     if request.method == "POST":
+        if current_user.role_name == "CLIENTE":
+            flash("Acceso denegado: Los clientes no pueden añadir valoraciones de puestos.", "error")
+            return redirect(url_for("admin.vpt_auditoria", id=id))
+
         f_form = int(request.form.get("factor_formacion", 5))
         f_cond = int(request.form.get("factor_condiciones", 5))
         f_esf  = int(request.form.get("factor_esfuerzo", 5))
@@ -1159,8 +1263,16 @@ def vpt_auditoria(id):
         )
         db.session.add(vp)
         db.session.commit()
-        flash(f"Puesto '{vp.nombre_puesto}' valorado correctamente (puntuación: {puntuacion})", "success")
-        return redirect(url_for("admin.vpt_auditoria", id=id))
+        
+        _registrar_evento(
+            id,
+            evento="NUEVA_VALORACION_PUESTO",
+            detalle=f"Valoración de puesto introducida: {vp.nombre_puesto} (Puntuación: {vp.puntuacion_total})",
+        )
+        
+        flash("Valoración de puesto guardada correctamente.", "success")
+        
+        return redirect(request.referrer or url_for("admin.auditoria_resultados", id=id))
 
     puestos = ValoracionPuesto.query.filter_by(auditoria_id=id).order_by(
         ValoracionPuesto.puntuacion_total.desc()
@@ -1180,10 +1292,21 @@ def vpt_auditoria(id):
 @admin_bp.route("/auditorias/<int:id>/vpt/<int:puesto_id>/eliminar", methods=["POST"])
 @login_required
 def eliminar_vpt(id, puesto_id):
+    if current_user.role_name == "CLIENTE":
+        flash("Acceso denegado: Los clientes no pueden eliminar valoraciones de puestos.", "error")
+        return redirect(url_for("admin.vpt_auditoria", id=id))
+
     vp = db.session.get(ValoracionPuesto, puesto_id)
     if not vp or vp.auditoria_id != id:
         flash("Puesto no encontrado", "error")
         return redirect(url_for("admin.vpt_auditoria", id=id))
+        
+    _registrar_evento(
+        id,
+        evento="ELIMINAR_VALORACION_PUESTO",
+        detalle=f"Valoración de puesto eliminada: {vp.nombre_puesto}",
+    )
+    
     db.session.delete(vp)
     db.session.commit()
     flash("Puesto eliminado", "success")
@@ -1402,3 +1525,43 @@ def historico_auditoria(id):
         archivos=archivos,
     )
 
+
+@admin_bp.post("/auditorias/<int:id>/recomendacion/<int:rec_id>/aplicar")
+@login_required
+def aplicar_recomendacion(id, rec_id):
+    from ..models import Auditoria, AuditoriaRecomendacion, Tarea
+    from datetime import date, timedelta, datetime
+    
+    auditoria = db.session.get(Auditoria, id)
+    rec = db.session.get(AuditoriaRecomendacion, rec_id)
+    
+    if not auditoria or not rec or rec.auditoria_id != id:
+        flash("Recomendación no encontrada", "error")
+        return redirect(request.referrer or url_for("admin.lista_auditorias"))
+        
+    if current_user.role_name == "AUDITOR" and auditoria.auditor_usuario_id != current_user.id:
+        flash("No tienes acceso a esta auditoría.", "error")
+        return redirect(request.referrer or url_for("admin.lista_auditorias"))
+        
+    if not rec.aplicada:
+        rec.aplicada = True
+        rec.fecha_aplicacion = datetime.utcnow()
+        
+        # Crear tarea vinculada
+        dias_estimados = (rec.meses_estimados or 1) * 30
+        nueva_tarea = Tarea(
+            auditoria_id=auditoria.id,
+            creador_id=current_user.id,
+            titulo=f"Implementar: {rec.recomendacion.titulo}",
+            descripcion=rec.recomendacion.descripcion,
+            prioridad=rec.prioridad,
+            estado='PENDIENTE',
+            fecha_inicio=date.today(),
+            fecha_fin=date.today() + timedelta(days=dias_estimados)
+        )
+        db.session.add(nueva_tarea)
+        db.session.commit()
+        
+        flash("Recomendación aplicada y Tarea generada automáticamente en el Plan de Actuación.", "success")
+        
+    return redirect(request.referrer or url_for("admin.auditoria_resultados", id=id))
