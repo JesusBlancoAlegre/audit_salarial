@@ -5,7 +5,9 @@ from audit_salarial_app.extensions import db
 def _evaluar_riesgo_global(brecha_pct, num_anomalias=0):
     # Score ponderado (Fase 2)
     # Brecha: 60%
-    score_brecha = min(60.0, max(0.0, brecha_pct * 2.4)) if brecha_pct > 0 else 0.0 # 25% brecha = 60 pts
+    # Se usa el valor absoluto de la brecha ya que por ley (RD 902/2020) una brecha en cualquier sentido es igual de crítica.
+    brecha_abs = abs(brecha_pct)
+    score_brecha = min(60.0, max(0.0, brecha_abs * 2.4)) if brecha_abs > 0 else 0.0 # 25% brecha = 60 pts
     
     # Anomalías: 30%
     score_anomalias = min(30.0, num_anomalias * 5.0) # 6 anomalías = 30 pts
@@ -41,9 +43,15 @@ def _calcular_metricas(df, col_sexo, col_salario):
     salario_maximo = float(df[col_salario].max()) if n_total > 0 else 0.0
     desviacion_tipica = float(df[col_salario].std()) if n_total > 1 else 0.0
     
-    brecha_media_pct = ((media_hombres - media_mujeres) / media_hombres * 100) if media_hombres > 0 else 0.0
-    brecha_mediana_pct = ((mediana_hombres - mediana_mujeres) / mediana_hombres * 100) if mediana_hombres > 0 else 0.0
-    brecha_media_euros = (media_hombres - media_mujeres) if media_hombres > 0 else 0.0
+    # Solo calculamos brechas si hay presencia de ambos sexos para evitar brechas ficticias del 100%
+    if n_hombres > 0 and n_mujeres > 0:
+        brecha_media_pct = ((media_hombres - media_mujeres) / media_hombres * 100) if media_hombres > 0 else 0.0
+        brecha_mediana_pct = ((mediana_hombres - mediana_mujeres) / mediana_hombres * 100) if mediana_hombres > 0 else 0.0
+        brecha_media_euros = (media_hombres - media_mujeres)
+    else:
+        brecha_media_pct = 0.0
+        brecha_mediana_pct = 0.0
+        brecha_media_euros = 0.0
     
     return {
         "n_total": n_total,
