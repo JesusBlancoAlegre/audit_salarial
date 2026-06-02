@@ -11,6 +11,14 @@ class Config:
         raise ValueError("No DATABASE_URL set for Flask application. Check .env")
         
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # Configuración dinámica de SSL para bases de datos gestionadas en la nube (como Aiven)
+    if "aivencloud.com" in SQLALCHEMY_DATABASE_URI:
+        SQLALCHEMY_ENGINE_OPTIONS = {
+            "connect_args": {
+                "ssl": {}
+            }
+        }
     
     # Uploads
     UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'uploads')
