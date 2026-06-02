@@ -11,6 +11,7 @@ class Config:
         raise ValueError("No DATABASE_URL set for Flask application. Check .env")
         
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ECHO = True
 
     # Configuración dinámica de SSL para bases de datos gestionadas en la nube (como Aiven)
     if "aivencloud.com" in SQLALCHEMY_DATABASE_URI:
