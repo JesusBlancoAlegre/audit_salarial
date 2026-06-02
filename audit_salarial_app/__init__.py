@@ -23,6 +23,12 @@ def create_app():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     logger.addHandler(handler)
+    
+    # También registrar en consola (stdout) para capturar en los logs de Render
+    import sys
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] - %(message)s', datefmt="%Y-%m-%d %H:%M:%S"))
+    logger.addHandler(console_handler)
 
     db.init_app(app)
     login_manager.init_app(app)
